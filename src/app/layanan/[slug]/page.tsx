@@ -48,7 +48,7 @@ export default function ServiceDetailPage({
   return (
     <>
       {/* Hero */}
-      <section className="bg-gradient-to-br from-primary to-secondary py-20">
+      <section className="bg-gradient-to-br from-primary to-secondary py-20 md:py-28">
         <div className="container">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -58,26 +58,26 @@ export default function ServiceDetailPage({
           >
             <Link
               href="/layanan"
-              className="inline-flex items-center text-white/80 hover:text-white mb-6"
+              className="inline-flex items-center text-white/80 hover:text-white mb-8 text-lg"
             >
-              <ArrowLeft className="w-4 h-4 mr-2" />
+              <ArrowLeft className="w-5 h-5 mr-2" />
               Kembali ke Layanan
             </Link>
 
-            <div className="flex items-start gap-6">
-              <div className="hidden md:flex w-20 h-20 bg-white/20 rounded-2xl items-center justify-center flex-shrink-0">
-                <Icon className="w-10 h-10 text-white" />
+            <div className="flex items-start gap-8">
+              <div className="hidden md:flex w-24 h-24 bg-white/20 rounded-2xl items-center justify-center flex-shrink-0">
+                <Icon className="w-12 h-12 text-white" />
               </div>
               <div className="text-white">
-                <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-4">
+                <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-6">
                   {service.title}
                 </h1>
-                <div className="flex flex-wrap items-center gap-4">
-                  <Badge className="bg-white/20 text-white">
+                <div className="flex flex-wrap items-center gap-5">
+                  <Badge className="bg-white/20 text-white px-5 py-2.5 text-base">
                     {service.priceText}
                   </Badge>
-                  <span className="flex items-center gap-1 text-white/80">
-                    <Clock className="w-4 h-4" />
+                  <span className="flex items-center gap-2 text-white/80 text-lg">
+                    <Clock className="w-5 h-5" />
                     {service.duration}
                   </span>
                 </div>
@@ -88,9 +88,9 @@ export default function ServiceDetailPage({
       </section>
 
       {/* Content */}
-      <section className="py-16 bg-background">
+      <section className="py-20 md:py-28 bg-background">
         <div className="container">
-          <div className="max-w-4xl mx-auto grid md:grid-cols-3 gap-8">
+          <div className="max-w-5xl mx-auto grid md:grid-cols-3 gap-8 lg:gap-10">
             {/* Main Content */}
             <div className="md:col-span-2 space-y-8">
               {/* Description */}
@@ -101,10 +101,10 @@ export default function ServiceDetailPage({
               >
                 <Card>
                   <CardContent>
-                    <h2 className="text-xl font-semibold text-text mb-4">
+                    <h2 className="text-2xl font-bold text-text mb-5">
                       Tentang Layanan
                     </h2>
-                    <p className="text-gray-600">{service.description}</p>
+                    <p className="text-gray-600 leading-relaxed text-lg">{service.description}</p>
                   </CardContent>
                 </Card>
               </motion.div>
@@ -117,16 +117,16 @@ export default function ServiceDetailPage({
               >
                 <Card>
                   <CardContent>
-                    <h2 className="text-xl font-semibold text-text mb-4">
+                    <h2 className="text-2xl font-bold text-text mb-6">
                       Manfaat
                     </h2>
-                    <ul className="space-y-3">
+                    <ul className="space-y-4">
                       {service.benefits.map((benefit, index) => (
-                        <li key={index} className="flex items-start gap-3">
-                          <div className="w-5 h-5 bg-green-100 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5">
-                            <Check className="w-3 h-3 text-green-600" />
+                        <li key={index} className="flex items-start gap-4">
+                          <div className="w-6 h-6 bg-green-100 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5">
+                            <Check className="w-4 h-4 text-green-600" />
                           </div>
-                          <span className="text-gray-600">{benefit}</span>
+                          <span className="text-gray-600 text-lg">{benefit}</span>
                         </li>
                       ))}
                     </ul>
@@ -142,18 +142,18 @@ export default function ServiceDetailPage({
               >
                 <Card>
                   <CardContent>
-                    <h2 className="text-xl font-semibold text-text mb-4">
+                    <h2 className="text-2xl font-bold text-text mb-6">
                       Proses Perawatan
                     </h2>
-                    <ol className="space-y-4">
+                    <ol className="space-y-5">
                       {service.process.map((step, index) => (
-                        <li key={index} className="flex items-start gap-4">
-                          <div className="w-8 h-8 bg-primary/10 rounded-full flex items-center justify-center flex-shrink-0">
-                            <span className="text-primary font-semibold text-sm">
+                        <li key={index} className="flex items-start gap-5">
+                          <div className="w-10 h-10 bg-primary/10 rounded-full flex items-center justify-center flex-shrink-0">
+                            <span className="text-primary font-bold">
                               {index + 1}
                             </span>
                           </div>
-                          <span className="text-gray-600 pt-1">{step}</span>
+                          <span className="text-gray-600 text-lg pt-2">{step}</span>
                         </li>
                       ))}
                     </ol>
@@ -163,7 +163,7 @@ export default function ServiceDetailPage({
             </div>
 
             {/* Sidebar */}
-            <div className="space-y-6">
+            <div className="space-y-8">
               {/* Booking Card */}
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
@@ -171,15 +171,15 @@ export default function ServiceDetailPage({
                 transition={{ duration: 0.4, delay: 0.3 }}
               >
                 <Card>
-                  <CardContent className="text-center">
-                    <p className="text-gray-500 mb-2">Mulai dari</p>
-                    <p className="text-3xl font-bold text-primary mb-4">
+                  <CardContent className="text-center py-10">
+                    <p className="text-gray-500 mb-3 text-lg">Mulai dari</p>
+                    <p className="text-4xl font-bold text-primary mb-6">
                       {service.priceText}
                     </p>
                     <Link href="/booking" className="block">
-                      <Button className="w-full">Booking Sekarang</Button>
+                      <Button className="w-full" size="lg">Booking Sekarang</Button>
                     </Link>
-                    <p className="text-sm text-gray-500 mt-3">
+                    <p className="text-sm text-gray-500 mt-5">
                       Konsultasi pertama GRATIS
                     </p>
                   </CardContent>
@@ -195,30 +195,30 @@ export default function ServiceDetailPage({
                 >
                   <Card>
                     <CardContent>
-                      <h3 className="font-semibold text-text mb-4">
+                      <h3 className="font-bold text-lg text-text mb-6">
                         Dokter Terkait
                       </h3>
-                      <div className="space-y-4">
+                      <div className="space-y-5">
                         {relatedDoctors.map((doctor) => (
-                          <div key={doctor.id} className="flex items-center gap-3">
-                            <div className="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center">
-                              <span className="text-primary font-semibold">
+                          <div key={doctor.id} className="flex items-center gap-4">
+                            <div className="w-14 h-14 bg-primary/10 rounded-full flex items-center justify-center">
+                              <span className="text-primary font-bold text-lg">
                                 {doctor.name.charAt(5)}
                               </span>
                             </div>
                             <div>
-                              <p className="font-medium text-text text-sm">
+                              <p className="font-semibold text-text">
                                 {doctor.name}
                               </p>
-                              <p className="text-xs text-gray-500">
+                              <p className="text-sm text-gray-500 mt-0.5">
                                 {doctor.specialization}
                               </p>
                             </div>
                           </div>
                         ))}
                       </div>
-                      <Link href="/dokter" className="block mt-4">
-                        <Button variant="outline" size="sm" className="w-full">
+                      <Link href="/dokter" className="block mt-6">
+                        <Button variant="outline" className="w-full">
                           Lihat Semua Dokter
                         </Button>
                       </Link>

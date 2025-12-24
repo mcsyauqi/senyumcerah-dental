@@ -12,14 +12,14 @@ import { formatPrice } from "@/lib/utils";
 
 export default function Promo() {
   return (
-    <section className="py-20 bg-gradient-to-br from-primary/5 to-accent/5">
+    <section className="py-20 md:py-28 bg-gradient-to-br from-primary/5 via-background to-accent/5">
       <div className="container">
         <SectionTitle
           title="Promo Bulanan"
           subtitle="Dapatkan penawaran spesial untuk perawatan gigi Anda"
         />
 
-        <div className="grid md:grid-cols-3 gap-6">
+        <div className="grid md:grid-cols-3 gap-6 lg:gap-8">
           {promos.map((promo, index) => (
             <motion.div
               key={promo.id}
@@ -30,29 +30,29 @@ export default function Promo() {
             >
               <Card className="h-full relative overflow-hidden">
                 {/* Discount Badge */}
-                <div className="absolute top-4 right-4">
+                <div className="absolute top-6 right-6">
                   <Badge variant="warning">
-                    <Tag className="w-3 h-3 mr-1" />
+                    <Tag className="w-4 h-4 mr-1.5" />
                     Hemat {Math.round((1 - promo.promoPrice / promo.originalPrice) * 100)}%
                   </Badge>
                 </div>
 
-                <CardContent className="pt-12">
-                  <h3 className="font-bold text-xl text-text mb-2">
+                <CardContent className="pt-16">
+                  <h3 className="font-bold text-2xl text-text mb-3">
                     {promo.title}
                   </h3>
-                  <p className="text-gray-500 mb-4">{promo.description}</p>
+                  <p className="text-gray-500 mb-6 text-lg">{promo.description}</p>
 
-                  <div className="mb-4">
-                    <span className="text-gray-400 line-through text-sm">
+                  <div className="mb-6">
+                    <span className="text-gray-400 line-through text-base">
                       {formatPrice(promo.originalPrice)}
                     </span>
-                    <p className="text-2xl font-bold text-primary">
+                    <p className="text-3xl font-bold text-primary mt-1">
                       {formatPrice(promo.promoPrice)}
                     </p>
                   </div>
 
-                  <div className="flex items-center gap-2 text-gray-500 text-sm mb-4">
+                  <div className="flex items-center gap-2 text-gray-500 text-sm mb-8">
                     <Clock className="w-4 h-4" />
                     <span>Berlaku sampai {promo.validUntil}</span>
                   </div>
@@ -71,12 +71,12 @@ export default function Promo() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.4, delay: 0.5 }}
-          className="text-center mt-10"
+          className="text-center mt-14"
         >
           <Link href="/promo">
-            <Button variant="outline">
+            <Button variant="outline" size="lg">
               Lihat Semua Promo
-              <ArrowRight className="w-4 h-4 ml-2" />
+              <ArrowRight className="w-5 h-5 ml-2" />
             </Button>
           </Link>
         </motion.div>

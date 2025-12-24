@@ -11,14 +11,14 @@ export default function FAQ() {
   const [openId, setOpenId] = useState<number | null>(1);
 
   return (
-    <section className="py-20 bg-background">
+    <section className="py-20 md:py-28 bg-background">
       <div className="container">
         <SectionTitle
           title="Pertanyaan Umum"
           subtitle="Jawaban untuk pertanyaan yang sering diajukan"
         />
 
-        <div className="max-w-3xl mx-auto space-y-4">
+        <div className="max-w-3xl mx-auto space-y-5">
           {faqs.map((faq) => (
             <motion.div
               key={faq.id}
@@ -26,18 +26,18 @@ export default function FAQ() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.3 }}
-              className="bg-white rounded-xl shadow-sm overflow-hidden"
+              className="bg-white rounded-2xl shadow-sm overflow-hidden"
             >
               <button
                 onClick={() => setOpenId(openId === faq.id ? null : faq.id)}
-                className="w-full flex items-center justify-between p-5 text-left"
+                className="w-full flex items-center justify-between p-6 md:p-7 text-left hover:bg-gray-50 transition-colors"
               >
-                <span className="font-semibold text-text pr-4">
+                <span className="font-semibold text-text pr-6 text-lg">
                   {faq.question}
                 </span>
                 <ChevronDown
                   className={cn(
-                    "w-5 h-5 text-primary flex-shrink-0 transition-transform",
+                    "w-6 h-6 text-primary flex-shrink-0 transition-transform duration-300",
                     openId === faq.id && "rotate-180"
                   )}
                 />
@@ -51,7 +51,9 @@ export default function FAQ() {
                     transition={{ duration: 0.2 }}
                     className="overflow-hidden"
                   >
-                    <p className="px-5 pb-5 text-gray-600">{faq.answer}</p>
+                    <p className="px-6 md:px-7 pb-6 md:pb-7 text-gray-600 leading-relaxed">
+                      {faq.answer}
+                    </p>
                   </motion.div>
                 )}
               </AnimatePresence>

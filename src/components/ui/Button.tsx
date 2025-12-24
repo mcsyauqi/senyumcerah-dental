@@ -14,19 +14,19 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
       <button
         ref={ref}
         className={cn(
-          "inline-flex items-center justify-center font-semibold rounded-lg transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2",
+          "inline-flex items-center justify-center font-semibold rounded-xl transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 whitespace-nowrap",
           {
-            "bg-primary text-white hover:bg-primary-dark focus:ring-primary":
+            "bg-primary text-white hover:bg-primary-dark focus:ring-primary shadow-lg shadow-primary/25 hover:shadow-xl hover:shadow-primary/30":
               variant === "primary",
             "bg-secondary text-white hover:bg-primary focus:ring-secondary":
               variant === "secondary",
-            "border-2 border-primary text-primary hover:bg-primary hover:text-white focus:ring-primary":
+            "border-2 border-primary text-primary hover:bg-primary hover:text-white focus:ring-primary bg-transparent":
               variant === "outline",
             "text-primary hover:bg-primary/10 focus:ring-primary":
               variant === "ghost",
-            "px-4 py-2 text-sm": size === "sm",
-            "px-6 py-3 text-base": size === "md",
-            "px-8 py-4 text-lg": size === "lg",
+            "px-5 py-2.5 text-sm gap-2": size === "sm",
+            "px-7 py-3.5 text-base gap-2": size === "md",
+            "px-9 py-4 text-lg gap-3": size === "lg",
           },
           className
         )}

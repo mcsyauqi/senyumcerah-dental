@@ -23,20 +23,18 @@ export default function BookingPage() {
   });
 
   const onSubmit = async (data: BookingFormData) => {
-    // Simulate API call
     await new Promise((resolve) => setTimeout(resolve, 1500));
     console.log("Booking data:", data);
     setIsSubmitted(true);
   };
 
-  // Get minimum date (tomorrow)
   const tomorrow = new Date();
   tomorrow.setDate(tomorrow.getDate() + 1);
   const minDate = tomorrow.toISOString().split("T")[0];
 
   if (isSubmitted) {
     return (
-      <section className="min-h-screen bg-background py-20">
+      <section className="min-h-screen bg-background py-28 md:py-36">
         <div className="container">
           <motion.div
             initial={{ opacity: 0, scale: 0.95 }}
@@ -45,18 +43,18 @@ export default function BookingPage() {
             className="max-w-lg mx-auto"
           >
             <Card>
-              <CardContent className="text-center py-12">
-                <div className="w-20 h-20 mx-auto mb-6 bg-green-100 rounded-full flex items-center justify-center">
-                  <CheckCircle className="w-10 h-10 text-green-600" />
+              <CardContent className="text-center py-16">
+                <div className="w-24 h-24 mx-auto mb-8 bg-green-100 rounded-full flex items-center justify-center">
+                  <CheckCircle className="w-12 h-12 text-green-600" />
                 </div>
-                <h1 className="text-2xl font-bold text-text mb-4">
+                <h1 className="text-3xl font-bold text-text mb-5">
                   Booking Berhasil!
                 </h1>
-                <p className="text-gray-600 mb-6">
+                <p className="text-gray-600 text-lg mb-8 leading-relaxed">
                   Terima kasih telah melakukan booking. Tim kami akan menghubungi
                   Anda melalui WhatsApp untuk konfirmasi jadwal.
                 </p>
-                <Button onClick={() => setIsSubmitted(false)}>
+                <Button size="lg" onClick={() => setIsSubmitted(false)}>
                   Booking Lagi
                 </Button>
               </CardContent>
@@ -70,7 +68,7 @@ export default function BookingPage() {
   return (
     <>
       {/* Hero */}
-      <section className="bg-gradient-to-br from-primary to-secondary py-20">
+      <section className="bg-gradient-to-br from-primary to-secondary py-20 md:py-28">
         <div className="container">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -78,10 +76,10 @@ export default function BookingPage() {
             transition={{ duration: 0.5 }}
             className="text-center text-white max-w-3xl mx-auto"
           >
-            <h1 className="text-4xl md:text-5xl font-bold mb-4">
+            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6">
               Booking Online
             </h1>
-            <p className="text-lg text-white/90">
+            <p className="text-lg md:text-xl text-white/90 leading-relaxed">
               Jadwalkan kunjungan Anda dengan mudah. Konsultasi pertama GRATIS!
             </p>
           </motion.div>
@@ -89,88 +87,88 @@ export default function BookingPage() {
       </section>
 
       {/* Form */}
-      <section className="py-20 bg-background">
+      <section className="py-20 md:py-28 bg-background">
         <div className="container">
-          <div className="max-w-2xl mx-auto">
+          <div className="max-w-3xl mx-auto">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.4 }}
             >
               <Card>
-                <CardContent>
-                  <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
+                <CardContent className="py-10 md:py-12">
+                  <form onSubmit={handleSubmit(onSubmit)} className="space-y-8">
                     {/* Nama */}
                     <div>
-                      <label className="block text-sm font-medium text-text mb-2">
-                        <User className="w-4 h-4 inline mr-2" />
+                      <label className="flex items-center gap-2 text-base font-semibold text-text mb-3">
+                        <User className="w-5 h-5 text-primary" />
                         Nama Lengkap <span className="text-red-500">*</span>
                       </label>
                       <input
                         type="text"
                         {...register("nama")}
                         className={cn(
-                          "w-full px-4 py-3 rounded-lg border bg-white focus:outline-none focus:ring-2 focus:ring-primary/50 transition-all",
+                          "w-full px-5 py-4 rounded-xl border bg-white focus:outline-none focus:ring-2 focus:ring-primary/50 transition-all text-base",
                           errors.nama ? "border-red-500" : "border-gray-200"
                         )}
                         placeholder="Masukkan nama lengkap"
                       />
                       {errors.nama && (
-                        <p className="text-red-500 text-sm mt-1">{errors.nama.message}</p>
+                        <p className="text-red-500 text-sm mt-2">{errors.nama.message}</p>
                       )}
                     </div>
 
                     {/* WhatsApp & Email */}
-                    <div className="grid md:grid-cols-2 gap-4">
+                    <div className="grid md:grid-cols-2 gap-6">
                       <div>
-                        <label className="block text-sm font-medium text-text mb-2">
-                          <Phone className="w-4 h-4 inline mr-2" />
+                        <label className="flex items-center gap-2 text-base font-semibold text-text mb-3">
+                          <Phone className="w-5 h-5 text-primary" />
                           No. WhatsApp <span className="text-red-500">*</span>
                         </label>
                         <input
                           type="tel"
                           {...register("whatsapp")}
                           className={cn(
-                            "w-full px-4 py-3 rounded-lg border bg-white focus:outline-none focus:ring-2 focus:ring-primary/50 transition-all",
+                            "w-full px-5 py-4 rounded-xl border bg-white focus:outline-none focus:ring-2 focus:ring-primary/50 transition-all text-base",
                             errors.whatsapp ? "border-red-500" : "border-gray-200"
                           )}
                           placeholder="08xxxxxxxxxx"
                         />
                         {errors.whatsapp && (
-                          <p className="text-red-500 text-sm mt-1">{errors.whatsapp.message}</p>
+                          <p className="text-red-500 text-sm mt-2">{errors.whatsapp.message}</p>
                         )}
                       </div>
                       <div>
-                        <label className="block text-sm font-medium text-text mb-2">
-                          <Mail className="w-4 h-4 inline mr-2" />
+                        <label className="flex items-center gap-2 text-base font-semibold text-text mb-3">
+                          <Mail className="w-5 h-5 text-primary" />
                           Email <span className="text-red-500">*</span>
                         </label>
                         <input
                           type="email"
                           {...register("email")}
                           className={cn(
-                            "w-full px-4 py-3 rounded-lg border bg-white focus:outline-none focus:ring-2 focus:ring-primary/50 transition-all",
+                            "w-full px-5 py-4 rounded-xl border bg-white focus:outline-none focus:ring-2 focus:ring-primary/50 transition-all text-base",
                             errors.email ? "border-red-500" : "border-gray-200"
                           )}
                           placeholder="email@contoh.com"
                         />
                         {errors.email && (
-                          <p className="text-red-500 text-sm mt-1">{errors.email.message}</p>
+                          <p className="text-red-500 text-sm mt-2">{errors.email.message}</p>
                         )}
                       </div>
                     </div>
 
                     {/* Layanan & Dokter */}
-                    <div className="grid md:grid-cols-2 gap-4">
+                    <div className="grid md:grid-cols-2 gap-6">
                       <div>
-                        <label className="block text-sm font-medium text-text mb-2">
-                          <Stethoscope className="w-4 h-4 inline mr-2" />
+                        <label className="flex items-center gap-2 text-base font-semibold text-text mb-3">
+                          <Stethoscope className="w-5 h-5 text-primary" />
                           Pilih Layanan <span className="text-red-500">*</span>
                         </label>
                         <select
                           {...register("layanan")}
                           className={cn(
-                            "w-full px-4 py-3 rounded-lg border bg-white focus:outline-none focus:ring-2 focus:ring-primary/50 transition-all",
+                            "w-full px-5 py-4 rounded-xl border bg-white focus:outline-none focus:ring-2 focus:ring-primary/50 transition-all text-base",
                             errors.layanan ? "border-red-500" : "border-gray-200"
                           )}
                         >
@@ -182,22 +180,22 @@ export default function BookingPage() {
                           ))}
                         </select>
                         {errors.layanan && (
-                          <p className="text-red-500 text-sm mt-1">{errors.layanan.message}</p>
+                          <p className="text-red-500 text-sm mt-2">{errors.layanan.message}</p>
                         )}
                       </div>
                       <div>
-                        <label className="block text-sm font-medium text-text mb-2">
-                          <User className="w-4 h-4 inline mr-2" />
+                        <label className="flex items-center gap-2 text-base font-semibold text-text mb-3">
+                          <User className="w-5 h-5 text-primary" />
                           Pilih Dokter (Opsional)
                         </label>
                         <select
                           {...register("dokter")}
-                          className="w-full px-4 py-3 rounded-lg border border-gray-200 bg-white focus:outline-none focus:ring-2 focus:ring-primary/50 transition-all"
+                          className="w-full px-5 py-4 rounded-xl border border-gray-200 bg-white focus:outline-none focus:ring-2 focus:ring-primary/50 transition-all text-base"
                         >
                           <option value="">Dokter mana saja...</option>
                           {doctors.map((doctor) => (
                             <option key={doctor.id} value={doctor.name}>
-                              {doctor.name} - {doctor.specialization}
+                              {doctor.name}
                             </option>
                           ))}
                         </select>
@@ -205,10 +203,10 @@ export default function BookingPage() {
                     </div>
 
                     {/* Tanggal & Waktu */}
-                    <div className="grid md:grid-cols-2 gap-4">
+                    <div className="grid md:grid-cols-2 gap-6">
                       <div>
-                        <label className="block text-sm font-medium text-text mb-2">
-                          <Calendar className="w-4 h-4 inline mr-2" />
+                        <label className="flex items-center gap-2 text-base font-semibold text-text mb-3">
+                          <Calendar className="w-5 h-5 text-primary" />
                           Tanggal Preferensi <span className="text-red-500">*</span>
                         </label>
                         <input
@@ -216,23 +214,23 @@ export default function BookingPage() {
                           {...register("tanggal")}
                           min={minDate}
                           className={cn(
-                            "w-full px-4 py-3 rounded-lg border bg-white focus:outline-none focus:ring-2 focus:ring-primary/50 transition-all",
+                            "w-full px-5 py-4 rounded-xl border bg-white focus:outline-none focus:ring-2 focus:ring-primary/50 transition-all text-base",
                             errors.tanggal ? "border-red-500" : "border-gray-200"
                           )}
                         />
                         {errors.tanggal && (
-                          <p className="text-red-500 text-sm mt-1">{errors.tanggal.message}</p>
+                          <p className="text-red-500 text-sm mt-2">{errors.tanggal.message}</p>
                         )}
                       </div>
                       <div>
-                        <label className="block text-sm font-medium text-text mb-2">
-                          <Clock className="w-4 h-4 inline mr-2" />
+                        <label className="flex items-center gap-2 text-base font-semibold text-text mb-3">
+                          <Clock className="w-5 h-5 text-primary" />
                           Waktu <span className="text-red-500">*</span>
                         </label>
                         <select
                           {...register("waktu")}
                           className={cn(
-                            "w-full px-4 py-3 rounded-lg border bg-white focus:outline-none focus:ring-2 focus:ring-primary/50 transition-all",
+                            "w-full px-5 py-4 rounded-xl border bg-white focus:outline-none focus:ring-2 focus:ring-primary/50 transition-all text-base",
                             errors.waktu ? "border-red-500" : "border-gray-200"
                           )}
                         >
@@ -244,45 +242,47 @@ export default function BookingPage() {
                           ))}
                         </select>
                         {errors.waktu && (
-                          <p className="text-red-500 text-sm mt-1">{errors.waktu.message}</p>
+                          <p className="text-red-500 text-sm mt-2">{errors.waktu.message}</p>
                         )}
                       </div>
                     </div>
 
                     {/* Keluhan */}
                     <div>
-                      <label className="block text-sm font-medium text-text mb-2">
-                        <FileText className="w-4 h-4 inline mr-2" />
+                      <label className="flex items-center gap-2 text-base font-semibold text-text mb-3">
+                        <FileText className="w-5 h-5 text-primary" />
                         Keluhan <span className="text-red-500">*</span>
                       </label>
                       <textarea
                         {...register("keluhan")}
-                        rows={4}
+                        rows={5}
                         className={cn(
-                          "w-full px-4 py-3 rounded-lg border bg-white focus:outline-none focus:ring-2 focus:ring-primary/50 transition-all resize-none",
+                          "w-full px-5 py-4 rounded-xl border bg-white focus:outline-none focus:ring-2 focus:ring-primary/50 transition-all resize-none text-base",
                           errors.keluhan ? "border-red-500" : "border-gray-200"
                         )}
                         placeholder="Jelaskan keluhan atau masalah gigi Anda..."
                       />
                       {errors.keluhan && (
-                        <p className="text-red-500 text-sm mt-1">{errors.keluhan.message}</p>
+                        <p className="text-red-500 text-sm mt-2">{errors.keluhan.message}</p>
                       )}
                     </div>
 
                     {/* Submit */}
-                    <Button
-                      type="submit"
-                      size="lg"
-                      className="w-full"
-                      disabled={isSubmitting}
-                    >
-                      {isSubmitting ? "Mengirim..." : "Kirim Booking"}
-                    </Button>
+                    <div className="pt-4">
+                      <Button
+                        type="submit"
+                        size="lg"
+                        className="w-full"
+                        disabled={isSubmitting}
+                      >
+                        {isSubmitting ? "Mengirim..." : "Kirim Booking"}
+                      </Button>
 
-                    <p className="text-center text-sm text-gray-500">
-                      Dengan mengirim form ini, Anda menyetujui untuk dihubungi
-                      oleh tim kami melalui WhatsApp.
-                    </p>
+                      <p className="text-center text-sm text-gray-500 mt-6">
+                        Dengan mengirim form ini, Anda menyetujui untuk dihubungi
+                        oleh tim kami melalui WhatsApp.
+                      </p>
+                    </div>
                   </form>
                 </CardContent>
               </Card>

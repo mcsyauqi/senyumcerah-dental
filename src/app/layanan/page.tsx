@@ -24,7 +24,7 @@ export default function LayananPage() {
   return (
     <>
       {/* Hero */}
-      <section className="bg-gradient-to-br from-primary to-secondary py-20">
+      <section className="bg-gradient-to-br from-primary to-secondary py-20 md:py-28">
         <div className="container">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -32,10 +32,10 @@ export default function LayananPage() {
             transition={{ duration: 0.5 }}
             className="text-center text-white max-w-3xl mx-auto"
           >
-            <h1 className="text-4xl md:text-5xl font-bold mb-4">
+            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6">
               Layanan Kami
             </h1>
-            <p className="text-lg text-white/90">
+            <p className="text-lg md:text-xl text-white/90 leading-relaxed">
               Berbagai layanan perawatan gigi lengkap dengan teknologi modern
               dan dokter spesialis berpengalaman
             </p>
@@ -44,9 +44,9 @@ export default function LayananPage() {
       </section>
 
       {/* Services Grid */}
-      <section className="py-20 bg-background">
+      <section className="py-20 md:py-28 bg-background">
         <div className="container">
-          <div className="grid md:grid-cols-2 gap-8">
+          <div className="grid md:grid-cols-2 gap-8 lg:gap-10">
             {services.map((service, index) => {
               const Icon = iconMap[service.icon] || Sparkles;
               return (
@@ -59,24 +59,24 @@ export default function LayananPage() {
                 >
                   <Card className="h-full">
                     <CardContent>
-                      <div className="flex gap-6">
+                      <div className="flex gap-6 lg:gap-8">
                         <div className="flex-shrink-0">
-                          <div className="w-16 h-16 bg-primary/10 rounded-2xl flex items-center justify-center">
-                            <Icon className="w-8 h-8 text-primary" />
+                          <div className="w-18 h-18 md:w-20 md:h-20 bg-primary/10 rounded-2xl flex items-center justify-center">
+                            <Icon className="w-9 h-9 md:w-10 md:h-10 text-primary" />
                           </div>
                         </div>
                         <div className="flex-1">
-                          <h3 className="font-semibold text-xl text-text mb-2">
+                          <h3 className="font-bold text-xl md:text-2xl text-text mb-3">
                             {service.title}
                           </h3>
-                          <p className="text-gray-500 mb-4">
+                          <p className="text-gray-500 mb-5 leading-relaxed">
                             {service.description}
                           </p>
-                          <div className="flex flex-wrap items-center gap-4 mb-4">
-                            <span className="text-primary font-bold text-lg">
+                          <div className="flex flex-wrap items-center gap-5 mb-6">
+                            <span className="text-primary font-bold text-xl">
                               {service.priceText}
                             </span>
-                            <span className="flex items-center gap-1 text-gray-500 text-sm">
+                            <span className="flex items-center gap-2 text-gray-500 text-sm">
                               <Clock className="w-4 h-4" />
                               {service.duration}
                             </span>
@@ -84,7 +84,7 @@ export default function LayananPage() {
                           <Link href={`/layanan/${service.slug}`}>
                             <Button variant="outline" size="sm">
                               Lihat Detail
-                              <ArrowRight className="w-4 h-4 ml-2" />
+                              <ArrowRight className="w-4 h-4" />
                             </Button>
                           </Link>
                         </div>
@@ -99,7 +99,7 @@ export default function LayananPage() {
       </section>
 
       {/* CTA */}
-      <section className="py-16 bg-white">
+      <section className="py-20 md:py-28 bg-white">
         <div className="container">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -108,10 +108,10 @@ export default function LayananPage() {
             transition={{ duration: 0.5 }}
             className="text-center max-w-2xl mx-auto"
           >
-            <h2 className="text-3xl font-bold text-text mb-4">
+            <h2 className="text-3xl md:text-4xl font-bold text-text mb-6">
               Butuh Konsultasi?
             </h2>
-            <p className="text-gray-600 mb-6">
+            <p className="text-gray-600 text-lg mb-8 leading-relaxed">
               Konsultasikan masalah gigi Anda dengan dokter spesialis kami.
               Konsultasi pertama GRATIS!
             </p>

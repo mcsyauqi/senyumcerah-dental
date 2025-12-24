@@ -13,7 +13,7 @@ export default function Badge({ children, variant = "primary", className }: Badg
   return (
     <span
       className={cn(
-        "inline-flex items-center px-3 py-1 rounded-full text-sm font-medium",
+        "inline-flex items-center px-4 py-2 rounded-full text-sm font-medium",
         {
           "bg-primary/10 text-primary": variant === "primary",
           "bg-secondary/10 text-secondary": variant === "secondary",
