@@ -1,49 +1,49 @@
 "use client";
 
 import { motion } from "framer-motion";
-import Link from "next/link";
-import { Scan, Box, Zap, Cpu, ArrowRight } from "lucide-react";
-import Card, { CardContent } from "@/components/ui/Card";
+import { Scan, Zap, Cpu, ShieldCheck } from "lucide-react";
+import { technologies } from "@/lib/data";
+import { Card, CardContent } from "@/components/ui/Card";
 import SectionTitle from "@/components/ui/SectionTitle";
 import Button from "@/components/ui/Button";
-import { technologies } from "@/lib/data";
+import { ArrowRight } from "lucide-react";
 
-const iconMap: Record<string, React.ElementType> = {
+const iconMap: { [key: string]: React.ComponentType<{ className?: string }> } = {
   Scan,
-  Box,
   Zap,
   Cpu,
+  ShieldCheck,
 };
 
 export default function Technology() {
   return (
-    <section className="py-20 md:py-28 bg-white">
-      <div className="container">
+    <section className="py-24 lg:py-32 bg-white">
+      <div className="max-w-7xl mx-auto px-6 lg:px-10">
         <SectionTitle
           title="Teknologi Modern"
-          subtitle="Menggunakan peralatan terkini untuk hasil perawatan terbaik"
+          subtitle="Didukung peralatan canggih untuk hasil perawatan terbaik dan pengalaman yang nyaman"
         />
 
-        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8">
+        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-8">
           {technologies.map((tech, index) => {
-            const Icon = iconMap[tech.icon] || Cpu;
+            const IconComponent = iconMap[tech.icon] || Scan;
             return (
               <motion.div
                 key={tech.id}
-                initial={{ opacity: 0, y: 20 }}
+                initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                transition={{ duration: 0.4, delay: index * 0.1 }}
+                transition={{ delay: index * 0.1 }}
               >
                 <Card className="h-full text-center">
-                  <CardContent className="py-10">
-                    <div className="w-24 h-24 mx-auto mb-6 bg-gradient-to-br from-primary to-secondary rounded-2xl flex items-center justify-center shadow-lg shadow-primary/25">
-                      <Icon className="w-12 h-12 text-white" />
+                  <CardContent>
+                    <div className="w-20 h-20 bg-gradient-to-br from-primary/10 to-accent/10 rounded-2xl mx-auto mb-6 flex items-center justify-center">
+                      <IconComponent className="w-10 h-10 text-primary" />
                     </div>
-                    <h3 className="font-bold text-lg text-text mb-3">
+                    <h3 className="text-xl font-bold text-text mb-4 font-[family-name:var(--font-heading)]">
                       {tech.name}
                     </h3>
-                    <p className="text-gray-500 leading-relaxed">
+                    <p className="text-gray-600 leading-relaxed">
                       {tech.description}
                     </p>
                   </CardContent>
@@ -53,20 +53,12 @@ export default function Technology() {
           })}
         </div>
 
-        <motion.div
-          initial={{ opacity: 0, y: 10 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.4, delay: 0.5 }}
-          className="text-center mt-14"
-        >
-          <Link href="/teknologi">
-            <Button variant="outline" size="lg">
-              Pelajari Lebih Lanjut
-              <ArrowRight className="w-5 h-5 ml-2" />
-            </Button>
-          </Link>
-        </motion.div>
+        <div className="text-center mt-16">
+          <Button href="/teknologi" variant="outline" size="lg">
+            Pelajari Lebih Lanjut
+            <ArrowRight className="w-5 h-5" />
+          </Button>
+        </div>
       </div>
     </section>
   );

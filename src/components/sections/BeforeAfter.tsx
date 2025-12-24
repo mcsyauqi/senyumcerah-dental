@@ -1,119 +1,67 @@
 "use client";
 
-import { useState } from "react";
 import { motion } from "framer-motion";
-import { ChevronLeft, ChevronRight } from "lucide-react";
 import SectionTitle from "@/components/ui/SectionTitle";
-import { cn } from "@/lib/utils";
+import { Card, CardContent } from "@/components/ui/Card";
 
-const gallery = [
+const cases = [
   {
     id: 1,
-    title: "Perawatan Veneer",
-    description: "Transformasi senyum dengan veneer porcelain",
+    treatment: "Veneer Gigi",
+    description: "Transformasi senyum dengan veneer porcelain premium",
   },
   {
     id: 2,
-    title: "Bleaching Gigi",
-    description: "Hasil pemutihan gigi profesional",
+    treatment: "Bleaching Gigi",
+    description: "Pemutihan gigi hingga 8 shade lebih cerah",
   },
   {
     id: 3,
-    title: "Perawatan Behel",
-    description: "Hasil perawatan ortodonti 2 tahun",
+    treatment: "Behel Gigi",
+    description: "Perawatan ortodonti selama 18 bulan",
   },
 ];
 
 export default function BeforeAfter() {
-  const [current, setCurrent] = useState(0);
-
-  const next = () => {
-    setCurrent((prev) => (prev + 1) % gallery.length);
-  };
-
-  const prev = () => {
-    setCurrent((prev) => (prev - 1 + gallery.length) % gallery.length);
-  };
-
   return (
-    <section className="py-20 md:py-28 bg-white">
-      <div className="container">
+    <section className="py-24 lg:py-32 bg-background">
+      <div className="max-w-7xl mx-auto px-6 lg:px-10">
         <SectionTitle
           title="Hasil Perawatan"
-          subtitle="Lihat transformasi senyum pasien kami"
+          subtitle="Lihat transformasi senyum pasien kami sebelum dan sesudah perawatan"
         />
 
-        <div className="max-w-5xl mx-auto relative px-6 md:px-16">
-          <motion.div
-            key={current}
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.3 }}
-            className="bg-gray-100 rounded-3xl overflow-hidden shadow-lg"
-          >
-            <div className="grid md:grid-cols-2">
-              {/* Before */}
-              <div className="aspect-video md:aspect-[4/3] bg-gradient-to-br from-gray-200 to-gray-300 flex items-center justify-center relative">
-                <div className="absolute top-5 left-5 bg-black/60 text-white px-4 py-1.5 rounded-full text-sm font-medium">
-                  Sebelum
-                </div>
-                <div className="text-center text-gray-500">
-                  <div className="w-24 h-24 mx-auto mb-3 bg-gray-400/30 rounded-full flex items-center justify-center">
-                    <span className="text-3xl font-bold">B</span>
+        <div className="grid md:grid-cols-3 gap-8">
+          {cases.map((item, index) => (
+            <motion.div
+              key={item.id}
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: index * 0.1 }}
+            >
+              <Card className="h-full">
+                <div className="aspect-[4/3] bg-gradient-to-br from-gray-100 to-gray-200 relative">
+                  <div className="absolute inset-0 flex">
+                    <div className="w-1/2 bg-gray-300 flex items-center justify-center border-r-2 border-white">
+                      <span className="text-gray-500 font-medium">Before</span>
+                    </div>
+                    <div className="w-1/2 bg-gradient-to-br from-primary/20 to-accent/20 flex items-center justify-center">
+                      <span className="text-primary font-medium">After</span>
+                    </div>
                   </div>
-                  <p className="text-sm">Before Image</p>
                 </div>
-              </div>
-
-              {/* After */}
-              <div className="aspect-video md:aspect-[4/3] bg-gradient-to-br from-primary/20 to-secondary/20 flex items-center justify-center relative">
-                <div className="absolute top-5 left-5 bg-primary text-white px-4 py-1.5 rounded-full text-sm font-medium">
-                  Sesudah
-                </div>
-                <div className="text-center text-primary">
-                  <div className="w-24 h-24 mx-auto mb-3 bg-primary/20 rounded-full flex items-center justify-center">
-                    <span className="text-3xl font-bold">A</span>
-                  </div>
-                  <p className="text-sm">After Image</p>
-                </div>
-              </div>
-            </div>
-
-            <div className="p-8 text-center bg-white">
-              <h3 className="font-bold text-xl text-text mb-2">
-                {gallery[current].title}
-              </h3>
-              <p className="text-gray-500">{gallery[current].description}</p>
-            </div>
-          </motion.div>
-
-          {/* Navigation */}
-          <button
-            onClick={prev}
-            className="absolute left-0 top-1/2 -translate-y-1/2 w-12 h-12 bg-white shadow-xl rounded-full flex items-center justify-center hover:bg-gray-50 transition-colors border border-gray-100"
-          >
-            <ChevronLeft className="w-6 h-6 text-text" />
-          </button>
-          <button
-            onClick={next}
-            className="absolute right-0 top-1/2 -translate-y-1/2 w-12 h-12 bg-white shadow-xl rounded-full flex items-center justify-center hover:bg-gray-50 transition-colors border border-gray-100"
-          >
-            <ChevronRight className="w-6 h-6 text-text" />
-          </button>
-
-          {/* Dots */}
-          <div className="flex justify-center gap-3 mt-8">
-            {gallery.map((_, index) => (
-              <button
-                key={index}
-                onClick={() => setCurrent(index)}
-                className={cn(
-                  "w-3 h-3 rounded-full transition-all duration-300",
-                  index === current ? "bg-primary w-8" : "bg-gray-300 hover:bg-gray-400"
-                )}
-              />
-            ))}
-          </div>
+                <CardContent>
+                  <h3 className="text-xl font-bold text-text mb-3 font-[family-name:var(--font-heading)]">
+                    {item.treatment}
+                  </h3>
+                  <p className="text-gray-600 leading-relaxed">
+                    {item.description}
+                  </p>
+                </CardContent>
+              </Card>
+            </motion.div>
+          ))}
         </div>
       </div>
     </section>

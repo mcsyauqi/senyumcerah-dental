@@ -1,133 +1,78 @@
 "use client";
 
 import { motion } from "framer-motion";
-import Link from "next/link";
-import { Scan, Box, Zap, Cpu, Check, ShieldCheck, Award, Clock } from "lucide-react";
-import Card, { CardContent } from "@/components/ui/Card";
-import Button from "@/components/ui/Button";
+import { Scan, Zap, Cpu, ShieldCheck, CheckCircle } from "lucide-react";
 import { technologies } from "@/lib/data";
+import { Card, CardContent } from "@/components/ui/Card";
+import Button from "@/components/ui/Button";
 
-const iconMap: Record<string, React.ElementType> = {
+const iconMap: { [key: string]: React.ComponentType<{ className?: string }> } = {
   Scan,
-  Box,
   Zap,
   Cpu,
+  ShieldCheck,
 };
 
-const highlights = [
-  {
-    icon: ShieldCheck,
-    title: "Steril & Aman",
-    description: "Semua alat disterilkan sesuai standar internasional",
-  },
-  {
-    icon: Award,
-    title: "Bersertifikasi",
-    description: "Alat dan dokter tersertifikasi resmi",
-  },
-  {
-    icon: Clock,
-    title: "Perawatan Cepat",
-    description: "Teknologi modern untuk hasil lebih cepat",
-  },
+const benefits = [
+  "Diagnosis lebih akurat dan cepat",
+  "Prosedur lebih nyaman dan minim rasa sakit",
+  "Hasil perawatan lebih presisi",
+  "Waktu penyembuhan lebih cepat",
+  "Keamanan dan sterilitas terjamin",
+  "Pengalaman pasien yang lebih baik",
 ];
 
 export default function TeknologiPage() {
   return (
     <>
-      {/* Hero */}
-      <section className="bg-gradient-to-br from-primary to-secondary py-20 md:py-28">
-        <div className="container">
+      {/* Page Header */}
+      <section className="bg-gradient-to-br from-background via-white to-background pt-40 pb-20 lg:pt-48 lg:pb-24">
+        <div className="max-w-7xl mx-auto px-6 lg:px-10 text-center">
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
-            className="text-center text-white max-w-3xl mx-auto"
+            transition={{ duration: 0.6 }}
           >
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6">
-              Teknologi Modern
+            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-text mb-8 font-[family-name:var(--font-heading)]">
+              Teknologi <span className="text-primary">Modern</span>
             </h1>
-            <p className="text-lg md:text-xl text-white/90 leading-relaxed">
-              Menggunakan peralatan terkini untuk memberikan perawatan gigi
-              terbaik dengan hasil maksimal
+            <p className="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
+              Didukung peralatan kedokteran gigi terkini untuk hasil perawatan terbaik dan pengalaman yang nyaman
             </p>
           </motion.div>
         </div>
       </section>
 
-      {/* Highlights */}
-      <section className="py-20 md:py-24 bg-white">
-        <div className="container">
-          <div className="grid md:grid-cols-3 gap-10 lg:gap-16">
-            {highlights.map((item, index) => (
-              <motion.div
-                key={index}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.4, delay: index * 0.1 }}
-                className="text-center"
-              >
-                <div className="w-20 h-20 mx-auto mb-6 bg-primary/10 rounded-2xl flex items-center justify-center">
-                  <item.icon className="w-10 h-10 text-primary" />
-                </div>
-                <h3 className="font-bold text-xl text-text mb-3">
-                  {item.title}
-                </h3>
-                <p className="text-gray-500 leading-relaxed">{item.description}</p>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </section>
-
       {/* Technologies */}
-      <section className="py-20 md:py-28 bg-background">
-        <div className="container">
-          <div className="space-y-10 lg:space-y-14">
+      <section className="py-24 lg:py-32 bg-white">
+        <div className="max-w-7xl mx-auto px-6 lg:px-10">
+          <div className="grid md:grid-cols-2 gap-10">
             {technologies.map((tech, index) => {
-              const Icon = iconMap[tech.icon] || Cpu;
-              const isEven = index % 2 === 0;
-
+              const IconComponent = iconMap[tech.icon] || Scan;
               return (
                 <motion.div
                   key={tech.id}
-                  initial={{ opacity: 0, y: 20 }}
+                  initial={{ opacity: 0, y: 30 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
-                  transition={{ duration: 0.4 }}
+                  transition={{ delay: index * 0.1 }}
                 >
-                  <Card className="overflow-hidden">
-                    <div className={`grid md:grid-cols-2 ${!isEven && "md:flex-row-reverse"}`}>
-                      {/* Image/Visual */}
-                      <div className={`bg-gradient-to-br from-primary to-secondary p-14 md:p-16 flex items-center justify-center min-h-[280px] ${!isEven && "md:order-2"}`}>
-                        <div className="w-36 h-36 bg-white/20 rounded-3xl flex items-center justify-center">
-                          <Icon className="w-20 h-20 text-white" />
+                  <Card className="h-full">
+                    <CardContent>
+                      <div className="flex items-start gap-6">
+                        <div className="w-20 h-20 bg-gradient-to-br from-primary/10 to-accent/10 rounded-2xl flex items-center justify-center flex-shrink-0">
+                          <IconComponent className="w-10 h-10 text-primary" />
                         </div>
-                      </div>
-
-                      {/* Content */}
-                      <div className={`${!isEven && "md:order-1"}`}>
-                        <CardContent className="h-full flex flex-col justify-center py-10">
-                          <h2 className="text-2xl md:text-3xl font-bold text-text mb-4">
+                        <div>
+                          <h2 className="text-2xl font-bold text-text mb-4 font-[family-name:var(--font-heading)]">
                             {tech.name}
                           </h2>
-                          <p className="text-gray-600 mb-8 text-lg leading-relaxed">
-                            {tech.longDescription}
+                          <p className="text-gray-600 leading-relaxed text-lg">
+                            {tech.description}
                           </p>
-                          <ul className="grid grid-cols-2 gap-4">
-                            {tech.features.map((feature, i) => (
-                              <li key={i} className="flex items-center gap-3">
-                                <div className="w-6 h-6 bg-green-100 rounded-full flex items-center justify-center flex-shrink-0">
-                                  <Check className="w-4 h-4 text-green-600" />
-                                </div>
-                                <span className="text-gray-600">{feature}</span>
-                              </li>
-                            ))}
-                          </ul>
-                        </CardContent>
+                        </div>
                       </div>
-                    </div>
+                    </CardContent>
                   </Card>
                 </motion.div>
               );
@@ -136,27 +81,64 @@ export default function TeknologiPage() {
         </div>
       </section>
 
-      {/* CTA */}
-      <section className="py-20 md:py-28 bg-white">
-        <div className="container">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5 }}
-            className="text-center max-w-2xl mx-auto"
-          >
-            <h2 className="text-3xl md:text-4xl font-bold text-text mb-6">
-              Rasakan Perawatan dengan Teknologi Terbaik
-            </h2>
-            <p className="text-gray-600 text-lg mb-8 leading-relaxed">
-              Dapatkan pengalaman perawatan gigi terbaik dengan teknologi modern
-              kami. Konsultasi pertama GRATIS!
-            </p>
-            <Link href="/booking">
-              <Button size="lg">Booking Sekarang</Button>
-            </Link>
-          </motion.div>
+      {/* Benefits */}
+      <section className="py-24 lg:py-32 bg-background">
+        <div className="max-w-7xl mx-auto px-6 lg:px-10">
+          <div className="grid lg:grid-cols-2 gap-16 items-center">
+            <motion.div
+              initial={{ opacity: 0, x: -30 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+            >
+              <h2 className="text-3xl md:text-4xl font-bold text-text mb-8 font-[family-name:var(--font-heading)]">
+                Keunggulan Teknologi Kami
+              </h2>
+              <p className="text-xl text-gray-600 mb-10 leading-relaxed">
+                Investasi pada teknologi terkini adalah komitmen kami untuk memberikan pelayanan terbaik bagi setiap pasien.
+              </p>
+              <div className="grid sm:grid-cols-2 gap-6">
+                {benefits.map((benefit, index) => (
+                  <div key={index} className="flex items-start gap-4">
+                    <CheckCircle className="w-6 h-6 text-accent flex-shrink-0 mt-0.5" />
+                    <span className="text-gray-700 text-lg">{benefit}</span>
+                  </div>
+                ))}
+              </div>
+            </motion.div>
+
+            <motion.div
+              initial={{ opacity: 0, x: 30 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+            >
+              <div className="bg-gradient-to-br from-primary/10 to-accent/10 rounded-3xl p-12 text-center">
+                <div className="w-32 h-32 bg-white rounded-full mx-auto mb-8 flex items-center justify-center shadow-lg">
+                  <span className="text-6xl">🔬</span>
+                </div>
+                <h3 className="text-2xl font-bold text-text mb-4 font-[family-name:var(--font-heading)]">
+                  Peralatan Terkini
+                </h3>
+                <p className="text-gray-600 leading-relaxed">
+                  Kami terus memperbarui peralatan dengan standar internasional terbaik
+                </p>
+              </div>
+            </motion.div>
+          </div>
+        </div>
+      </section>
+
+      {/* CTA Section */}
+      <section className="py-24 lg:py-32 bg-gradient-to-br from-primary to-cyan-700">
+        <div className="max-w-4xl mx-auto px-6 lg:px-10 text-center">
+          <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-8 font-[family-name:var(--font-heading)]">
+            Rasakan Perawatan Modern
+          </h2>
+          <p className="text-xl text-white/80 mb-12 max-w-2xl mx-auto leading-relaxed">
+            Kunjungi klinik kami dan rasakan pengalaman perawatan gigi dengan teknologi terkini.
+          </p>
+          <Button href="/booking" size="lg" className="bg-white text-primary hover:bg-gray-100">
+            Booking Sekarang
+          </Button>
         </div>
       </section>
     </>

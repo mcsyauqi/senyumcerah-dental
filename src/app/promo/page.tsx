@@ -1,108 +1,78 @@
 "use client";
 
 import { motion } from "framer-motion";
-import Link from "next/link";
-import { Tag, Clock, Check, Gift } from "lucide-react";
-import Card, { CardContent } from "@/components/ui/Card";
+import { Tag, Calendar, Copy, Gift, Percent, CreditCard } from "lucide-react";
+import { promos } from "@/lib/data";
+import { Card, CardContent } from "@/components/ui/Card";
 import Button from "@/components/ui/Button";
 import Badge from "@/components/ui/Badge";
-import { promos } from "@/lib/data";
-import { formatPrice } from "@/lib/utils";
 
 export default function PromoPage() {
+  const handleCopy = (code: string) => {
+    navigator.clipboard.writeText(code);
+  };
+
   return (
     <>
-      {/* Hero */}
-      <section className="bg-gradient-to-br from-primary to-secondary py-20 md:py-28">
-        <div className="container">
+      {/* Page Header */}
+      <section className="bg-gradient-to-br from-background via-white to-background pt-40 pb-20 lg:pt-48 lg:pb-24">
+        <div className="max-w-7xl mx-auto px-6 lg:px-10 text-center">
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
-            className="text-center text-white max-w-3xl mx-auto"
+            transition={{ duration: 0.6 }}
           >
-            <div className="flex justify-center mb-8">
-              <div className="w-20 h-20 bg-white/20 rounded-2xl flex items-center justify-center">
-                <Gift className="w-10 h-10" />
-              </div>
-            </div>
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6">
-              Promo Spesial
+            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-text mb-8 font-[family-name:var(--font-heading)]">
+              Promo <span className="text-primary">Spesial</span>
             </h1>
-            <p className="text-lg md:text-xl text-white/90 leading-relaxed">
-              Dapatkan penawaran terbaik untuk perawatan gigi Anda.
-              Jangan lewatkan kesempatan ini!
+            <p className="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
+              Dapatkan penawaran menarik untuk perawatan gigi Anda. Gunakan kode promo saat booking!
             </p>
           </motion.div>
         </div>
       </section>
 
-      {/* Promos Grid */}
-      <section className="py-20 md:py-28 bg-background">
-        <div className="container">
-          <div className="grid md:grid-cols-3 gap-8 lg:gap-10">
+      {/* Promos */}
+      <section className="py-24 lg:py-32 bg-white">
+        <div className="max-w-7xl mx-auto px-6 lg:px-10">
+          <div className="grid md:grid-cols-3 gap-10">
             {promos.map((promo, index) => (
               <motion.div
                 key={promo.id}
-                initial={{ opacity: 0, y: 20 }}
+                initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                transition={{ duration: 0.4, delay: index * 0.1 }}
+                transition={{ delay: index * 0.1 }}
               >
-                <Card className="h-full relative overflow-hidden">
-                  {/* Ribbon */}
-                  <div className="absolute top-0 right-0 bg-yellow-400 text-yellow-900 px-10 py-1.5 text-sm font-bold transform rotate-45 translate-x-7 translate-y-4">
-                    PROMO
+                <Card className="h-full relative">
+                  <div className="absolute -top-4 left-8">
+                    <Badge variant="accent" className="text-base px-5 py-2.5">
+                      {promo.discount}
+                    </Badge>
                   </div>
-
                   <CardContent className="pt-12">
-                    <div className="mb-6">
-                      <Badge variant="warning">
-                        <Tag className="w-4 h-4 mr-2" />
-                        Hemat {Math.round((1 - promo.promoPrice / promo.originalPrice) * 100)}%
-                      </Badge>
-                    </div>
-
-                    <h3 className="font-bold text-2xl md:text-3xl text-text mb-3">
+                    <h2 className="text-2xl font-bold text-text mb-4 font-[family-name:var(--font-heading)]">
                       {promo.title}
-                    </h3>
-                    <p className="text-gray-500 text-lg mb-8">{promo.description}</p>
-
-                    <div className="bg-gray-50 rounded-2xl p-6 mb-8">
-                      <div className="flex items-baseline justify-between mb-3">
-                        <span className="text-gray-400 line-through text-lg">
-                          {formatPrice(promo.originalPrice)}
-                        </span>
-                        <span className="text-sm text-gray-500">Harga Normal</span>
+                    </h2>
+                    <p className="text-gray-600 mb-8 leading-relaxed text-lg">
+                      {promo.description}
+                    </p>
+                    <div className="flex items-center gap-3 text-gray-500 mb-8">
+                      <Calendar className="w-5 h-5" />
+                      <span>Berlaku hingga {promo.validUntil}</span>
+                    </div>
+                    <div className="flex items-center justify-between p-5 bg-gray-50 rounded-xl">
+                      <div className="flex items-center gap-3">
+                        <Tag className="w-6 h-6 text-primary" />
+                        <span className="font-mono font-bold text-text text-lg">{promo.code}</span>
                       </div>
-                      <div className="flex items-baseline justify-between">
-                        <span className="text-3xl md:text-4xl font-bold text-primary">
-                          {formatPrice(promo.promoPrice)}
-                        </span>
-                        <span className="text-sm text-primary font-semibold">Harga Promo</span>
-                      </div>
+                      <button
+                        onClick={() => handleCopy(promo.code)}
+                        className="p-3 hover:bg-gray-200 rounded-xl transition-colors"
+                      >
+                        <Copy className="w-5 h-5 text-gray-500" />
+                      </button>
                     </div>
-
-                    <div className="flex items-center gap-3 text-gray-500 mb-6">
-                      <Clock className="w-5 h-5 text-primary" />
-                      <span>Berlaku sampai {promo.validUntil}</span>
-                    </div>
-
-                    <div className="space-y-3 mb-8">
-                      <p className="font-semibold text-text">Syarat & Ketentuan:</p>
-                      {promo.terms.map((term, i) => (
-                        <div key={i} className="flex items-start gap-3">
-                          <div className="w-5 h-5 bg-green-100 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5">
-                            <Check className="w-3 h-3 text-green-600" />
-                          </div>
-                          <span className="text-gray-500">{term}</span>
-                        </div>
-                      ))}
-                    </div>
-
-                    <Link href="/booking">
-                      <Button className="w-full" size="lg">Ambil Promo</Button>
-                    </Link>
                   </CardContent>
                 </Card>
               </motion.div>
@@ -111,76 +81,81 @@ export default function PromoPage() {
         </div>
       </section>
 
-      {/* Additional Info */}
-      <section className="py-20 md:py-28 bg-white">
-        <div className="container">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5 }}
-            className="max-w-4xl mx-auto"
-          >
-            <Card>
-              <CardContent className="py-10">
-                <h2 className="text-2xl md:text-3xl font-bold text-text mb-8 text-center">
-                  Informasi Promo
-                </h2>
-                <div className="grid md:grid-cols-2 gap-10">
-                  <div>
-                    <h3 className="font-bold text-lg text-text mb-4">Cara Mengklaim Promo</h3>
-                    <ol className="space-y-3 text-gray-600">
-                      <li className="flex gap-3">
-                        <span className="w-6 h-6 bg-primary/10 rounded-full flex items-center justify-center text-primary font-semibold text-sm flex-shrink-0">1</span>
-                        <span>Pilih promo yang Anda inginkan</span>
-                      </li>
-                      <li className="flex gap-3">
-                        <span className="w-6 h-6 bg-primary/10 rounded-full flex items-center justify-center text-primary font-semibold text-sm flex-shrink-0">2</span>
-                        <span>Klik tombol &ldquo;Ambil Promo&rdquo;</span>
-                      </li>
-                      <li className="flex gap-3">
-                        <span className="w-6 h-6 bg-primary/10 rounded-full flex items-center justify-center text-primary font-semibold text-sm flex-shrink-0">3</span>
-                        <span>Isi form booking dengan lengkap</span>
-                      </li>
-                      <li className="flex gap-3">
-                        <span className="w-6 h-6 bg-primary/10 rounded-full flex items-center justify-center text-primary font-semibold text-sm flex-shrink-0">4</span>
-                        <span>Sebutkan kode promo saat datang</span>
-                      </li>
-                    </ol>
-                  </div>
-                  <div>
-                    <h3 className="font-bold text-lg text-text mb-4">Ketentuan Umum</h3>
-                    <ul className="space-y-3 text-gray-600">
-                      <li className="flex items-start gap-3">
-                        <div className="w-5 h-5 bg-primary/10 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5">
-                          <Check className="w-3 h-3 text-primary" />
-                        </div>
-                        <span>Promo tidak dapat digabung dengan promo lain</span>
-                      </li>
-                      <li className="flex items-start gap-3">
-                        <div className="w-5 h-5 bg-primary/10 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5">
-                          <Check className="w-3 h-3 text-primary" />
-                        </div>
-                        <span>Berlaku sesuai periode promo yang tertera</span>
-                      </li>
-                      <li className="flex items-start gap-3">
-                        <div className="w-5 h-5 bg-primary/10 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5">
-                          <Check className="w-3 h-3 text-primary" />
-                        </div>
-                        <span>Kuota terbatas setiap bulannya</span>
-                      </li>
-                      <li className="flex items-start gap-3">
-                        <div className="w-5 h-5 bg-primary/10 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5">
-                          <Check className="w-3 h-3 text-primary" />
-                        </div>
-                        <span>Syarat & ketentuan dapat berubah sewaktu-waktu</span>
-                      </li>
-                    </ul>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
-          </motion.div>
+      {/* How to Use */}
+      <section className="py-24 lg:py-32 bg-background">
+        <div className="max-w-7xl mx-auto px-6 lg:px-10">
+          <div className="text-center mb-16">
+            <h2 className="text-3xl md:text-4xl font-bold text-text mb-6 font-[family-name:var(--font-heading)]">
+              Cara Menggunakan Promo
+            </h2>
+            <p className="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
+              Ikuti langkah mudah berikut untuk mendapatkan promo
+            </p>
+          </div>
+
+          <div className="grid md:grid-cols-3 gap-10">
+            {[
+              {
+                icon: Gift,
+                step: "1",
+                title: "Pilih Promo",
+                description: "Pilih promo yang sesuai dengan kebutuhan perawatan Anda",
+              },
+              {
+                icon: Copy,
+                step: "2",
+                title: "Copy Kode",
+                description: "Salin kode promo dengan menekan tombol copy di samping kode",
+              },
+              {
+                icon: CreditCard,
+                step: "3",
+                title: "Gunakan Saat Booking",
+                description: "Masukkan kode promo saat melakukan booking online atau sebutkan saat datang",
+              },
+            ].map((item, index) => (
+              <motion.div
+                key={index}
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: index * 0.1 }}
+              >
+                <Card className="h-full text-center">
+                  <CardContent>
+                    <div className="w-20 h-20 bg-primary/10 rounded-2xl mx-auto mb-6 flex items-center justify-center relative">
+                      <item.icon className="w-10 h-10 text-primary" />
+                      <span className="absolute -top-2 -right-2 w-8 h-8 bg-primary text-white rounded-full flex items-center justify-center font-bold">
+                        {item.step}
+                      </span>
+                    </div>
+                    <h3 className="text-xl font-bold text-text mb-4 font-[family-name:var(--font-heading)]">
+                      {item.title}
+                    </h3>
+                    <p className="text-gray-600 leading-relaxed">
+                      {item.description}
+                    </p>
+                  </CardContent>
+                </Card>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* CTA Section */}
+      <section className="py-24 lg:py-32 bg-gradient-to-br from-primary to-cyan-700">
+        <div className="max-w-4xl mx-auto px-6 lg:px-10 text-center">
+          <Percent className="w-16 h-16 text-white/80 mx-auto mb-8" />
+          <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-8 font-[family-name:var(--font-heading)]">
+            Jangan Lewatkan Promo Ini!
+          </h2>
+          <p className="text-xl text-white/80 mb-12 max-w-2xl mx-auto leading-relaxed">
+            Booking sekarang dan gunakan kode promo untuk mendapatkan harga spesial.
+          </p>
+          <Button href="/booking" size="lg" className="bg-white text-primary hover:bg-gray-100">
+            Booking Sekarang
+          </Button>
         </div>
       </section>
     </>

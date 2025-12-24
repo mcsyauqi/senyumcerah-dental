@@ -1,85 +1,68 @@
 "use client";
 
 import { motion } from "framer-motion";
-import Link from "next/link";
-import { Tag, ArrowRight, Clock } from "lucide-react";
-import Card, { CardContent } from "@/components/ui/Card";
+import { Tag, Calendar, Copy } from "lucide-react";
+import { promos } from "@/lib/data";
+import { Card, CardContent } from "@/components/ui/Card";
 import SectionTitle from "@/components/ui/SectionTitle";
 import Button from "@/components/ui/Button";
 import Badge from "@/components/ui/Badge";
-import { promos } from "@/lib/data";
-import { formatPrice } from "@/lib/utils";
+import { ArrowRight } from "lucide-react";
 
 export default function Promo() {
   return (
-    <section className="py-20 md:py-28 bg-gradient-to-br from-primary/5 via-background to-accent/5">
-      <div className="container">
+    <section className="py-24 lg:py-32 bg-gradient-to-br from-primary/5 via-background to-accent/5">
+      <div className="max-w-7xl mx-auto px-6 lg:px-10">
         <SectionTitle
-          title="Promo Bulanan"
-          subtitle="Dapatkan penawaran spesial untuk perawatan gigi Anda"
+          title="Promo Spesial"
+          subtitle="Dapatkan penawaran menarik untuk perawatan gigi Anda"
         />
 
-        <div className="grid md:grid-cols-3 gap-6 lg:gap-8">
+        <div className="grid md:grid-cols-3 gap-8">
           {promos.map((promo, index) => (
             <motion.div
               key={promo.id}
-              initial={{ opacity: 0, y: 20 }}
+              initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ duration: 0.4, delay: index * 0.1 }}
+              transition={{ delay: index * 0.1 }}
             >
-              <Card className="h-full relative overflow-hidden">
-                {/* Discount Badge */}
-                <div className="absolute top-6 right-6">
-                  <Badge variant="warning">
-                    <Tag className="w-4 h-4 mr-1.5" />
-                    Hemat {Math.round((1 - promo.promoPrice / promo.originalPrice) * 100)}%
-                  </Badge>
+              <Card className="h-full relative overflow-visible">
+                <div className="absolute -top-4 left-8">
+                  <Badge variant="accent">{promo.discount}</Badge>
                 </div>
-
-                <CardContent className="pt-16">
-                  <h3 className="font-bold text-2xl text-text mb-3">
+                <CardContent className="pt-10">
+                  <h3 className="text-xl font-bold text-text mb-4 font-[family-name:var(--font-heading)]">
                     {promo.title}
                   </h3>
-                  <p className="text-gray-500 mb-6 text-lg">{promo.description}</p>
-
-                  <div className="mb-6">
-                    <span className="text-gray-400 line-through text-base">
-                      {formatPrice(promo.originalPrice)}
-                    </span>
-                    <p className="text-3xl font-bold text-primary mt-1">
-                      {formatPrice(promo.promoPrice)}
-                    </p>
+                  <p className="text-gray-600 mb-6 leading-relaxed">
+                    {promo.description}
+                  </p>
+                  <div className="flex items-center gap-3 text-sm text-gray-500 mb-6">
+                    <Calendar className="w-4 h-4" />
+                    <span>Berlaku hingga {promo.validUntil}</span>
                   </div>
-
-                  <div className="flex items-center gap-2 text-gray-500 text-sm mb-8">
-                    <Clock className="w-4 h-4" />
-                    <span>Berlaku sampai {promo.validUntil}</span>
+                  <div className="flex items-center justify-between p-4 bg-gray-50 rounded-xl">
+                    <div className="flex items-center gap-3">
+                      <Tag className="w-5 h-5 text-primary" />
+                      <span className="font-mono font-bold text-text">{promo.code}</span>
+                    </div>
+                    <button className="p-2 hover:bg-gray-200 rounded-lg transition-colors">
+                      <Copy className="w-4 h-4 text-gray-500" />
+                    </button>
                   </div>
-
-                  <Link href="/booking">
-                    <Button className="w-full">Ambil Promo</Button>
-                  </Link>
                 </CardContent>
               </Card>
             </motion.div>
           ))}
         </div>
 
-        <motion.div
-          initial={{ opacity: 0, y: 10 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.4, delay: 0.5 }}
-          className="text-center mt-14"
-        >
-          <Link href="/promo">
-            <Button variant="outline" size="lg">
-              Lihat Semua Promo
-              <ArrowRight className="w-5 h-5 ml-2" />
-            </Button>
-          </Link>
-        </motion.div>
+        <div className="text-center mt-16">
+          <Button href="/promo" variant="primary" size="lg">
+            Lihat Semua Promo
+            <ArrowRight className="w-5 h-5" />
+          </Button>
+        </div>
       </div>
     </section>
   );

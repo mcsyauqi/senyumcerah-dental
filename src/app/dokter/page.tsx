@@ -1,99 +1,73 @@
 "use client";
 
 import { motion } from "framer-motion";
-import Link from "next/link";
-import { Award, Calendar, GraduationCap } from "lucide-react";
-import Card, { CardContent } from "@/components/ui/Card";
-import Button from "@/components/ui/Button";
+import { Award, GraduationCap, Clock } from "lucide-react";
 import { doctors } from "@/lib/data";
+import { Card, CardContent } from "@/components/ui/Card";
+import Button from "@/components/ui/Button";
 
 export default function DokterPage() {
   return (
     <>
-      {/* Hero */}
-      <section className="bg-gradient-to-br from-primary to-secondary py-20 md:py-28">
-        <div className="container">
+      {/* Page Header */}
+      <section className="bg-gradient-to-br from-background via-white to-background pt-40 pb-20 lg:pt-48 lg:pb-24">
+        <div className="max-w-7xl mx-auto px-6 lg:px-10 text-center">
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
-            className="text-center text-white max-w-3xl mx-auto"
+            transition={{ duration: 0.6 }}
           >
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6">
-              Tim Dokter Kami
+            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-text mb-8 font-[family-name:var(--font-heading)]">
+              Tim <span className="text-primary">Dokter</span> Kami
             </h1>
-            <p className="text-lg md:text-xl text-white/90 leading-relaxed">
-              Ditangani oleh dokter gigi spesialis berpengalaman dan tersertifikasi
-              dari universitas terkemuka
+            <p className="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
+              Ditangani oleh dokter gigi spesialis berpengalaman dan bersertifikasi dengan dedikasi tinggi untuk kesehatan gigi Anda
             </p>
           </motion.div>
         </div>
       </section>
 
-      {/* Doctors Grid */}
-      <section className="py-20 md:py-28 bg-background">
-        <div className="container">
-          <div className="grid md:grid-cols-2 gap-8 lg:gap-10">
+      {/* Doctors List */}
+      <section className="py-24 lg:py-32 bg-white">
+        <div className="max-w-7xl mx-auto px-6 lg:px-10">
+          <div className="grid md:grid-cols-2 gap-10">
             {doctors.map((doctor, index) => (
               <motion.div
                 key={doctor.id}
-                initial={{ opacity: 0, y: 20 }}
+                initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                transition={{ duration: 0.4, delay: index * 0.1 }}
+                transition={{ delay: index * 0.1 }}
               >
-                <Card className="h-full overflow-hidden">
-                  <div className="grid sm:grid-cols-5">
-                    {/* Doctor Image Placeholder */}
-                    <div className="sm:col-span-2 aspect-square sm:aspect-auto min-h-[200px] bg-gradient-to-br from-primary/20 to-secondary/20 flex items-center justify-center">
-                      <div className="w-28 h-28 md:w-32 md:h-32 bg-primary/30 rounded-full flex items-center justify-center">
-                        <span className="text-4xl md:text-5xl font-bold text-primary">
-                          {doctor.name.charAt(5)}
-                        </span>
+                <Card className="h-full">
+                  <CardContent>
+                    <div className="flex flex-col sm:flex-row items-center sm:items-start gap-8">
+                      <div className="w-36 h-36 bg-gradient-to-br from-primary to-accent rounded-3xl flex items-center justify-center flex-shrink-0">
+                        <span className="text-6xl">👨‍⚕️</span>
                       </div>
-                    </div>
-
-                    {/* Doctor Info */}
-                    <div className="sm:col-span-3">
-                      <CardContent className="h-full flex flex-col">
-                        <h2 className="font-bold text-xl md:text-2xl text-text mb-2">
+                      <div className="text-center sm:text-left">
+                        <h2 className="text-2xl font-bold text-text mb-2 font-[family-name:var(--font-heading)]">
                           {doctor.name}
                         </h2>
-                        <p className="text-primary font-semibold text-lg mb-5">
-                          {doctor.specialization}
+                        <p className="text-primary font-semibold text-lg mb-6">
+                          {doctor.specialty}
                         </p>
-
-                        <p className="text-gray-600 mb-6 leading-relaxed flex-grow">
-                          {doctor.description}
-                        </p>
-
-                        <div className="space-y-3 mb-6">
-                          <div className="flex items-center gap-3 text-gray-600">
-                            <div className="w-8 h-8 bg-primary/10 rounded-lg flex items-center justify-center">
-                              <Award className="w-4 h-4 text-primary" />
-                            </div>
-                            <span>{doctor.experience} pengalaman</span>
+                        <div className="space-y-4 mb-6">
+                          <div className="flex items-center gap-3 justify-center sm:justify-start text-gray-600">
+                            <Award className="w-5 h-5 text-primary" />
+                            <span>{doctor.experience}</span>
                           </div>
-                          <div className="flex items-center gap-3 text-gray-600">
-                            <div className="w-8 h-8 bg-primary/10 rounded-lg flex items-center justify-center">
-                              <GraduationCap className="w-4 h-4 text-primary" />
-                            </div>
+                          <div className="flex items-center gap-3 justify-center sm:justify-start text-gray-600">
+                            <GraduationCap className="w-5 h-5 text-primary" />
                             <span>{doctor.education}</span>
                           </div>
-                          <div className="flex items-center gap-3 text-gray-600">
-                            <div className="w-8 h-8 bg-primary/10 rounded-lg flex items-center justify-center">
-                              <Calendar className="w-4 h-4 text-primary" />
-                            </div>
-                            <span>{doctor.schedule.join(", ")}</span>
-                          </div>
                         </div>
-
-                        <Link href="/booking">
-                          <Button>Booking dengan Dokter Ini</Button>
-                        </Link>
-                      </CardContent>
+                        <p className="text-gray-600 leading-relaxed">
+                          {doctor.description}
+                        </p>
+                      </div>
                     </div>
-                  </div>
+                  </CardContent>
                 </Card>
               </motion.div>
             ))}
@@ -101,26 +75,74 @@ export default function DokterPage() {
         </div>
       </section>
 
-      {/* CTA */}
-      <section className="py-20 md:py-28 bg-white">
-        <div className="container">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5 }}
-            className="text-center max-w-2xl mx-auto"
-          >
-            <h2 className="text-3xl md:text-4xl font-bold text-text mb-6">
-              Konsultasi dengan Dokter Spesialis
+      {/* Why Choose Us */}
+      <section className="py-24 lg:py-32 bg-background">
+        <div className="max-w-7xl mx-auto px-6 lg:px-10">
+          <div className="text-center mb-16">
+            <h2 className="text-3xl md:text-4xl font-bold text-text mb-6 font-[family-name:var(--font-heading)]">
+              Mengapa Memilih Dokter Kami?
             </h2>
-            <p className="text-gray-600 text-lg mb-8 leading-relaxed">
-              Pilih dokter sesuai kebutuhan Anda. Konsultasi pertama GRATIS!
+            <p className="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
+              Keunggulan tim dokter SenyumCerah Dental Clinic
             </p>
-            <Link href="/booking">
-              <Button size="lg">Booking Sekarang</Button>
-            </Link>
-          </motion.div>
+          </div>
+
+          <div className="grid md:grid-cols-3 gap-8">
+            {[
+              {
+                icon: Award,
+                title: "Bersertifikasi",
+                description: "Semua dokter memiliki sertifikasi resmi dan lisensi praktik yang valid",
+              },
+              {
+                icon: Clock,
+                title: "Berpengalaman",
+                description: "Rata-rata pengalaman lebih dari 10 tahun di bidang spesialisasi masing-masing",
+              },
+              {
+                icon: GraduationCap,
+                title: "Pendidikan Terbaik",
+                description: "Lulusan dari universitas kedokteran gigi terkemuka di Indonesia",
+              },
+            ].map((item, index) => (
+              <motion.div
+                key={index}
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: index * 0.1 }}
+              >
+                <Card className="h-full text-center">
+                  <CardContent>
+                    <div className="w-20 h-20 bg-primary/10 rounded-2xl mx-auto mb-6 flex items-center justify-center">
+                      <item.icon className="w-10 h-10 text-primary" />
+                    </div>
+                    <h3 className="text-xl font-bold text-text mb-4 font-[family-name:var(--font-heading)]">
+                      {item.title}
+                    </h3>
+                    <p className="text-gray-600 leading-relaxed">
+                      {item.description}
+                    </p>
+                  </CardContent>
+                </Card>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* CTA Section */}
+      <section className="py-24 lg:py-32 bg-gradient-to-br from-primary to-cyan-700">
+        <div className="max-w-4xl mx-auto px-6 lg:px-10 text-center">
+          <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-8 font-[family-name:var(--font-heading)]">
+            Konsultasi dengan Dokter Kami
+          </h2>
+          <p className="text-xl text-white/80 mb-12 max-w-2xl mx-auto leading-relaxed">
+            Booking jadwal konsultasi dengan dokter spesialis pilihan Anda. Konsultasi pertama GRATIS!
+          </p>
+          <Button href="/booking" size="lg" className="bg-white text-primary hover:bg-gray-100">
+            Booking Sekarang
+          </Button>
         </div>
       </section>
     </>

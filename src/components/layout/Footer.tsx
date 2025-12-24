@@ -1,121 +1,111 @@
 "use client";
 
 import Link from "next/link";
-import { Phone, Mail, MapPin, Clock, Facebook, Instagram, Twitter } from "lucide-react";
-
-const services = [
-  { href: "/layanan/pembersihan-karang-gigi", label: "Scaling" },
-  { href: "/layanan/tambal-gigi", label: "Tambal Gigi" },
-  { href: "/layanan/behel-kawat-gigi", label: "Behel/Kawat Gigi" },
-  { href: "/layanan/veneer-gigi", label: "Veneer" },
-  { href: "/layanan/implan-gigi", label: "Implan Gigi" },
-  { href: "/layanan/bleaching-gigi", label: "Bleaching" },
-];
-
-const information = [
-  { href: "/dokter", label: "Tim Dokter" },
-  { href: "/teknologi", label: "Teknologi" },
-  { href: "/promo", label: "Promo" },
-  { href: "/booking", label: "Booking Online" },
-  { href: "/kontak", label: "Kontak" },
-];
+import { Phone, Mail, MapPin, Clock, Instagram, Facebook } from "lucide-react";
+import { navigation, contactInfo, services } from "@/lib/data";
 
 export default function Footer() {
   return (
-    <footer className="bg-text text-white">
-      <div className="container py-16 lg:py-20">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 lg:gap-12">
+    <footer className="bg-text text-gray-300">
+      <div className="max-w-7xl mx-auto px-6 lg:px-10 py-20 lg:py-24">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 lg:gap-10">
           {/* Brand */}
-          <div className="lg:pr-8">
-            <Link href="/" className="flex items-center gap-3 mb-6">
-              <div className="w-11 h-11 bg-primary rounded-xl flex items-center justify-center">
+          <div className="lg:col-span-1">
+            <Link href="/" className="flex items-center gap-3 mb-8">
+              <div className="w-12 h-12 bg-gradient-to-br from-primary to-accent rounded-xl flex items-center justify-center">
                 <span className="text-white font-bold text-xl">S</span>
               </div>
               <div>
-                <span className="font-bold text-xl text-white">SenyumCerah</span>
-                <span className="block text-xs text-gray-400 -mt-0.5">Dental Clinic</span>
+                <span className="text-xl font-bold text-white font-[family-name:var(--font-heading)]">
+                  SenyumCerah
+                </span>
+                <span className="block text-xs text-gray-400 -mt-1">Dental Clinic</span>
               </div>
             </Link>
-            <p className="text-gray-400 mb-6 leading-relaxed">
-              Senyum Sehat, Senyum Bahagia. Klinik gigi modern dengan dokter spesialis berpengalaman.
+            <p className="text-gray-400 mb-8 leading-relaxed">
+              Senyum Sehat, Senyum Bahagia. Klinik gigi modern dengan pelayanan terbaik untuk keluarga Indonesia.
             </p>
-            <div className="flex gap-3">
-              <a href="#" className="w-11 h-11 bg-white/10 rounded-xl flex items-center justify-center hover:bg-primary transition-colors">
-                <Facebook className="w-5 h-5" />
-              </a>
-              <a href="#" className="w-11 h-11 bg-white/10 rounded-xl flex items-center justify-center hover:bg-primary transition-colors">
+            <div className="flex gap-4">
+              <a
+                href="#"
+                className="w-12 h-12 bg-white/10 rounded-xl flex items-center justify-center hover:bg-primary transition-colors duration-300"
+              >
                 <Instagram className="w-5 h-5" />
               </a>
-              <a href="#" className="w-11 h-11 bg-white/10 rounded-xl flex items-center justify-center hover:bg-primary transition-colors">
-                <Twitter className="w-5 h-5" />
+              <a
+                href="#"
+                className="w-12 h-12 bg-white/10 rounded-xl flex items-center justify-center hover:bg-primary transition-colors duration-300"
+              >
+                <Facebook className="w-5 h-5" />
               </a>
             </div>
           </div>
 
-          {/* Layanan */}
+          {/* Quick Links */}
           <div>
-            <h4 className="font-bold text-lg mb-6">Layanan</h4>
-            <ul className="space-y-3.5">
-              {services.map((service) => (
-                <li key={service.href}>
-                  <Link href={service.href} className="text-gray-400 hover:text-primary transition-colors">
-                    {service.label}
+            <h4 className="text-lg font-bold text-white mb-8 font-[family-name:var(--font-heading)]">
+              Menu
+            </h4>
+            <ul className="space-y-4">
+              {navigation.map((item) => (
+                <li key={item.name}>
+                  <Link
+                    href={item.href}
+                    className="text-gray-400 hover:text-white transition-colors duration-300"
+                  >
+                    {item.name}
                   </Link>
                 </li>
               ))}
             </ul>
           </div>
 
-          {/* Informasi */}
+          {/* Services */}
           <div>
-            <h4 className="font-bold text-lg mb-6">Informasi</h4>
-            <ul className="space-y-3.5">
-              {information.map((info) => (
-                <li key={info.href}>
-                  <Link href={info.href} className="text-gray-400 hover:text-primary transition-colors">
-                    {info.label}
+            <h4 className="text-lg font-bold text-white mb-8 font-[family-name:var(--font-heading)]">
+              Layanan
+            </h4>
+            <ul className="space-y-4">
+              {services.slice(0, 6).map((service) => (
+                <li key={service.id}>
+                  <Link
+                    href={`/layanan/${service.id}`}
+                    className="text-gray-400 hover:text-white transition-colors duration-300"
+                  >
+                    {service.name}
                   </Link>
                 </li>
               ))}
             </ul>
           </div>
 
-          {/* Kontak */}
+          {/* Contact */}
           <div>
-            <h4 className="font-bold text-lg mb-6">Kontak</h4>
-            <ul className="space-y-5">
+            <h4 className="text-lg font-bold text-white mb-8 font-[family-name:var(--font-heading)]">
+              Kontak
+            </h4>
+            <ul className="space-y-6">
               <li className="flex items-start gap-4">
-                <div className="w-10 h-10 bg-white/10 rounded-lg flex items-center justify-center flex-shrink-0 mt-0.5">
-                  <MapPin className="w-5 h-5 text-primary" />
-                </div>
-                <span className="text-gray-400 leading-relaxed">
-                  Jl. Kesehatan No. 123,<br />Jakarta Selatan 12345
-                </span>
+                <MapPin className="w-5 h-5 text-primary mt-1 flex-shrink-0" />
+                <span className="text-gray-400 leading-relaxed">{contactInfo.address}</span>
               </li>
               <li className="flex items-center gap-4">
-                <div className="w-10 h-10 bg-white/10 rounded-lg flex items-center justify-center flex-shrink-0">
-                  <Phone className="w-5 h-5 text-primary" />
-                </div>
-                <a href="tel:+6221123456" className="text-gray-400 hover:text-primary transition-colors">
-                  (021) 123-456
+                <Phone className="w-5 h-5 text-primary flex-shrink-0" />
+                <a href={`tel:${contactInfo.phone}`} className="text-gray-400 hover:text-white transition-colors">
+                  {contactInfo.phone}
                 </a>
               </li>
               <li className="flex items-center gap-4">
-                <div className="w-10 h-10 bg-white/10 rounded-lg flex items-center justify-center flex-shrink-0">
-                  <Mail className="w-5 h-5 text-primary" />
-                </div>
-                <a href="mailto:info@senyumcerah.id" className="text-gray-400 hover:text-primary transition-colors">
-                  info@senyumcerah.id
+                <Mail className="w-5 h-5 text-primary flex-shrink-0" />
+                <a href={`mailto:${contactInfo.email}`} className="text-gray-400 hover:text-white transition-colors">
+                  {contactInfo.email}
                 </a>
               </li>
               <li className="flex items-start gap-4">
-                <div className="w-10 h-10 bg-white/10 rounded-lg flex items-center justify-center flex-shrink-0 mt-0.5">
-                  <Clock className="w-5 h-5 text-primary" />
-                </div>
-                <div className="text-gray-400 leading-relaxed">
-                  <p>Senin - Jumat: 09:00 - 21:00</p>
-                  <p>Sabtu: 09:00 - 17:00</p>
-                  <p>Minggu: Tutup</p>
+                <Clock className="w-5 h-5 text-primary mt-1 flex-shrink-0" />
+                <div className="text-gray-400">
+                  <p>{contactInfo.hours.weekday}</p>
+                  <p>{contactInfo.hours.weekend}</p>
                 </div>
               </li>
             </ul>
@@ -123,16 +113,15 @@ export default function Footer() {
         </div>
       </div>
 
-      {/* Bottom Footer */}
+      {/* Bottom Bar */}
       <div className="border-t border-white/10">
-        <div className="container py-7">
-          <div className="flex flex-col md:flex-row justify-between items-center gap-4 text-center md:text-left">
+        <div className="max-w-7xl mx-auto px-6 lg:px-10 py-8">
+          <div className="flex flex-col md:flex-row items-center justify-between gap-6">
             <p className="text-gray-400 text-sm">
-              &copy; 2025 SenyumCerah Dental Clinic. All rights reserved.
+              &copy; {new Date().getFullYear()} SenyumCerah Dental Clinic. All rights reserved.
             </p>
             <p className="text-gray-400 text-sm">
-              Website ini dibuat dengan{" "}
-              <span className="text-red-400">&hearts;</span> oleh{" "}
+              Website dibuat oleh{" "}
               <a
                 href="https://creativism.id"
                 target="_blank"

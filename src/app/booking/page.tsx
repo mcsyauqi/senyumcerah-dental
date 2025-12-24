@@ -4,12 +4,11 @@ import { useState } from "react";
 import { motion } from "framer-motion";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Calendar, Clock, User, Phone, Mail, FileText, Stethoscope, CheckCircle } from "lucide-react";
-import Card, { CardContent } from "@/components/ui/Card";
-import Button from "@/components/ui/Button";
+import { Calendar, Clock, User, Phone, Mail, FileText, CheckCircle } from "lucide-react";
+import { services, timeSlots, contactInfo } from "@/lib/data";
 import { bookingSchema, BookingFormData } from "@/lib/validations";
-import { services, doctors, timeSlots } from "@/lib/data";
-import { cn } from "@/lib/utils";
+import { Card, CardContent } from "@/components/ui/Card";
+import Button from "@/components/ui/Button";
 
 export default function BookingPage() {
   const [isSubmitted, setIsSubmitted] = useState(false);
@@ -23,42 +22,32 @@ export default function BookingPage() {
   });
 
   const onSubmit = async (data: BookingFormData) => {
-    await new Promise((resolve) => setTimeout(resolve, 1500));
-    console.log("Booking data:", data);
+    console.log(data);
+    await new Promise((resolve) => setTimeout(resolve, 1000));
     setIsSubmitted(true);
   };
 
-  const tomorrow = new Date();
-  tomorrow.setDate(tomorrow.getDate() + 1);
-  const minDate = tomorrow.toISOString().split("T")[0];
-
   if (isSubmitted) {
     return (
-      <section className="min-h-screen bg-background py-28 md:py-36">
-        <div className="container">
+      <section className="min-h-screen bg-gradient-to-br from-background via-white to-background pt-40 pb-24">
+        <div className="max-w-2xl mx-auto px-6 lg:px-10 text-center">
           <motion.div
-            initial={{ opacity: 0, scale: 0.95 }}
+            initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.4 }}
-            className="max-w-lg mx-auto"
+            transition={{ duration: 0.5 }}
           >
-            <Card>
-              <CardContent className="text-center py-16">
-                <div className="w-24 h-24 mx-auto mb-8 bg-green-100 rounded-full flex items-center justify-center">
-                  <CheckCircle className="w-12 h-12 text-green-600" />
-                </div>
-                <h1 className="text-3xl font-bold text-text mb-5">
-                  Booking Berhasil!
-                </h1>
-                <p className="text-gray-600 text-lg mb-8 leading-relaxed">
-                  Terima kasih telah melakukan booking. Tim kami akan menghubungi
-                  Anda melalui WhatsApp untuk konfirmasi jadwal.
-                </p>
-                <Button size="lg" onClick={() => setIsSubmitted(false)}>
-                  Booking Lagi
-                </Button>
-              </CardContent>
-            </Card>
+            <div className="w-24 h-24 bg-accent/10 rounded-full mx-auto mb-8 flex items-center justify-center">
+              <CheckCircle className="w-12 h-12 text-accent" />
+            </div>
+            <h1 className="text-3xl md:text-4xl font-bold text-text mb-6 font-[family-name:var(--font-heading)]">
+              Booking Berhasil!
+            </h1>
+            <p className="text-xl text-gray-600 mb-10 leading-relaxed">
+              Terima kasih telah melakukan booking. Tim kami akan menghubungi Anda untuk konfirmasi jadwal.
+            </p>
+            <Button href="/" variant="primary" size="lg">
+              Kembali ke Beranda
+            </Button>
           </motion.div>
         </div>
       </section>
@@ -67,115 +56,108 @@ export default function BookingPage() {
 
   return (
     <>
-      {/* Hero */}
-      <section className="bg-gradient-to-br from-primary to-secondary py-20 md:py-28">
-        <div className="container">
+      {/* Page Header */}
+      <section className="bg-gradient-to-br from-background via-white to-background pt-40 pb-20 lg:pt-48 lg:pb-24">
+        <div className="max-w-7xl mx-auto px-6 lg:px-10 text-center">
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
-            className="text-center text-white max-w-3xl mx-auto"
+            transition={{ duration: 0.6 }}
           >
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6">
-              Booking Online
+            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-text mb-8 font-[family-name:var(--font-heading)]">
+              Booking <span className="text-primary">Online</span>
             </h1>
-            <p className="text-lg md:text-xl text-white/90 leading-relaxed">
-              Jadwalkan kunjungan Anda dengan mudah. Konsultasi pertama GRATIS!
+            <p className="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
+              Isi form di bawah untuk menjadwalkan kunjungan Anda. Konsultasi pertama GRATIS!
             </p>
           </motion.div>
         </div>
       </section>
 
-      {/* Form */}
-      <section className="py-20 md:py-28 bg-background">
-        <div className="container">
-          <div className="max-w-3xl mx-auto">
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.4 }}
-            >
-              <Card>
-                <CardContent className="py-10 md:py-12">
-                  <form onSubmit={handleSubmit(onSubmit)} className="space-y-8">
-                    {/* Nama */}
-                    <div>
-                      <label className="flex items-center gap-2 text-base font-semibold text-text mb-3">
-                        <User className="w-5 h-5 text-primary" />
-                        Nama Lengkap <span className="text-red-500">*</span>
-                      </label>
-                      <input
-                        type="text"
-                        {...register("nama")}
-                        className={cn(
-                          "w-full px-5 py-4 rounded-xl border bg-white focus:outline-none focus:ring-2 focus:ring-primary/50 transition-all text-base",
-                          errors.nama ? "border-red-500" : "border-gray-200"
-                        )}
-                        placeholder="Masukkan nama lengkap"
-                      />
-                      {errors.nama && (
-                        <p className="text-red-500 text-sm mt-2">{errors.nama.message}</p>
-                      )}
-                    </div>
-
-                    {/* WhatsApp & Email */}
-                    <div className="grid md:grid-cols-2 gap-6">
+      {/* Booking Form */}
+      <section className="py-24 lg:py-32 bg-white">
+        <div className="max-w-4xl mx-auto px-6 lg:px-10">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.1 }}
+          >
+            <Card>
+              <CardContent className="p-8 md:p-12">
+                <form onSubmit={handleSubmit(onSubmit)} className="space-y-8">
+                  {/* Personal Info */}
+                  <div>
+                    <h2 className="text-2xl font-bold text-text mb-8 font-[family-name:var(--font-heading)]">
+                      Informasi Pribadi
+                    </h2>
+                    <div className="grid md:grid-cols-2 gap-8">
                       <div>
-                        <label className="flex items-center gap-2 text-base font-semibold text-text mb-3">
-                          <Phone className="w-5 h-5 text-primary" />
-                          No. WhatsApp <span className="text-red-500">*</span>
+                        <label className="flex items-center gap-3 text-text font-semibold mb-4">
+                          <User className="w-5 h-5 text-primary" />
+                          Nama Lengkap
                         </label>
                         <input
-                          type="tel"
-                          {...register("whatsapp")}
-                          className={cn(
-                            "w-full px-5 py-4 rounded-xl border bg-white focus:outline-none focus:ring-2 focus:ring-primary/50 transition-all text-base",
-                            errors.whatsapp ? "border-red-500" : "border-gray-200"
-                          )}
-                          placeholder="08xxxxxxxxxx"
+                          {...register("nama")}
+                          type="text"
+                          placeholder="Masukkan nama lengkap"
+                          className="w-full px-6 py-4 border-2 border-gray-200 rounded-xl focus:border-primary focus:outline-none transition-colors text-lg"
                         />
-                        {errors.whatsapp && (
-                          <p className="text-red-500 text-sm mt-2">{errors.whatsapp.message}</p>
+                        {errors.nama && (
+                          <p className="text-red-500 text-sm mt-2">{errors.nama.message}</p>
                         )}
                       </div>
                       <div>
-                        <label className="flex items-center gap-2 text-base font-semibold text-text mb-3">
-                          <Mail className="w-5 h-5 text-primary" />
-                          Email <span className="text-red-500">*</span>
+                        <label className="flex items-center gap-3 text-text font-semibold mb-4">
+                          <Phone className="w-5 h-5 text-primary" />
+                          Nomor Telepon
                         </label>
                         <input
-                          type="email"
+                          {...register("telepon")}
+                          type="tel"
+                          placeholder="08xxxxxxxxxx"
+                          className="w-full px-6 py-4 border-2 border-gray-200 rounded-xl focus:border-primary focus:outline-none transition-colors text-lg"
+                        />
+                        {errors.telepon && (
+                          <p className="text-red-500 text-sm mt-2">{errors.telepon.message}</p>
+                        )}
+                      </div>
+                      <div className="md:col-span-2">
+                        <label className="flex items-center gap-3 text-text font-semibold mb-4">
+                          <Mail className="w-5 h-5 text-primary" />
+                          Email
+                        </label>
+                        <input
                           {...register("email")}
-                          className={cn(
-                            "w-full px-5 py-4 rounded-xl border bg-white focus:outline-none focus:ring-2 focus:ring-primary/50 transition-all text-base",
-                            errors.email ? "border-red-500" : "border-gray-200"
-                          )}
-                          placeholder="email@contoh.com"
+                          type="email"
+                          placeholder="email@example.com"
+                          className="w-full px-6 py-4 border-2 border-gray-200 rounded-xl focus:border-primary focus:outline-none transition-colors text-lg"
                         />
                         {errors.email && (
                           <p className="text-red-500 text-sm mt-2">{errors.email.message}</p>
                         )}
                       </div>
                     </div>
+                  </div>
 
-                    {/* Layanan & Dokter */}
-                    <div className="grid md:grid-cols-2 gap-6">
-                      <div>
-                        <label className="flex items-center gap-2 text-base font-semibold text-text mb-3">
-                          <Stethoscope className="w-5 h-5 text-primary" />
-                          Pilih Layanan <span className="text-red-500">*</span>
+                  {/* Appointment Info */}
+                  <div>
+                    <h2 className="text-2xl font-bold text-text mb-8 font-[family-name:var(--font-heading)]">
+                      Jadwal Kunjungan
+                    </h2>
+                    <div className="grid md:grid-cols-2 gap-8">
+                      <div className="md:col-span-2">
+                        <label className="flex items-center gap-3 text-text font-semibold mb-4">
+                          <FileText className="w-5 h-5 text-primary" />
+                          Pilih Layanan
                         </label>
                         <select
                           {...register("layanan")}
-                          className={cn(
-                            "w-full px-5 py-4 rounded-xl border bg-white focus:outline-none focus:ring-2 focus:ring-primary/50 transition-all text-base",
-                            errors.layanan ? "border-red-500" : "border-gray-200"
-                          )}
+                          className="w-full px-6 py-4 border-2 border-gray-200 rounded-xl focus:border-primary focus:outline-none transition-colors text-lg bg-white"
                         >
-                          <option value="">Pilih layanan...</option>
+                          <option value="">Pilih layanan</option>
                           {services.map((service) => (
-                            <option key={service.id} value={service.title}>
-                              {service.title}
+                            <option key={service.id} value={service.id}>
+                              {service.name} - {service.price}
                             </option>
                           ))}
                         </select>
@@ -184,57 +166,29 @@ export default function BookingPage() {
                         )}
                       </div>
                       <div>
-                        <label className="flex items-center gap-2 text-base font-semibold text-text mb-3">
-                          <User className="w-5 h-5 text-primary" />
-                          Pilih Dokter (Opsional)
-                        </label>
-                        <select
-                          {...register("dokter")}
-                          className="w-full px-5 py-4 rounded-xl border border-gray-200 bg-white focus:outline-none focus:ring-2 focus:ring-primary/50 transition-all text-base"
-                        >
-                          <option value="">Dokter mana saja...</option>
-                          {doctors.map((doctor) => (
-                            <option key={doctor.id} value={doctor.name}>
-                              {doctor.name}
-                            </option>
-                          ))}
-                        </select>
-                      </div>
-                    </div>
-
-                    {/* Tanggal & Waktu */}
-                    <div className="grid md:grid-cols-2 gap-6">
-                      <div>
-                        <label className="flex items-center gap-2 text-base font-semibold text-text mb-3">
+                        <label className="flex items-center gap-3 text-text font-semibold mb-4">
                           <Calendar className="w-5 h-5 text-primary" />
-                          Tanggal Preferensi <span className="text-red-500">*</span>
+                          Tanggal
                         </label>
                         <input
-                          type="date"
                           {...register("tanggal")}
-                          min={minDate}
-                          className={cn(
-                            "w-full px-5 py-4 rounded-xl border bg-white focus:outline-none focus:ring-2 focus:ring-primary/50 transition-all text-base",
-                            errors.tanggal ? "border-red-500" : "border-gray-200"
-                          )}
+                          type="date"
+                          className="w-full px-6 py-4 border-2 border-gray-200 rounded-xl focus:border-primary focus:outline-none transition-colors text-lg"
                         />
                         {errors.tanggal && (
                           <p className="text-red-500 text-sm mt-2">{errors.tanggal.message}</p>
                         )}
                       </div>
                       <div>
-                        <label className="flex items-center gap-2 text-base font-semibold text-text mb-3">
+                        <label className="flex items-center gap-3 text-text font-semibold mb-4">
                           <Clock className="w-5 h-5 text-primary" />
-                          Waktu <span className="text-red-500">*</span>
+                          Waktu
                         </label>
                         <select
                           {...register("waktu")}
-                          className={cn(
-                            "w-full px-5 py-4 rounded-xl border bg-white focus:outline-none focus:ring-2 focus:ring-primary/50 transition-all text-base",
-                            errors.waktu ? "border-red-500" : "border-gray-200"
-                          )}
+                          className="w-full px-6 py-4 border-2 border-gray-200 rounded-xl focus:border-primary focus:outline-none transition-colors text-lg bg-white"
                         >
-                          <option value="">Pilih waktu...</option>
+                          <option value="">Pilih waktu</option>
                           {timeSlots.map((time) => (
                             <option key={time} value={time}>
                               {time}
@@ -246,48 +200,51 @@ export default function BookingPage() {
                         )}
                       </div>
                     </div>
+                  </div>
 
-                    {/* Keluhan */}
-                    <div>
-                      <label className="flex items-center gap-2 text-base font-semibold text-text mb-3">
-                        <FileText className="w-5 h-5 text-primary" />
-                        Keluhan <span className="text-red-500">*</span>
-                      </label>
-                      <textarea
-                        {...register("keluhan")}
-                        rows={5}
-                        className={cn(
-                          "w-full px-5 py-4 rounded-xl border bg-white focus:outline-none focus:ring-2 focus:ring-primary/50 transition-all resize-none text-base",
-                          errors.keluhan ? "border-red-500" : "border-gray-200"
-                        )}
-                        placeholder="Jelaskan keluhan atau masalah gigi Anda..."
-                      />
-                      {errors.keluhan && (
-                        <p className="text-red-500 text-sm mt-2">{errors.keluhan.message}</p>
-                      )}
-                    </div>
+                  {/* Additional Info */}
+                  <div>
+                    <label className="flex items-center gap-3 text-text font-semibold mb-4">
+                      <FileText className="w-5 h-5 text-primary" />
+                      Pesan Tambahan (Opsional)
+                    </label>
+                    <textarea
+                      {...register("pesan")}
+                      placeholder="Tuliskan keluhan atau pertanyaan Anda..."
+                      rows={5}
+                      className="w-full px-6 py-4 border-2 border-gray-200 rounded-xl focus:border-primary focus:outline-none transition-colors text-lg resize-none"
+                    />
+                  </div>
 
-                    {/* Submit */}
-                    <div className="pt-4">
-                      <Button
-                        type="submit"
-                        size="lg"
-                        className="w-full"
-                        disabled={isSubmitting}
-                      >
-                        {isSubmitting ? "Mengirim..." : "Kirim Booking"}
-                      </Button>
+                  <Button type="submit" disabled={isSubmitting} className="w-full justify-center" size="lg">
+                    {isSubmitting ? "Memproses..." : "Kirim Booking"}
+                  </Button>
+                </form>
+              </CardContent>
+            </Card>
+          </motion.div>
 
-                      <p className="text-center text-sm text-gray-500 mt-6">
-                        Dengan mengirim form ini, Anda menyetujui untuk dihubungi
-                        oleh tim kami melalui WhatsApp.
-                      </p>
-                    </div>
-                  </form>
-                </CardContent>
-              </Card>
-            </motion.div>
-          </div>
+          {/* Contact Info */}
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.2 }}
+            className="mt-12 text-center"
+          >
+            <p className="text-gray-600 text-lg">
+              Butuh bantuan? Hubungi kami di{" "}
+              <a href={`tel:${contactInfo.phone}`} className="text-primary font-semibold">
+                {contactInfo.phone}
+              </a>{" "}
+              atau{" "}
+              <a
+                href={`https://wa.me/${contactInfo.whatsapp.replace(/\D/g, "")}`}
+                className="text-green-500 font-semibold"
+              >
+                WhatsApp
+              </a>
+            </p>
+          </motion.div>
         </div>
       </section>
     </>

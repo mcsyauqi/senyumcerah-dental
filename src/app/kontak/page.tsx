@@ -4,53 +4,11 @@ import { useState } from "react";
 import { motion } from "framer-motion";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import {
-  MapPin, Phone, Mail, Clock, Send, CheckCircle,
-  Facebook, Instagram, Twitter, MessageCircle
-} from "lucide-react";
-import Card, { CardContent } from "@/components/ui/Card";
-import Button from "@/components/ui/Button";
+import { MapPin, Phone, Mail, Clock, Send, MessageCircle, CheckCircle } from "lucide-react";
+import { contactInfo } from "@/lib/data";
 import { contactSchema, ContactFormData } from "@/lib/validations";
-import { cn } from "@/lib/utils";
-
-const contactInfo = [
-  {
-    icon: MapPin,
-    title: "Alamat",
-    content: "Jl. Kesehatan No. 123, Jakarta Selatan 12345",
-    link: "https://maps.google.com",
-  },
-  {
-    icon: Phone,
-    title: "Telepon",
-    content: "(021) 123-456",
-    link: "tel:+6221123456",
-  },
-  {
-    icon: Mail,
-    title: "Email",
-    content: "info@senyumcerah.id",
-    link: "mailto:info@senyumcerah.id",
-  },
-  {
-    icon: MessageCircle,
-    title: "WhatsApp",
-    content: "+62 812-3456-7890",
-    link: "https://wa.me/6281234567890",
-  },
-];
-
-const operationalHours = [
-  { day: "Senin - Jumat", hours: "09:00 - 21:00" },
-  { day: "Sabtu", hours: "09:00 - 17:00" },
-  { day: "Minggu", hours: "Tutup" },
-];
-
-const socialMedia = [
-  { icon: Facebook, name: "Facebook", link: "#" },
-  { icon: Instagram, name: "Instagram", link: "#" },
-  { icon: Twitter, name: "Twitter", link: "#" },
-];
+import { Card, CardContent } from "@/components/ui/Card";
+import Button from "@/components/ui/Button";
 
 export default function KontakPage() {
   const [isSubmitted, setIsSubmitted] = useState(false);
@@ -59,246 +17,207 @@ export default function KontakPage() {
     register,
     handleSubmit,
     formState: { errors, isSubmitting },
-    reset,
   } = useForm<ContactFormData>({
     resolver: zodResolver(contactSchema),
   });
 
   const onSubmit = async (data: ContactFormData) => {
-    await new Promise((resolve) => setTimeout(resolve, 1500));
-    console.log("Contact data:", data);
+    console.log(data);
+    await new Promise((resolve) => setTimeout(resolve, 1000));
     setIsSubmitted(true);
-    reset();
-    setTimeout(() => setIsSubmitted(false), 5000);
   };
 
   return (
     <>
-      {/* Hero */}
-      <section className="bg-gradient-to-br from-primary to-secondary py-20 md:py-28">
-        <div className="container">
+      {/* Page Header */}
+      <section className="bg-gradient-to-br from-background via-white to-background pt-40 pb-20 lg:pt-48 lg:pb-24">
+        <div className="max-w-7xl mx-auto px-6 lg:px-10 text-center">
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
-            className="text-center text-white max-w-3xl mx-auto"
+            transition={{ duration: 0.6 }}
           >
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6">
-              Hubungi Kami
+            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-text mb-8 font-[family-name:var(--font-heading)]">
+              Hubungi <span className="text-primary">Kami</span>
             </h1>
-            <p className="text-lg md:text-xl text-white/90 leading-relaxed">
-              Ada pertanyaan? Kami siap membantu Anda. Hubungi kami melalui
-              berbagai channel di bawah ini.
+            <p className="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
+              Ada pertanyaan atau ingin berkonsultasi? Tim kami siap membantu Anda
             </p>
           </motion.div>
         </div>
       </section>
 
-      {/* Contact Info & Form */}
-      <section className="py-20 md:py-28 bg-background">
-        <div className="container">
-          <div className="grid lg:grid-cols-3 gap-8 lg:gap-10">
+      {/* Contact Section */}
+      <section className="py-24 lg:py-32 bg-white">
+        <div className="max-w-7xl mx-auto px-6 lg:px-10">
+          <div className="grid lg:grid-cols-2 gap-16">
             {/* Contact Info */}
-            <div className="lg:col-span-1 space-y-6">
-              {/* Contact Cards */}
-              {contactInfo.map((item, index) => (
-                <motion.div
-                  key={index}
-                  initial={{ opacity: 0, x: -20 }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.4, delay: index * 0.1 }}
-                >
-                  <a href={item.link} target="_blank" rel="noopener noreferrer">
-                    <Card className="hover:border-primary transition-colors">
-                      <CardContent className="flex items-start gap-5">
-                        <div className="w-14 h-14 bg-primary/10 rounded-xl flex items-center justify-center flex-shrink-0">
-                          <item.icon className="w-7 h-7 text-primary" />
-                        </div>
-                        <div>
-                          <h3 className="font-bold text-text text-lg mb-1">{item.title}</h3>
-                          <p className="text-gray-600">{item.content}</p>
-                        </div>
-                      </CardContent>
-                    </Card>
-                  </a>
-                </motion.div>
-              ))}
+            <motion.div
+              initial={{ opacity: 0, x: -30 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.6 }}
+            >
+              <h2 className="text-3xl font-bold text-text mb-10 font-[family-name:var(--font-heading)]">
+                Informasi Kontak
+              </h2>
 
-              {/* Operational Hours */}
-              <motion.div
-                initial={{ opacity: 0, x: -20 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.4, delay: 0.4 }}
-              >
-                <Card>
-                  <CardContent>
-                    <div className="flex items-center gap-3 mb-5">
-                      <div className="w-10 h-10 bg-primary/10 rounded-lg flex items-center justify-center">
-                        <Clock className="w-5 h-5 text-primary" />
-                      </div>
-                      <h3 className="font-bold text-text text-lg">Jam Operasional</h3>
-                    </div>
-                    <div className="space-y-3">
-                      {operationalHours.map((item, index) => (
-                        <div key={index} className="flex justify-between">
-                          <span className="text-gray-600">{item.day}</span>
-                          <span className={cn(
-                            "font-semibold",
-                            item.hours === "Tutup" ? "text-red-500" : "text-text"
-                          )}>
-                            {item.hours}
-                          </span>
-                        </div>
-                      ))}
-                    </div>
-                  </CardContent>
-                </Card>
-              </motion.div>
+              <div className="space-y-8 mb-12">
+                <div className="flex items-start gap-6">
+                  <div className="w-16 h-16 bg-primary/10 rounded-2xl flex items-center justify-center flex-shrink-0">
+                    <MapPin className="w-8 h-8 text-primary" />
+                  </div>
+                  <div>
+                    <h3 className="text-xl font-bold text-text mb-2">Alamat</h3>
+                    <p className="text-gray-600 text-lg leading-relaxed">{contactInfo.address}</p>
+                  </div>
+                </div>
 
-              {/* Social Media */}
-              <motion.div
-                initial={{ opacity: 0, x: -20 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.4, delay: 0.5 }}
+                <div className="flex items-start gap-6">
+                  <div className="w-16 h-16 bg-primary/10 rounded-2xl flex items-center justify-center flex-shrink-0">
+                    <Phone className="w-8 h-8 text-primary" />
+                  </div>
+                  <div>
+                    <h3 className="text-xl font-bold text-text mb-2">Telepon</h3>
+                    <a href={`tel:${contactInfo.phone}`} className="text-gray-600 text-lg hover:text-primary transition-colors">
+                      {contactInfo.phone}
+                    </a>
+                  </div>
+                </div>
+
+                <div className="flex items-start gap-6">
+                  <div className="w-16 h-16 bg-primary/10 rounded-2xl flex items-center justify-center flex-shrink-0">
+                    <Mail className="w-8 h-8 text-primary" />
+                  </div>
+                  <div>
+                    <h3 className="text-xl font-bold text-text mb-2">Email</h3>
+                    <a href={`mailto:${contactInfo.email}`} className="text-gray-600 text-lg hover:text-primary transition-colors">
+                      {contactInfo.email}
+                    </a>
+                  </div>
+                </div>
+
+                <div className="flex items-start gap-6">
+                  <div className="w-16 h-16 bg-primary/10 rounded-2xl flex items-center justify-center flex-shrink-0">
+                    <Clock className="w-8 h-8 text-primary" />
+                  </div>
+                  <div>
+                    <h3 className="text-xl font-bold text-text mb-2">Jam Operasional</h3>
+                    <p className="text-gray-600 text-lg">{contactInfo.hours.weekday}</p>
+                    <p className="text-gray-600 text-lg">{contactInfo.hours.weekend}</p>
+                  </div>
+                </div>
+              </div>
+
+              <a
+                href={`https://wa.me/${contactInfo.whatsapp.replace(/\D/g, "")}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-3 px-8 py-5 bg-green-500 text-white rounded-xl font-semibold hover:bg-green-600 transition-colors text-lg"
               >
-                <Card>
-                  <CardContent>
-                    <h3 className="font-bold text-text text-lg mb-5">Ikuti Kami</h3>
-                    <div className="flex gap-4">
-                      {socialMedia.map((item, index) => (
-                        <a
-                          key={index}
-                          href={item.link}
-                          className="w-12 h-12 bg-primary/10 rounded-xl flex items-center justify-center hover:bg-primary hover:text-white transition-colors text-primary"
-                        >
-                          <item.icon className="w-6 h-6" />
-                        </a>
-                      ))}
-                    </div>
-                  </CardContent>
-                </Card>
-              </motion.div>
-            </div>
+                <MessageCircle className="w-6 h-6" />
+                Chat via WhatsApp
+              </a>
+            </motion.div>
 
             {/* Contact Form */}
             <motion.div
-              initial={{ opacity: 0, x: 20 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.4 }}
-              className="lg:col-span-2"
+              initial={{ opacity: 0, x: 30 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.6 }}
             >
               <Card>
-                <CardContent className="py-10 md:py-12">
-                  <h2 className="text-2xl md:text-3xl font-bold text-text mb-8">
-                    Kirim Pesan
-                  </h2>
-
-                  {isSubmitted && (
-                    <motion.div
-                      initial={{ opacity: 0, y: -10 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      className="bg-green-50 border border-green-200 rounded-xl p-5 mb-8 flex items-center gap-4"
-                    >
-                      <CheckCircle className="w-6 h-6 text-green-600 flex-shrink-0" />
-                      <p className="text-green-700 text-lg">
-                        Pesan Anda berhasil dikirim! Kami akan segera merespons.
+                <CardContent className="p-8 md:p-10">
+                  {isSubmitted ? (
+                    <div className="text-center py-12">
+                      <div className="w-20 h-20 bg-accent/10 rounded-full mx-auto mb-6 flex items-center justify-center">
+                        <CheckCircle className="w-10 h-10 text-accent" />
+                      </div>
+                      <h3 className="text-2xl font-bold text-text mb-4 font-[family-name:var(--font-heading)]">
+                        Pesan Terkirim!
+                      </h3>
+                      <p className="text-gray-600 text-lg">
+                        Terima kasih telah menghubungi kami. Tim kami akan segera merespons pesan Anda.
                       </p>
-                    </motion.div>
-                  )}
-
-                  <form onSubmit={handleSubmit(onSubmit)} className="space-y-7">
-                    <div className="grid md:grid-cols-2 gap-6">
-                      <div>
-                        <label className="block text-base font-semibold text-text mb-3">
-                          Nama Lengkap <span className="text-red-500">*</span>
-                        </label>
-                        <input
-                          type="text"
-                          {...register("nama")}
-                          className={cn(
-                            "w-full px-5 py-4 rounded-xl border bg-white focus:outline-none focus:ring-2 focus:ring-primary/50 transition-all text-base",
-                            errors.nama ? "border-red-500" : "border-gray-200"
+                    </div>
+                  ) : (
+                    <>
+                      <h2 className="text-2xl font-bold text-text mb-8 font-[family-name:var(--font-heading)]">
+                        Kirim Pesan
+                      </h2>
+                      <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
+                        <div>
+                          <label className="block text-text font-semibold mb-3">Nama Lengkap</label>
+                          <input
+                            {...register("nama")}
+                            type="text"
+                            placeholder="Masukkan nama lengkap"
+                            className="w-full px-6 py-4 border-2 border-gray-200 rounded-xl focus:border-primary focus:outline-none transition-colors text-lg"
+                          />
+                          {errors.nama && (
+                            <p className="text-red-500 text-sm mt-2">{errors.nama.message}</p>
                           )}
-                          placeholder="Masukkan nama lengkap"
-                        />
-                        {errors.nama && (
-                          <p className="text-red-500 text-sm mt-2">{errors.nama.message}</p>
-                        )}
-                      </div>
-                      <div>
-                        <label className="block text-base font-semibold text-text mb-3">
-                          Email <span className="text-red-500">*</span>
-                        </label>
-                        <input
-                          type="email"
-                          {...register("email")}
-                          className={cn(
-                            "w-full px-5 py-4 rounded-xl border bg-white focus:outline-none focus:ring-2 focus:ring-primary/50 transition-all text-base",
-                            errors.email ? "border-red-500" : "border-gray-200"
+                        </div>
+
+                        <div className="grid md:grid-cols-2 gap-6">
+                          <div>
+                            <label className="block text-text font-semibold mb-3">Email</label>
+                            <input
+                              {...register("email")}
+                              type="email"
+                              placeholder="email@example.com"
+                              className="w-full px-6 py-4 border-2 border-gray-200 rounded-xl focus:border-primary focus:outline-none transition-colors text-lg"
+                            />
+                            {errors.email && (
+                              <p className="text-red-500 text-sm mt-2">{errors.email.message}</p>
+                            )}
+                          </div>
+                          <div>
+                            <label className="block text-text font-semibold mb-3">Telepon</label>
+                            <input
+                              {...register("telepon")}
+                              type="tel"
+                              placeholder="08xxxxxxxxxx"
+                              className="w-full px-6 py-4 border-2 border-gray-200 rounded-xl focus:border-primary focus:outline-none transition-colors text-lg"
+                            />
+                            {errors.telepon && (
+                              <p className="text-red-500 text-sm mt-2">{errors.telepon.message}</p>
+                            )}
+                          </div>
+                        </div>
+
+                        <div>
+                          <label className="block text-text font-semibold mb-3">Subjek</label>
+                          <input
+                            {...register("subjek")}
+                            type="text"
+                            placeholder="Subjek pesan"
+                            className="w-full px-6 py-4 border-2 border-gray-200 rounded-xl focus:border-primary focus:outline-none transition-colors text-lg"
+                          />
+                          {errors.subjek && (
+                            <p className="text-red-500 text-sm mt-2">{errors.subjek.message}</p>
                           )}
-                          placeholder="email@contoh.com"
-                        />
-                        {errors.email && (
-                          <p className="text-red-500 text-sm mt-2">{errors.email.message}</p>
-                        )}
-                      </div>
-                    </div>
+                        </div>
 
-                    <div>
-                      <label className="block text-base font-semibold text-text mb-3">
-                        Subjek <span className="text-red-500">*</span>
-                      </label>
-                      <input
-                        type="text"
-                        {...register("subjek")}
-                        className={cn(
-                          "w-full px-5 py-4 rounded-xl border bg-white focus:outline-none focus:ring-2 focus:ring-primary/50 transition-all text-base",
-                          errors.subjek ? "border-red-500" : "border-gray-200"
-                        )}
-                        placeholder="Subjek pesan"
-                      />
-                      {errors.subjek && (
-                        <p className="text-red-500 text-sm mt-2">{errors.subjek.message}</p>
-                      )}
-                    </div>
+                        <div>
+                          <label className="block text-text font-semibold mb-3">Pesan</label>
+                          <textarea
+                            {...register("pesan")}
+                            placeholder="Tuliskan pesan Anda..."
+                            rows={5}
+                            className="w-full px-6 py-4 border-2 border-gray-200 rounded-xl focus:border-primary focus:outline-none transition-colors text-lg resize-none"
+                          />
+                          {errors.pesan && (
+                            <p className="text-red-500 text-sm mt-2">{errors.pesan.message}</p>
+                          )}
+                        </div>
 
-                    <div>
-                      <label className="block text-base font-semibold text-text mb-3">
-                        Pesan <span className="text-red-500">*</span>
-                      </label>
-                      <textarea
-                        {...register("pesan")}
-                        rows={6}
-                        className={cn(
-                          "w-full px-5 py-4 rounded-xl border bg-white focus:outline-none focus:ring-2 focus:ring-primary/50 transition-all resize-none text-base",
-                          errors.pesan ? "border-red-500" : "border-gray-200"
-                        )}
-                        placeholder="Tulis pesan Anda..."
-                      />
-                      {errors.pesan && (
-                        <p className="text-red-500 text-sm mt-2">{errors.pesan.message}</p>
-                      )}
-                    </div>
-
-                    <Button
-                      type="submit"
-                      size="lg"
-                      disabled={isSubmitting}
-                    >
-                      {isSubmitting ? (
-                        "Mengirim..."
-                      ) : (
-                        <>
+                        <Button type="submit" disabled={isSubmitting} className="w-full justify-center" size="lg">
                           <Send className="w-5 h-5" />
-                          Kirim Pesan
-                        </>
-                      )}
-                    </Button>
-                  </form>
+                          {isSubmitting ? "Mengirim..." : "Kirim Pesan"}
+                        </Button>
+                      </form>
+                    </>
+                  )}
                 </CardContent>
               </Card>
             </motion.div>
@@ -306,28 +225,21 @@ export default function KontakPage() {
         </div>
       </section>
 
-      {/* Map */}
-      <section className="bg-white">
-        <div className="container py-20 md:py-28">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5 }}
-          >
-            <h2 className="text-3xl md:text-4xl font-bold text-text text-center mb-10">
+      {/* Map Section */}
+      <section className="py-24 lg:py-32 bg-background">
+        <div className="max-w-7xl mx-auto px-6 lg:px-10">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl font-bold text-text mb-4 font-[family-name:var(--font-heading)]">
               Lokasi Kami
             </h2>
-            <div className="bg-gray-200 rounded-3xl overflow-hidden h-[450px] flex items-center justify-center">
-              <div className="text-center text-gray-500">
-                <div className="w-20 h-20 mx-auto mb-6 bg-gray-300 rounded-full flex items-center justify-center">
-                  <MapPin className="w-10 h-10" />
-                </div>
-                <p className="text-xl font-medium mb-2">Google Maps akan ditampilkan di sini</p>
-                <p>Jl. Kesehatan No. 123, Jakarta Selatan</p>
-              </div>
+            <p className="text-gray-600 text-lg">Kunjungi klinik kami di alamat berikut</p>
+          </div>
+          <div className="bg-gray-200 rounded-3xl h-96 flex items-center justify-center">
+            <div className="text-center">
+              <MapPin className="w-12 h-12 text-gray-400 mx-auto mb-4" />
+              <p className="text-gray-500 text-lg">Google Maps akan ditampilkan di sini</p>
             </div>
-          </motion.div>
+          </div>
         </div>
       </section>
     </>

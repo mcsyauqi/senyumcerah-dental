@@ -1,43 +1,56 @@
 "use client";
 
 import { cn } from "@/lib/utils";
-import { forwardRef, ButtonHTMLAttributes } from "react";
+import Link from "next/link";
 
-interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
-  variant?: "primary" | "secondary" | "outline" | "ghost";
+interface ButtonProps {
+  children: React.ReactNode;
+  variant?: "primary" | "secondary" | "outline";
   size?: "sm" | "md" | "lg";
+  href?: string;
+  className?: string;
+  onClick?: () => void;
+  type?: "button" | "submit";
+  disabled?: boolean;
 }
 
-const Button = forwardRef<HTMLButtonElement, ButtonProps>(
-  ({ className, variant = "primary", size = "md", children, ...props }, ref) => {
+export default function Button({
+  children,
+  variant = "primary",
+  size = "md",
+  href,
+  className,
+  onClick,
+  type = "button",
+  disabled = false,
+}: ButtonProps) {
+  const baseStyles = "inline-flex items-center justify-content gap-3 font-semibold rounded-xl transition-all duration-300 font-[family-name:var(--font-heading)]";
+
+  const variants = {
+    primary: "bg-primary text-white hover:bg-cyan-700 hover:shadow-lg hover:shadow-primary/30 hover:-translate-y-0.5",
+    secondary: "bg-secondary text-white hover:bg-cyan-500 hover:shadow-lg hover:shadow-secondary/30 hover:-translate-y-0.5",
+    outline: "bg-transparent text-primary border-2 border-primary hover:bg-primary hover:text-white hover:-translate-y-0.5",
+  };
+
+  const sizes = {
+    sm: "px-6 py-3 text-sm",
+    md: "px-8 py-4 text-base",
+    lg: "px-10 py-5 text-lg",
+  };
+
+  const classes = cn(baseStyles, variants[variant], sizes[size], disabled && "opacity-50 cursor-not-allowed", className);
+
+  if (href) {
     return (
-      <button
-        ref={ref}
-        className={cn(
-          "inline-flex items-center justify-center font-semibold rounded-xl transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 whitespace-nowrap",
-          {
-            "bg-primary text-white hover:bg-primary-dark focus:ring-primary shadow-lg shadow-primary/25 hover:shadow-xl hover:shadow-primary/30":
-              variant === "primary",
-            "bg-secondary text-white hover:bg-primary focus:ring-secondary":
-              variant === "secondary",
-            "border-2 border-primary text-primary hover:bg-primary hover:text-white focus:ring-primary bg-transparent":
-              variant === "outline",
-            "text-primary hover:bg-primary/10 focus:ring-primary":
-              variant === "ghost",
-            "px-5 py-2.5 text-sm gap-2": size === "sm",
-            "px-7 py-3.5 text-base gap-2": size === "md",
-            "px-9 py-4 text-lg gap-3": size === "lg",
-          },
-          className
-        )}
-        {...props}
-      >
+      <Link href={href} className={classes}>
         {children}
-      </button>
+      </Link>
     );
   }
-);
 
-Button.displayName = "Button";
-
-export default Button;
+  return (
+    <button type={type} onClick={onClick} disabled={disabled} className={classes}>
+      {children}
+    </button>
+  );
+}
