@@ -1,13 +1,17 @@
 "use client";
 
 import { motion } from "framer-motion";
+import Image from "next/image";
 import Link from "next/link";
-import { Scan, Zap, Cpu, ShieldCheck, Check } from "lucide-react";
+import { Check } from "lucide-react";
 import { technologies } from "@/lib/data";
 
-const iconMap: Record<string, React.ComponentType<{ className?: string }>> = {
-  Scan, Zap, Cpu, ShieldCheck,
-};
+const techImages = [
+  "https://images.unsplash.com/photo-1516549655169-df83a0774514?w=400&h=250&fit=crop",
+  "https://images.unsplash.com/photo-1579684385127-1ef15d508118?w=400&h=250&fit=crop",
+  "https://images.unsplash.com/photo-1551076805-e1869033e561?w=400&h=250&fit=crop",
+  "https://images.unsplash.com/photo-1583912267550-d974311a9a6e?w=400&h=250&fit=crop",
+];
 
 const benefits = [
   "Diagnosis lebih akurat dan cepat",
@@ -39,27 +43,29 @@ export default function TeknologiPage() {
       <section className="section bg-white">
         <div className="container">
           <div className="grid-2">
-            {technologies.map((tech, index) => {
-              const Icon = iconMap[tech.icon] || Scan;
-              return (
-                <motion.div
-                  key={tech.id}
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: index * 0.1 }}
-                  className="card"
-                >
-                  <div className="card-body">
-                    <div className="icon-box mb-5">
-                      <Icon />
-                    </div>
-                    <h3 className="mb-3">{tech.name}</h3>
-                    <p className="text-gray-600">{tech.description}</p>
-                  </div>
-                </motion.div>
-              );
-            })}
+            {technologies.map((tech, index) => (
+              <motion.div
+                key={tech.id}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: index * 0.1 }}
+                className="card overflow-hidden"
+              >
+                <div className="aspect-video relative">
+                  <Image
+                    src={techImages[index % techImages.length]}
+                    alt={tech.name}
+                    fill
+                    className="object-cover"
+                  />
+                </div>
+                <div className="card-body">
+                  <h3 className="mb-3">{tech.name}</h3>
+                  <p className="text-gray-600">{tech.description}</p>
+                </div>
+              </motion.div>
+            ))}
           </div>
         </div>
       </section>
@@ -91,11 +97,21 @@ export default function TeknologiPage() {
               initial={{ opacity: 0, x: 20 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
-              className="bg-gradient-to-br from-primary/10 to-accent/10 rounded-2xl p-12 text-center"
+              className="relative aspect-square rounded-2xl overflow-hidden"
             >
-              <div className="text-6xl mb-6">🔬</div>
-              <h3 className="mb-2">Standar Internasional</h3>
-              <p className="text-gray-600">Peralatan dengan standar internasional terbaik</p>
+              <Image
+                src="https://images.unsplash.com/photo-1629909613654-28e377c37b09?w=500&h=500&fit=crop"
+                alt="Dental Technology"
+                fill
+                className="object-cover"
+              />
+              <div className="absolute inset-0 bg-gradient-to-br from-primary/20 to-accent/20" />
+              <div className="absolute inset-0 flex items-center justify-center">
+                <div className="text-center bg-white/90 backdrop-blur-sm rounded-2xl p-8">
+                  <h3 className="mb-2">Standar Internasional</h3>
+                  <p className="text-gray-600 text-sm">Peralatan dengan standar internasional terbaik</p>
+                </div>
+              </div>
             </motion.div>
           </div>
         </div>

@@ -1,9 +1,17 @@
 "use client";
 
 import { motion } from "framer-motion";
+import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight, Award } from "lucide-react";
 import { doctors } from "@/lib/data";
+
+const doctorImages = [
+  "https://images.unsplash.com/photo-1559839734-2b71ea197ec2?w=200&h=200&fit=crop&crop=face",
+  "https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?w=200&h=200&fit=crop&crop=face",
+  "https://images.unsplash.com/photo-1594824476967-48c8b964273f?w=200&h=200&fit=crop&crop=face",
+  "https://images.unsplash.com/photo-1622253692010-333f2da6031d?w=200&h=200&fit=crop&crop=face",
+];
 
 export default function Doctors() {
   return (
@@ -27,8 +35,14 @@ export default function Doctors() {
               className="card"
             >
               <div className="card-body text-center">
-                <div className="w-20 h-20 mx-auto mb-5 bg-gradient-to-br from-primary to-accent rounded-full flex items-center justify-center">
-                  <span className="text-4xl">👨‍⚕️</span>
+                <div className="w-20 h-20 mx-auto mb-5 rounded-full overflow-hidden">
+                  <Image
+                    src={doctorImages[index % doctorImages.length]}
+                    alt={doctor.name}
+                    width={80}
+                    height={80}
+                    className="w-full h-full object-cover"
+                  />
                 </div>
                 <h4 className="mb-1">{doctor.name}</h4>
                 <p className="text-primary font-medium text-sm mb-3">{doctor.specialty}</p>

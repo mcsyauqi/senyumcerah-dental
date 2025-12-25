@@ -1,9 +1,17 @@
 "use client";
 
 import { motion } from "framer-motion";
+import Image from "next/image";
 import Link from "next/link";
 import { Award, GraduationCap } from "lucide-react";
 import { doctors } from "@/lib/data";
+
+const doctorImages = [
+  "https://images.unsplash.com/photo-1559839734-2b71ea197ec2?w=200&h=200&fit=crop&crop=face",
+  "https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?w=200&h=200&fit=crop&crop=face",
+  "https://images.unsplash.com/photo-1594824476967-48c8b964273f?w=200&h=200&fit=crop&crop=face",
+  "https://images.unsplash.com/photo-1622253692010-333f2da6031d?w=200&h=200&fit=crop&crop=face",
+];
 
 export default function DokterPage() {
   return (
@@ -37,8 +45,14 @@ export default function DokterPage() {
               >
                 <div className="card-body">
                   <div className="flex flex-col sm:flex-row items-center sm:items-start gap-6">
-                    <div className="w-24 h-24 bg-gradient-to-br from-primary to-accent rounded-2xl flex items-center justify-center flex-shrink-0">
-                      <span className="text-5xl">👨‍⚕️</span>
+                    <div className="w-24 h-24 rounded-2xl overflow-hidden flex-shrink-0">
+                      <Image
+                        src={doctorImages[index % doctorImages.length]}
+                        alt={doctor.name}
+                        width={96}
+                        height={96}
+                        className="w-full h-full object-cover"
+                      />
                     </div>
                     <div className="text-center sm:text-left">
                       <h3 className="mb-1">{doctor.name}</h3>

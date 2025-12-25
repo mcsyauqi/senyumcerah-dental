@@ -1,8 +1,16 @@
 "use client";
 
 import { motion } from "framer-motion";
+import Image from "next/image";
 import { Star, Quote } from "lucide-react";
 import { testimonials } from "@/lib/data";
+
+const avatarImages = [
+  "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=100&h=100&fit=crop&crop=face",
+  "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&h=100&fit=crop&crop=face",
+  "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=100&h=100&fit=crop&crop=face",
+  "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=100&h=100&fit=crop&crop=face",
+];
 
 export default function Testimonials() {
   return (
@@ -34,8 +42,14 @@ export default function Testimonials() {
                 </div>
                 <p className="text-gray-600 mb-6 italic">&ldquo;{item.comment}&rdquo;</p>
                 <div className="flex items-center gap-4">
-                  <div className="w-12 h-12 bg-gradient-to-br from-primary to-accent rounded-full flex items-center justify-center text-white font-bold">
-                    {item.name.charAt(0)}
+                  <div className="w-12 h-12 rounded-full overflow-hidden">
+                    <Image
+                      src={avatarImages[index % avatarImages.length]}
+                      alt={item.name}
+                      width={48}
+                      height={48}
+                      className="w-full h-full object-cover"
+                    />
                   </div>
                   <div>
                     <div className="font-semibold text-text">{item.name}</div>
