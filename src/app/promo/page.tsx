@@ -1,11 +1,9 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Tag, Calendar, Copy, Gift, Percent, CreditCard } from "lucide-react";
+import Link from "next/link";
+import { Ticket, Copy, Gift, CreditCard } from "lucide-react";
 import { promos } from "@/lib/data";
-import { Card, CardContent } from "@/components/ui/Card";
-import Button from "@/components/ui/Button";
-import Badge from "@/components/ui/Badge";
 
 export default function PromoPage() {
   const handleCopy = (code: string) => {
@@ -14,148 +12,109 @@ export default function PromoPage() {
 
   return (
     <>
-      {/* Page Header */}
-      <section className="bg-gradient-to-br from-background via-white to-background pt-40 pb-20 lg:pt-48 lg:pb-24">
-        <div className="max-w-7xl mx-auto px-6 lg:px-10 text-center">
+      <section className="pt-32 pb-16 md:pt-40 md:pb-20 bg-background">
+        <div className="max-w-7xl mx-auto px-6 md:px-8">
           <motion.div
-            initial={{ opacity: 0, y: 30 }}
+            initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
+            className="max-w-2xl"
           >
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-text mb-8 font-[family-name:var(--font-heading)]">
-              Promo <span className="text-primary">Spesial</span>
+            <p className="text-primary font-semibold mb-3">PROMO SPESIAL</p>
+            <h1 className="text-4xl md:text-6xl font-bold text-text mb-6 font-[family-name:var(--font-heading)]">
+              Penawaran Terbaik
             </h1>
-            <p className="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
+            <p className="text-xl text-gray-600 leading-relaxed">
               Dapatkan penawaran menarik untuk perawatan gigi Anda. Gunakan kode promo saat booking!
             </p>
           </motion.div>
         </div>
       </section>
 
-      {/* Promos */}
-      <section className="py-24 lg:py-32 bg-white">
-        <div className="max-w-7xl mx-auto px-6 lg:px-10">
-          <div className="grid md:grid-cols-3 gap-10">
+      <section className="py-16 md:py-24 bg-white">
+        <div className="max-w-7xl mx-auto px-6 md:px-8">
+          <div className="grid md:grid-cols-3 gap-6">
             {promos.map((promo, index) => (
               <motion.div
                 key={promo.id}
-                initial={{ opacity: 0, y: 30 }}
+                initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: index * 0.1 }}
+                className="bg-gray-50 rounded-2xl p-8 relative overflow-hidden"
               >
-                <Card className="h-full relative">
-                  <div className="absolute -top-4 left-8">
-                    <Badge variant="accent" className="text-base px-5 py-2.5">
-                      {promo.discount}
-                    </Badge>
-                  </div>
-                  <CardContent className="pt-12">
-                    <h2 className="text-2xl font-bold text-text mb-4 font-[family-name:var(--font-heading)]">
-                      {promo.title}
-                    </h2>
-                    <p className="text-gray-600 mb-8 leading-relaxed text-lg">
-                      {promo.description}
-                    </p>
-                    <div className="flex items-center gap-3 text-gray-500 mb-8">
-                      <Calendar className="w-5 h-5" />
-                      <span>Berlaku hingga {promo.validUntil}</span>
-                    </div>
-                    <div className="flex items-center justify-between p-5 bg-gray-50 rounded-xl">
-                      <div className="flex items-center gap-3">
-                        <Tag className="w-6 h-6 text-primary" />
-                        <span className="font-mono font-bold text-text text-lg">{promo.code}</span>
-                      </div>
-                      <button
-                        onClick={() => handleCopy(promo.code)}
-                        className="p-3 hover:bg-gray-200 rounded-xl transition-colors"
-                      >
-                        <Copy className="w-5 h-5 text-gray-500" />
-                      </button>
-                    </div>
-                  </CardContent>
-                </Card>
+                <div className="absolute top-0 right-0 bg-accent text-white text-sm font-bold px-4 py-2 rounded-bl-2xl">
+                  {promo.discount}
+                </div>
+                <div className="w-12 h-12 bg-primary/10 rounded-xl flex items-center justify-center mb-6">
+                  <Ticket className="w-6 h-6 text-primary" />
+                </div>
+                <h2 className="text-xl font-bold text-text mb-3 font-[family-name:var(--font-heading)]">
+                  {promo.title}
+                </h2>
+                <p className="text-gray-600 mb-6">{promo.description}</p>
+                <p className="text-sm text-gray-400 mb-6">Berlaku hingga {promo.validUntil}</p>
+                <div className="flex items-center justify-between p-4 bg-white rounded-xl">
+                  <code className="font-mono font-bold text-primary">{promo.code}</code>
+                  <button
+                    onClick={() => handleCopy(promo.code)}
+                    className="p-2 hover:bg-gray-100 rounded-lg transition-colors"
+                  >
+                    <Copy className="w-4 h-4 text-gray-400" />
+                  </button>
+                </div>
               </motion.div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* How to Use */}
-      <section className="py-24 lg:py-32 bg-background">
-        <div className="max-w-7xl mx-auto px-6 lg:px-10">
-          <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-4xl font-bold text-text mb-6 font-[family-name:var(--font-heading)]">
-              Cara Menggunakan Promo
-            </h2>
-            <p className="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
-              Ikuti langkah mudah berikut untuk mendapatkan promo
-            </p>
-          </div>
-
-          <div className="grid md:grid-cols-3 gap-10">
+      <section className="py-16 md:py-24 bg-gray-50">
+        <div className="max-w-7xl mx-auto px-6 md:px-8">
+          <h2 className="text-2xl font-bold text-text mb-8 text-center font-[family-name:var(--font-heading)]">
+            Cara Menggunakan Promo
+          </h2>
+          <div className="grid md:grid-cols-3 gap-6 max-w-4xl mx-auto">
             {[
-              {
-                icon: Gift,
-                step: "1",
-                title: "Pilih Promo",
-                description: "Pilih promo yang sesuai dengan kebutuhan perawatan Anda",
-              },
-              {
-                icon: Copy,
-                step: "2",
-                title: "Copy Kode",
-                description: "Salin kode promo dengan menekan tombol copy di samping kode",
-              },
-              {
-                icon: CreditCard,
-                step: "3",
-                title: "Gunakan Saat Booking",
-                description: "Masukkan kode promo saat melakukan booking online atau sebutkan saat datang",
-              },
+              { icon: Gift, step: "1", title: "Pilih Promo", desc: "Pilih promo sesuai kebutuhan Anda" },
+              { icon: Copy, step: "2", title: "Copy Kode", desc: "Salin kode promo dengan menekan tombol copy" },
+              { icon: CreditCard, step: "3", title: "Gunakan", desc: "Masukkan kode saat booking atau sebutkan saat datang" },
             ].map((item, index) => (
               <motion.div
                 key={index}
-                initial={{ opacity: 0, y: 30 }}
+                initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: index * 0.1 }}
+                className="bg-white rounded-2xl p-6 text-center"
               >
-                <Card className="h-full text-center">
-                  <CardContent>
-                    <div className="w-20 h-20 bg-primary/10 rounded-2xl mx-auto mb-6 flex items-center justify-center relative">
-                      <item.icon className="w-10 h-10 text-primary" />
-                      <span className="absolute -top-2 -right-2 w-8 h-8 bg-primary text-white rounded-full flex items-center justify-center font-bold">
-                        {item.step}
-                      </span>
-                    </div>
-                    <h3 className="text-xl font-bold text-text mb-4 font-[family-name:var(--font-heading)]">
-                      {item.title}
-                    </h3>
-                    <p className="text-gray-600 leading-relaxed">
-                      {item.description}
-                    </p>
-                  </CardContent>
-                </Card>
+                <div className="w-14 h-14 bg-primary/10 rounded-xl flex items-center justify-center mx-auto mb-4 relative">
+                  <item.icon className="w-6 h-6 text-primary" />
+                  <span className="absolute -top-2 -right-2 w-6 h-6 bg-primary text-white text-sm font-bold rounded-full flex items-center justify-center">
+                    {item.step}
+                  </span>
+                </div>
+                <h3 className="font-bold text-text mb-2 font-[family-name:var(--font-heading)]">{item.title}</h3>
+                <p className="text-sm text-gray-600">{item.desc}</p>
               </motion.div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* CTA Section */}
-      <section className="py-24 lg:py-32 bg-gradient-to-br from-primary to-cyan-700">
-        <div className="max-w-4xl mx-auto px-6 lg:px-10 text-center">
-          <Percent className="w-16 h-16 text-white/80 mx-auto mb-8" />
-          <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-8 font-[family-name:var(--font-heading)]">
-            Jangan Lewatkan Promo Ini!
+      <section className="py-16 md:py-24 bg-primary">
+        <div className="max-w-4xl mx-auto px-6 md:px-8 text-center">
+          <h2 className="text-3xl md:text-4xl font-bold text-white mb-6 font-[family-name:var(--font-heading)]">
+            Jangan Lewatkan!
           </h2>
-          <p className="text-xl text-white/80 mb-12 max-w-2xl mx-auto leading-relaxed">
-            Booking sekarang dan gunakan kode promo untuk mendapatkan harga spesial.
+          <p className="text-white/80 text-lg mb-8">
+            Booking sekarang dan gunakan kode promo untuk harga spesial.
           </p>
-          <Button href="/booking" size="lg" className="bg-white text-primary hover:bg-gray-100">
+          <Link
+            href="/booking"
+            className="inline-flex items-center gap-2 px-8 py-4 bg-white text-primary rounded-2xl font-semibold hover:bg-gray-100 transition-colors"
+          >
             Booking Sekarang
-          </Button>
+          </Link>
         </div>
       </section>
     </>

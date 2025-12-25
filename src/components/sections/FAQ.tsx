@@ -2,43 +2,54 @@
 
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { ChevronDown } from "lucide-react";
+import { Plus, Minus } from "lucide-react";
 import { faqs } from "@/lib/data";
-import SectionTitle from "@/components/ui/SectionTitle";
 
 export default function FAQ() {
   const [openIndex, setOpenIndex] = useState<number | null>(0);
 
   return (
-    <section className="py-24 lg:py-32 bg-background">
-      <div className="max-w-4xl mx-auto px-6 lg:px-10">
-        <SectionTitle
-          title="Pertanyaan Umum"
-          subtitle="Jawaban untuk pertanyaan yang sering diajukan"
-        />
+    <section className="py-24 md:py-32 bg-gray-50">
+      <div className="max-w-3xl mx-auto px-6 md:px-8">
+        <div className="text-center mb-16">
+          <motion.p
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true }}
+            className="text-primary font-semibold mb-3"
+          >
+            FAQ
+          </motion.p>
+          <motion.h2
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="text-4xl md:text-5xl font-bold text-text font-[family-name:var(--font-heading)]"
+          >
+            Pertanyaan Umum
+          </motion.h2>
+        </div>
 
-        <div className="space-y-4">
+        <div className="space-y-3">
           {faqs.map((faq, index) => (
             <motion.div
               key={index}
-              initial={{ opacity: 0, y: 20 }}
+              initial={{ opacity: 0, y: 10 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ delay: index * 0.1 }}
-              className="bg-white rounded-2xl shadow-sm overflow-hidden"
+              transition={{ delay: index * 0.05 }}
+              className="bg-white rounded-2xl overflow-hidden"
             >
               <button
                 onClick={() => setOpenIndex(openIndex === index ? null : index)}
-                className="w-full p-6 lg:p-8 flex items-center justify-between text-left"
+                className="w-full p-6 flex items-center justify-between text-left"
               >
-                <span className="text-lg font-semibold text-text pr-8 font-[family-name:var(--font-heading)]">
+                <span className="font-semibold text-text pr-4 font-[family-name:var(--font-heading)]">
                   {faq.question}
                 </span>
-                <ChevronDown
-                  className={`w-6 h-6 text-primary flex-shrink-0 transition-transform duration-300 ${
-                    openIndex === index ? "rotate-180" : ""
-                  }`}
-                />
+                <div className={`w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0 transition-colors ${openIndex === index ? "bg-primary text-white" : "bg-gray-100 text-gray-500"}`}>
+                  {openIndex === index ? <Minus className="w-4 h-4" /> : <Plus className="w-4 h-4" />}
+                </div>
               </button>
               <AnimatePresence>
                 {openIndex === index && (
@@ -46,12 +57,10 @@ export default function FAQ() {
                     initial={{ height: 0, opacity: 0 }}
                     animate={{ height: "auto", opacity: 1 }}
                     exit={{ height: 0, opacity: 0 }}
-                    transition={{ duration: 0.3 }}
+                    transition={{ duration: 0.2 }}
                   >
-                    <div className="px-6 lg:px-8 pb-6 lg:pb-8">
-                      <p className="text-gray-600 leading-relaxed text-lg">
-                        {faq.answer}
-                      </p>
+                    <div className="px-6 pb-6">
+                      <p className="text-gray-600 leading-relaxed">{faq.answer}</p>
                     </div>
                   </motion.div>
                 )}

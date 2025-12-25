@@ -1,128 +1,96 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { CheckCircle, ArrowRight } from "lucide-react";
-import Button from "@/components/ui/Button";
-
-const features = [
-  "Konsultasi Pertama Gratis",
-  "Dokter Spesialis Berpengalaman",
-  "Teknologi Modern & Steril",
-];
+import Link from "next/link";
+import { ArrowRight, Play, Star } from "lucide-react";
 
 export default function Hero() {
   return (
-    <section className="relative bg-gradient-to-br from-background via-white to-background overflow-hidden">
-      {/* Background Decoration */}
-      <div className="absolute top-0 right-0 w-1/2 h-full bg-gradient-to-l from-primary/5 to-transparent" />
-      <div className="absolute bottom-0 left-0 w-96 h-96 bg-accent/10 rounded-full blur-3xl -translate-x-1/2 translate-y-1/2" />
+    <section className="min-h-screen bg-background relative overflow-hidden flex items-center">
+      {/* Background Pattern */}
+      <div className="absolute inset-0 opacity-30">
+        <div className="absolute top-20 left-10 w-72 h-72 bg-primary/20 rounded-full blur-3xl" />
+        <div className="absolute bottom-20 right-10 w-96 h-96 bg-accent/20 rounded-full blur-3xl" />
+      </div>
 
-      <div className="relative max-w-7xl mx-auto px-6 lg:px-10 pt-40 pb-24 lg:pt-48 lg:pb-32">
-        <div className="grid lg:grid-cols-2 gap-16 lg:gap-20 items-center">
-          {/* Content */}
+      <div className="relative max-w-7xl mx-auto px-6 md:px-8 py-32 md:py-40">
+        <div className="max-w-4xl">
           <motion.div
-            initial={{ opacity: 0, y: 30 }}
+            initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
+            transition={{ duration: 0.5 }}
+            className="inline-flex items-center gap-2 px-4 py-2 bg-white rounded-full shadow-sm mb-8"
           >
-            <span className="inline-flex items-center gap-2 px-5 py-2.5 bg-primary/10 text-primary rounded-full text-sm font-semibold mb-8">
-              <span className="w-2 h-2 bg-primary rounded-full animate-pulse" />
-              Klinik Gigi Terpercaya di Jakarta
-            </span>
-
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-text leading-tight mb-8 font-[family-name:var(--font-heading)]">
-              Senyum Sehat,
-              <br />
-              <span className="text-primary">Senyum Bahagia</span>
-            </h1>
-
-            <p className="text-lg md:text-xl text-gray-600 leading-relaxed mb-10 max-w-xl">
-              Dapatkan perawatan gigi terbaik dari dokter spesialis berpengalaman dengan teknologi modern. Wujudkan senyum impian Anda bersama SenyumCerah.
-            </p>
-
-            <ul className="space-y-4 mb-12">
-              {features.map((feature, index) => (
-                <motion.li
-                  key={index}
-                  initial={{ opacity: 0, x: -20 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ delay: 0.3 + index * 0.1 }}
-                  className="flex items-center gap-4 text-gray-700"
-                >
-                  <CheckCircle className="w-6 h-6 text-accent flex-shrink-0" />
-                  <span className="text-lg">{feature}</span>
-                </motion.li>
+            <span className="flex items-center gap-1">
+              {[...Array(5)].map((_, i) => (
+                <Star key={i} className="w-4 h-4 text-yellow-400 fill-yellow-400" />
               ))}
-            </ul>
-
-            <div className="flex flex-col sm:flex-row gap-5">
-              <Button href="/booking" size="lg">
-                Booking Sekarang
-                <ArrowRight className="w-5 h-5" />
-              </Button>
-              <Button href="/layanan" variant="outline" size="lg">
-                Lihat Layanan
-              </Button>
-            </div>
+            </span>
+            <span className="text-sm text-gray-600">5000+ Pasien Puas</span>
           </motion.div>
 
-          {/* Image */}
-          <motion.div
-            initial={{ opacity: 0, scale: 0.9 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.6, delay: 0.2 }}
-            className="relative hidden lg:block"
+          <motion.h1
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.1 }}
+            className="text-5xl md:text-7xl lg:text-8xl font-bold text-text leading-[1.1] mb-8 font-[family-name:var(--font-heading)]"
           >
-            <div className="relative w-full aspect-square max-w-lg mx-auto">
-              <div className="absolute inset-0 bg-gradient-to-br from-primary to-accent rounded-3xl rotate-6 opacity-20" />
-              <div className="absolute inset-0 bg-gradient-to-br from-primary to-accent rounded-3xl -rotate-3 opacity-10" />
-              <div className="relative bg-gradient-to-br from-primary/20 to-accent/20 rounded-3xl p-10 h-full flex items-center justify-center">
-                <div className="text-center">
-                  <div className="w-32 h-32 bg-white rounded-full mx-auto mb-8 flex items-center justify-center shadow-xl">
-                    <span className="text-5xl">🦷</span>
-                  </div>
-                  <p className="text-2xl font-bold text-text mb-3 font-[family-name:var(--font-heading)]">SenyumCerah</p>
-                  <p className="text-gray-600">Dental Clinic</p>
-                </div>
-              </div>
-            </div>
+            Senyum Sehat,
+            <br />
+            <span className="text-primary">Senyum Bahagia</span>
+          </motion.h1>
 
-            {/* Floating Cards */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.5 }}
-              className="absolute -left-8 top-1/4 bg-white rounded-2xl shadow-xl p-5"
-            >
-              <div className="flex items-center gap-4">
-                <div className="w-14 h-14 bg-accent/10 rounded-xl flex items-center justify-center">
-                  <span className="text-2xl">👨‍⚕️</span>
-                </div>
-                <div>
-                  <p className="font-bold text-text text-lg">4 Dokter</p>
-                  <p className="text-sm text-gray-500">Spesialis</p>
-                </div>
-              </div>
-            </motion.div>
+          <motion.p
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.2 }}
+            className="text-xl md:text-2xl text-gray-600 max-w-2xl mb-12 leading-relaxed"
+          >
+            Dapatkan perawatan gigi terbaik dari dokter spesialis berpengalaman dengan teknologi modern.
+          </motion.p>
 
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.6 }}
-              className="absolute -right-8 bottom-1/4 bg-white rounded-2xl shadow-xl p-5"
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.3 }}
+            className="flex flex-col sm:flex-row gap-4"
+          >
+            <Link
+              href="/booking"
+              className="inline-flex items-center justify-center gap-2 px-8 py-4 bg-primary text-white rounded-2xl font-semibold text-lg hover:bg-primary/90 transition-all hover:gap-3"
             >
-              <div className="flex items-center gap-4">
-                <div className="w-14 h-14 bg-primary/10 rounded-xl flex items-center justify-center">
-                  <span className="text-2xl">⭐</span>
-                </div>
-                <div>
-                  <p className="font-bold text-text text-lg">5000+</p>
-                  <p className="text-sm text-gray-500">Pasien Puas</p>
-                </div>
+              Booking Gratis
+              <ArrowRight className="w-5 h-5" />
+            </Link>
+            <button className="inline-flex items-center justify-center gap-3 px-8 py-4 bg-white text-text rounded-2xl font-semibold text-lg hover:bg-gray-50 transition-colors shadow-sm">
+              <div className="w-10 h-10 bg-primary/10 rounded-full flex items-center justify-center">
+                <Play className="w-4 h-4 text-primary fill-primary" />
               </div>
-            </motion.div>
+              Lihat Video
+            </button>
           </motion.div>
         </div>
+
+        {/* Stats */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, delay: 0.4 }}
+          className="mt-20 grid grid-cols-3 gap-8 max-w-2xl"
+        >
+          {[
+            { number: "12+", label: "Tahun Pengalaman" },
+            { number: "5000+", label: "Pasien Puas" },
+            { number: "4", label: "Dokter Spesialis" },
+          ].map((stat, i) => (
+            <div key={i}>
+              <div className="text-3xl md:text-4xl font-bold text-text font-[family-name:var(--font-heading)]">
+                {stat.number}
+              </div>
+              <div className="text-sm text-gray-500 mt-1">{stat.label}</div>
+            </div>
+          ))}
+        </motion.div>
       </div>
     </section>
   );

@@ -7,237 +7,147 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { MapPin, Phone, Mail, Clock, Send, MessageCircle, CheckCircle } from "lucide-react";
 import { contactInfo } from "@/lib/data";
 import { contactSchema, ContactFormData } from "@/lib/validations";
-import { Card, CardContent } from "@/components/ui/Card";
-import Button from "@/components/ui/Button";
 
 export default function KontakPage() {
   const [isSubmitted, setIsSubmitted] = useState(false);
 
-  const {
-    register,
-    handleSubmit,
-    formState: { errors, isSubmitting },
-  } = useForm<ContactFormData>({
+  const { register, handleSubmit, formState: { errors, isSubmitting } } = useForm<ContactFormData>({
     resolver: zodResolver(contactSchema),
   });
 
   const onSubmit = async (data: ContactFormData) => {
     console.log(data);
-    await new Promise((resolve) => setTimeout(resolve, 1000));
+    await new Promise((r) => setTimeout(r, 1000));
     setIsSubmitted(true);
   };
 
   return (
     <>
-      {/* Page Header */}
-      <section className="bg-gradient-to-br from-background via-white to-background pt-40 pb-20 lg:pt-48 lg:pb-24">
-        <div className="max-w-7xl mx-auto px-6 lg:px-10 text-center">
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-          >
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-text mb-8 font-[family-name:var(--font-heading)]">
-              Hubungi <span className="text-primary">Kami</span>
+      <section className="pt-32 pb-16 md:pt-40 md:pb-20 bg-background">
+        <div className="max-w-7xl mx-auto px-6 md:px-8">
+          <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="max-w-2xl">
+            <p className="text-primary font-semibold mb-3">KONTAK</p>
+            <h1 className="text-4xl md:text-6xl font-bold text-text mb-6 font-[family-name:var(--font-heading)]">
+              Hubungi Kami
             </h1>
-            <p className="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
-              Ada pertanyaan atau ingin berkonsultasi? Tim kami siap membantu Anda
+            <p className="text-xl text-gray-600 leading-relaxed">
+              Ada pertanyaan? Tim kami siap membantu Anda.
             </p>
           </motion.div>
         </div>
       </section>
 
-      {/* Contact Section */}
-      <section className="py-24 lg:py-32 bg-white">
-        <div className="max-w-7xl mx-auto px-6 lg:px-10">
-          <div className="grid lg:grid-cols-2 gap-16">
-            {/* Contact Info */}
-            <motion.div
-              initial={{ opacity: 0, x: -30 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.6 }}
-            >
-              <h2 className="text-3xl font-bold text-text mb-10 font-[family-name:var(--font-heading)]">
-                Informasi Kontak
-              </h2>
-
-              <div className="space-y-8 mb-12">
-                <div className="flex items-start gap-6">
-                  <div className="w-16 h-16 bg-primary/10 rounded-2xl flex items-center justify-center flex-shrink-0">
-                    <MapPin className="w-8 h-8 text-primary" />
+      <section className="py-16 md:py-24 bg-white">
+        <div className="max-w-7xl mx-auto px-6 md:px-8">
+          <div className="grid lg:grid-cols-5 gap-12">
+            <div className="lg:col-span-2 space-y-6">
+              {[
+                { icon: MapPin, label: "Alamat", value: contactInfo.address },
+                { icon: Phone, label: "Telepon", value: contactInfo.phone, href: `tel:${contactInfo.phone}` },
+                { icon: Mail, label: "Email", value: contactInfo.email, href: `mailto:${contactInfo.email}` },
+                { icon: Clock, label: "Jam Operasional", value: `${contactInfo.hours.weekday}\n${contactInfo.hours.weekend}` },
+              ].map((item, i) => (
+                <motion.div
+                  key={i}
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: i * 0.1 }}
+                  className="flex items-start gap-4"
+                >
+                  <div className="w-12 h-12 bg-primary/10 rounded-xl flex items-center justify-center flex-shrink-0">
+                    <item.icon className="w-5 h-5 text-primary" />
                   </div>
                   <div>
-                    <h3 className="text-xl font-bold text-text mb-2">Alamat</h3>
-                    <p className="text-gray-600 text-lg leading-relaxed">{contactInfo.address}</p>
+                    <p className="text-sm text-gray-500 mb-1">{item.label}</p>
+                    {item.href ? (
+                      <a href={item.href} className="text-text hover:text-primary transition-colors whitespace-pre-line">
+                        {item.value}
+                      </a>
+                    ) : (
+                      <p className="text-text whitespace-pre-line">{item.value}</p>
+                    )}
                   </div>
-                </div>
+                </motion.div>
+              ))}
 
-                <div className="flex items-start gap-6">
-                  <div className="w-16 h-16 bg-primary/10 rounded-2xl flex items-center justify-center flex-shrink-0">
-                    <Phone className="w-8 h-8 text-primary" />
-                  </div>
-                  <div>
-                    <h3 className="text-xl font-bold text-text mb-2">Telepon</h3>
-                    <a href={`tel:${contactInfo.phone}`} className="text-gray-600 text-lg hover:text-primary transition-colors">
-                      {contactInfo.phone}
-                    </a>
-                  </div>
-                </div>
-
-                <div className="flex items-start gap-6">
-                  <div className="w-16 h-16 bg-primary/10 rounded-2xl flex items-center justify-center flex-shrink-0">
-                    <Mail className="w-8 h-8 text-primary" />
-                  </div>
-                  <div>
-                    <h3 className="text-xl font-bold text-text mb-2">Email</h3>
-                    <a href={`mailto:${contactInfo.email}`} className="text-gray-600 text-lg hover:text-primary transition-colors">
-                      {contactInfo.email}
-                    </a>
-                  </div>
-                </div>
-
-                <div className="flex items-start gap-6">
-                  <div className="w-16 h-16 bg-primary/10 rounded-2xl flex items-center justify-center flex-shrink-0">
-                    <Clock className="w-8 h-8 text-primary" />
-                  </div>
-                  <div>
-                    <h3 className="text-xl font-bold text-text mb-2">Jam Operasional</h3>
-                    <p className="text-gray-600 text-lg">{contactInfo.hours.weekday}</p>
-                    <p className="text-gray-600 text-lg">{contactInfo.hours.weekend}</p>
-                  </div>
-                </div>
-              </div>
-
-              <a
+              <motion.a
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: 0.4 }}
                 href={`https://wa.me/${contactInfo.whatsapp.replace(/\D/g, "")}`}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-3 px-8 py-5 bg-green-500 text-white rounded-xl font-semibold hover:bg-green-600 transition-colors text-lg"
+                className="flex items-center gap-3 px-6 py-4 bg-green-500 text-white rounded-xl font-semibold hover:bg-green-600 transition-colors w-fit"
               >
-                <MessageCircle className="w-6 h-6" />
-                Chat via WhatsApp
-              </a>
-            </motion.div>
+                <MessageCircle className="w-5 h-5" />
+                Chat WhatsApp
+              </motion.a>
+            </div>
 
-            {/* Contact Form */}
             <motion.div
-              initial={{ opacity: 0, x: 30 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.6 }}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.2 }}
+              className="lg:col-span-3"
             >
-              <Card>
-                <CardContent className="p-8 md:p-10">
-                  {isSubmitted ? (
-                    <div className="text-center py-12">
-                      <div className="w-20 h-20 bg-accent/10 rounded-full mx-auto mb-6 flex items-center justify-center">
-                        <CheckCircle className="w-10 h-10 text-accent" />
-                      </div>
-                      <h3 className="text-2xl font-bold text-text mb-4 font-[family-name:var(--font-heading)]">
-                        Pesan Terkirim!
-                      </h3>
-                      <p className="text-gray-600 text-lg">
-                        Terima kasih telah menghubungi kami. Tim kami akan segera merespons pesan Anda.
-                      </p>
+              <div className="bg-gray-50 rounded-2xl p-8">
+                {isSubmitted ? (
+                  <div className="text-center py-12">
+                    <div className="w-16 h-16 bg-accent/10 rounded-full flex items-center justify-center mx-auto mb-4">
+                      <CheckCircle className="w-8 h-8 text-accent" />
                     </div>
-                  ) : (
-                    <>
-                      <h2 className="text-2xl font-bold text-text mb-8 font-[family-name:var(--font-heading)]">
-                        Kirim Pesan
-                      </h2>
-                      <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
+                    <h3 className="text-xl font-bold text-text mb-2 font-[family-name:var(--font-heading)]">Pesan Terkirim!</h3>
+                    <p className="text-gray-600">Kami akan segera merespons pesan Anda.</p>
+                  </div>
+                ) : (
+                  <>
+                    <h2 className="text-xl font-bold text-text mb-6 font-[family-name:var(--font-heading)]">Kirim Pesan</h2>
+                    <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
+                      <div className="grid md:grid-cols-2 gap-4">
                         <div>
-                          <label className="block text-text font-semibold mb-3">Nama Lengkap</label>
-                          <input
-                            {...register("nama")}
-                            type="text"
-                            placeholder="Masukkan nama lengkap"
-                            className="w-full px-6 py-4 border-2 border-gray-200 rounded-xl focus:border-primary focus:outline-none transition-colors text-lg"
-                          />
-                          {errors.nama && (
-                            <p className="text-red-500 text-sm mt-2">{errors.nama.message}</p>
-                          )}
+                          <input {...register("nama")} placeholder="Nama lengkap" className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:border-primary focus:outline-none bg-white" />
+                          {errors.nama && <p className="text-red-500 text-sm mt-1">{errors.nama.message}</p>}
                         </div>
-
-                        <div className="grid md:grid-cols-2 gap-6">
-                          <div>
-                            <label className="block text-text font-semibold mb-3">Email</label>
-                            <input
-                              {...register("email")}
-                              type="email"
-                              placeholder="email@example.com"
-                              className="w-full px-6 py-4 border-2 border-gray-200 rounded-xl focus:border-primary focus:outline-none transition-colors text-lg"
-                            />
-                            {errors.email && (
-                              <p className="text-red-500 text-sm mt-2">{errors.email.message}</p>
-                            )}
-                          </div>
-                          <div>
-                            <label className="block text-text font-semibold mb-3">Telepon</label>
-                            <input
-                              {...register("telepon")}
-                              type="tel"
-                              placeholder="08xxxxxxxxxx"
-                              className="w-full px-6 py-4 border-2 border-gray-200 rounded-xl focus:border-primary focus:outline-none transition-colors text-lg"
-                            />
-                            {errors.telepon && (
-                              <p className="text-red-500 text-sm mt-2">{errors.telepon.message}</p>
-                            )}
-                          </div>
-                        </div>
-
                         <div>
-                          <label className="block text-text font-semibold mb-3">Subjek</label>
-                          <input
-                            {...register("subjek")}
-                            type="text"
-                            placeholder="Subjek pesan"
-                            className="w-full px-6 py-4 border-2 border-gray-200 rounded-xl focus:border-primary focus:outline-none transition-colors text-lg"
-                          />
-                          {errors.subjek && (
-                            <p className="text-red-500 text-sm mt-2">{errors.subjek.message}</p>
-                          )}
+                          <input {...register("telepon")} placeholder="Telepon" className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:border-primary focus:outline-none bg-white" />
+                          {errors.telepon && <p className="text-red-500 text-sm mt-1">{errors.telepon.message}</p>}
                         </div>
-
-                        <div>
-                          <label className="block text-text font-semibold mb-3">Pesan</label>
-                          <textarea
-                            {...register("pesan")}
-                            placeholder="Tuliskan pesan Anda..."
-                            rows={5}
-                            className="w-full px-6 py-4 border-2 border-gray-200 rounded-xl focus:border-primary focus:outline-none transition-colors text-lg resize-none"
-                          />
-                          {errors.pesan && (
-                            <p className="text-red-500 text-sm mt-2">{errors.pesan.message}</p>
-                          )}
-                        </div>
-
-                        <Button type="submit" disabled={isSubmitting} className="w-full justify-center" size="lg">
-                          <Send className="w-5 h-5" />
-                          {isSubmitting ? "Mengirim..." : "Kirim Pesan"}
-                        </Button>
-                      </form>
-                    </>
-                  )}
-                </CardContent>
-              </Card>
+                      </div>
+                      <div>
+                        <input {...register("email")} type="email" placeholder="Email" className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:border-primary focus:outline-none bg-white" />
+                        {errors.email && <p className="text-red-500 text-sm mt-1">{errors.email.message}</p>}
+                      </div>
+                      <div>
+                        <input {...register("subjek")} placeholder="Subjek" className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:border-primary focus:outline-none bg-white" />
+                        {errors.subjek && <p className="text-red-500 text-sm mt-1">{errors.subjek.message}</p>}
+                      </div>
+                      <div>
+                        <textarea {...register("pesan")} rows={4} placeholder="Pesan Anda" className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:border-primary focus:outline-none bg-white resize-none" />
+                        {errors.pesan && <p className="text-red-500 text-sm mt-1">{errors.pesan.message}</p>}
+                      </div>
+                      <button type="submit" disabled={isSubmitting} className="flex items-center justify-center gap-2 w-full px-6 py-4 bg-primary text-white rounded-xl font-semibold hover:bg-primary/90 transition-colors disabled:opacity-50">
+                        <Send className="w-4 h-4" />
+                        {isSubmitting ? "Mengirim..." : "Kirim Pesan"}
+                      </button>
+                    </form>
+                  </>
+                )}
+              </div>
             </motion.div>
           </div>
         </div>
       </section>
 
-      {/* Map Section */}
-      <section className="py-24 lg:py-32 bg-background">
-        <div className="max-w-7xl mx-auto px-6 lg:px-10">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold text-text mb-4 font-[family-name:var(--font-heading)]">
-              Lokasi Kami
-            </h2>
-            <p className="text-gray-600 text-lg">Kunjungi klinik kami di alamat berikut</p>
-          </div>
-          <div className="bg-gray-200 rounded-3xl h-96 flex items-center justify-center">
+      <section className="py-16 md:py-24 bg-gray-50">
+        <div className="max-w-7xl mx-auto px-6 md:px-8">
+          <h2 className="text-2xl font-bold text-text mb-8 text-center font-[family-name:var(--font-heading)]">Lokasi Kami</h2>
+          <div className="bg-gray-200 rounded-2xl h-80 flex items-center justify-center">
             <div className="text-center">
-              <MapPin className="w-12 h-12 text-gray-400 mx-auto mb-4" />
-              <p className="text-gray-500 text-lg">Google Maps akan ditampilkan di sini</p>
+              <MapPin className="w-8 h-8 text-gray-400 mx-auto mb-2" />
+              <p className="text-gray-500">Google Maps</p>
             </div>
           </div>
         </div>

@@ -2,91 +2,76 @@
 
 import { motion } from "framer-motion";
 import Link from "next/link";
-import { ArrowRight, Sparkles, Shield, Hand, Star, Sun, Smile, Zap, Heart, Clock, BadgeCheck } from "lucide-react";
+import { ArrowUpRight, Sparkles, Shield, Hand, Star, Sun, Smile, Zap, Heart, Clock } from "lucide-react";
 import { services } from "@/lib/data";
-import { Card, CardContent } from "@/components/ui/Card";
-import Button from "@/components/ui/Button";
 
-const iconMap: { [key: string]: React.ComponentType<{ className?: string }> } = {
-  Sparkles,
-  Shield,
-  Hand,
-  Star,
-  Sun,
-  Smile,
-  Zap,
-  Heart,
+const iconMap: Record<string, React.ComponentType<{ className?: string }>> = {
+  Sparkles, Shield, Hand, Star, Sun, Smile, Zap, Heart
 };
 
 export default function LayananPage() {
   return (
     <>
-      {/* Page Header */}
-      <section className="bg-gradient-to-br from-background via-white to-background pt-40 pb-20 lg:pt-48 lg:pb-24">
-        <div className="max-w-7xl mx-auto px-6 lg:px-10 text-center">
+      <section className="pt-32 pb-16 md:pt-40 md:pb-20 bg-background">
+        <div className="max-w-7xl mx-auto px-6 md:px-8">
           <motion.div
-            initial={{ opacity: 0, y: 30 }}
+            initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
+            className="max-w-2xl"
           >
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-text mb-8 font-[family-name:var(--font-heading)]">
-              Layanan <span className="text-primary">Kami</span>
+            <p className="text-primary font-semibold mb-3">LAYANAN KAMI</p>
+            <h1 className="text-4xl md:text-6xl font-bold text-text mb-6 font-[family-name:var(--font-heading)]">
+              Perawatan Gigi Lengkap
             </h1>
-            <p className="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
-              Berbagai layanan perawatan gigi lengkap dengan teknologi modern dan ditangani oleh dokter spesialis berpengalaman
+            <p className="text-xl text-gray-600 leading-relaxed">
+              Berbagai layanan perawatan gigi dengan teknologi modern dan dokter spesialis berpengalaman.
             </p>
           </motion.div>
         </div>
       </section>
 
-      {/* Services List */}
-      <section className="py-24 lg:py-32 bg-white">
-        <div className="max-w-7xl mx-auto px-6 lg:px-10">
-          <div className="grid md:grid-cols-2 gap-10">
+      <section className="py-16 md:py-24 bg-white">
+        <div className="max-w-7xl mx-auto px-6 md:px-8">
+          <div className="grid gap-6">
             {services.map((service, index) => {
-              const IconComponent = iconMap[service.icon] || Sparkles;
+              const Icon = iconMap[service.icon] || Sparkles;
               return (
                 <motion.div
                   key={service.id}
-                  initial={{ opacity: 0, y: 30 }}
+                  initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
-                  transition={{ delay: index * 0.1 }}
+                  transition={{ delay: index * 0.05 }}
                 >
-                  <Card className="h-full">
-                    <CardContent>
-                      <div className="flex items-start gap-6">
-                        <div className="w-20 h-20 bg-primary/10 rounded-2xl flex items-center justify-center flex-shrink-0">
-                          <IconComponent className="w-10 h-10 text-primary" />
-                        </div>
-                        <div className="flex-1">
-                          <h2 className="text-2xl font-bold text-text mb-4 font-[family-name:var(--font-heading)]">
-                            {service.name}
-                          </h2>
-                          <p className="text-gray-600 mb-6 leading-relaxed">
-                            {service.description}
-                          </p>
-                          <div className="flex flex-wrap gap-4 mb-6">
-                            <div className="flex items-center gap-2 text-gray-500">
-                              <BadgeCheck className="w-5 h-5 text-primary" />
-                              <span>{service.price}</span>
-                            </div>
-                            <div className="flex items-center gap-2 text-gray-500">
-                              <Clock className="w-5 h-5 text-primary" />
-                              <span>{service.duration}</span>
-                            </div>
-                          </div>
-                          <Link
-                            href={`/layanan/${service.id}`}
-                            className="inline-flex items-center gap-2 text-primary font-semibold hover:gap-3 transition-all"
-                          >
-                            Selengkapnya
-                            <ArrowRight className="w-5 h-5" />
-                          </Link>
-                        </div>
+                  <Link
+                    href={`/layanan/${service.id}`}
+                    className="group flex flex-col md:flex-row md:items-center gap-6 p-6 bg-gray-50 hover:bg-primary rounded-2xl transition-all duration-300"
+                  >
+                    <div className="w-14 h-14 bg-white group-hover:bg-white/20 rounded-xl flex items-center justify-center flex-shrink-0 transition-colors">
+                      <Icon className="w-7 h-7 text-primary group-hover:text-white transition-colors" />
+                    </div>
+                    <div className="flex-1 min-w-0">
+                      <h2 className="text-xl font-bold text-text group-hover:text-white mb-2 font-[family-name:var(--font-heading)] transition-colors">
+                        {service.name}
+                      </h2>
+                      <p className="text-gray-500 group-hover:text-white/80 transition-colors">
+                        {service.description}
+                      </p>
+                    </div>
+                    <div className="flex items-center gap-6">
+                      <div className="flex items-center gap-2 text-gray-400 group-hover:text-white/80 transition-colors">
+                        <Clock className="w-4 h-4" />
+                        <span className="text-sm">{service.duration}</span>
                       </div>
-                    </CardContent>
-                  </Card>
+                      <div className="text-right">
+                        <p className="text-sm text-gray-400 group-hover:text-white/60 transition-colors">Mulai dari</p>
+                        <p className="font-bold text-primary group-hover:text-white transition-colors">
+                          {service.price.split(" - ")[0]}
+                        </p>
+                      </div>
+                      <ArrowUpRight className="w-5 h-5 text-gray-400 group-hover:text-white transition-colors" />
+                    </div>
+                  </Link>
                 </motion.div>
               );
             })}
@@ -94,18 +79,20 @@ export default function LayananPage() {
         </div>
       </section>
 
-      {/* CTA Section */}
-      <section className="py-24 lg:py-32 bg-gradient-to-br from-primary to-cyan-700">
-        <div className="max-w-4xl mx-auto px-6 lg:px-10 text-center">
-          <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-8 font-[family-name:var(--font-heading)]">
-            Butuh Konsultasi?
+      <section className="py-16 md:py-24 bg-primary">
+        <div className="max-w-4xl mx-auto px-6 md:px-8 text-center">
+          <h2 className="text-3xl md:text-4xl font-bold text-white mb-6 font-[family-name:var(--font-heading)]">
+            Konsultasi Gratis
           </h2>
-          <p className="text-xl text-white/80 mb-12 max-w-2xl mx-auto leading-relaxed">
-            Konsultasi pertama GRATIS! Tim dokter kami siap membantu menemukan solusi terbaik untuk kesehatan gigi Anda.
+          <p className="text-white/80 text-lg mb-8">
+            Booking sekarang dan dapatkan konsultasi pertama gratis dengan dokter spesialis kami.
           </p>
-          <Button href="/booking" size="lg" className="bg-white text-primary hover:bg-gray-100">
-            Booking Konsultasi Gratis
-          </Button>
+          <Link
+            href="/booking"
+            className="inline-flex items-center gap-2 px-8 py-4 bg-white text-primary rounded-2xl font-semibold hover:bg-gray-100 transition-colors"
+          >
+            Booking Sekarang
+          </Link>
         </div>
       </section>
     </>
