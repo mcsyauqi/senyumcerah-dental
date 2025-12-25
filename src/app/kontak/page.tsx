@@ -2,14 +2,23 @@
 
 import { useState } from "react";
 import { motion } from "framer-motion";
+import Link from "next/link";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { MapPin, Phone, Mail, Clock, Send, MessageCircle, CheckCircle } from "lucide-react";
-import { contactInfo } from "@/lib/data";
+import { MapPin, Phone, Mail, Clock, Send, MessageCircle, CheckCircle, ArrowRight, Calendar, Users, Shield } from "lucide-react";
+import { contactInfo, faqs, services } from "@/lib/data";
 import { contactSchema, ContactFormData } from "@/lib/validations";
+
+const quickLinks = [
+  { icon: Calendar, title: "Booking Online", desc: "Jadwalkan kunjungan Anda", href: "/booking" },
+  { icon: Users, title: "Tim Dokter", desc: "Kenali dokter spesialis kami", href: "/dokter" },
+  { icon: Shield, title: "Layanan", desc: "Lihat daftar layanan kami", href: "/layanan" },
+];
 
 export default function KontakPage() {
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const contactFaqs = faqs.slice(0, 4);
+  const popularServices = services.slice(0, 4);
 
   const {
     register,
@@ -42,11 +51,41 @@ export default function KontakPage() {
         </div>
       </section>
 
+      {/* Quick Links */}
+      <section className="py-12 bg-primary">
+        <div className="container">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            {quickLinks.map((item, index) => (
+              <motion.div
+                key={index}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: index * 0.1 }}
+              >
+                <Link href={item.href} className="flex items-center gap-4 p-4 bg-white/10 rounded-xl hover:bg-white/20 transition-colors">
+                  <div className="w-12 h-12 bg-white/10 rounded-xl flex items-center justify-center">
+                    <item.icon className="w-6 h-6 text-white" />
+                  </div>
+                  <div>
+                    <h4 className="text-white font-semibold">{item.title}</h4>
+                    <p className="text-white/70 text-sm">{item.desc}</p>
+                  </div>
+                  <ArrowRight className="w-5 h-5 text-white/50 ml-auto" />
+                </Link>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Contact Form & Info */}
       <section className="section bg-white">
         <div className="container">
           <div className="grid lg:grid-cols-5 gap-12">
             {/* Contact Info */}
             <div className="lg:col-span-2">
+              <h3 className="mb-6">Informasi Kontak</h3>
               <div className="flex flex-col gap-6">
                 {[
                   { icon: MapPin, label: "Alamat", value: contactInfo.address },
@@ -161,10 +200,14 @@ export default function KontakPage() {
         </div>
       </section>
 
+      {/* Map */}
       <section className="section bg-background">
         <div className="container">
-          <h3 className="text-center mb-8">Lokasi Kami</h3>
-          <div className="rounded-2xl overflow-hidden h-80">
+          <div className="section-header">
+            <h2>Lokasi Kami</h2>
+            <p>Kunjungi klinik kami di lokasi strategis Jakarta Pusat</p>
+          </div>
+          <div className="rounded-2xl overflow-hidden h-96">
             <iframe
               src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3966.521260322283!2d106.8195613!3d-6.194741399999999!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e69f5d2e764b12d%3A0x3d2ad6e1e0e9bcc8!2sJl.%20Jend.%20Sudirman%2C%20Jakarta!5e0!3m2!1sen!2sid!4v1703500000000!5m2!1sen!2sid"
               width="100%"
@@ -175,6 +218,91 @@ export default function KontakPage() {
               referrerPolicy="no-referrer-when-downgrade"
               title="Lokasi SenyumCerah Dental Clinic"
             />
+          </div>
+        </div>
+      </section>
+
+      {/* FAQ */}
+      <section className="section bg-white">
+        <div className="container">
+          <div className="section-header">
+            <h2>Pertanyaan Umum</h2>
+            <p>Jawaban untuk pertanyaan yang sering diajukan</p>
+          </div>
+          <div className="grid-2 max-w-4xl mx-auto">
+            {contactFaqs.map((faq, index) => (
+              <motion.div
+                key={index}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: index * 0.1 }}
+                className="card"
+              >
+                <div className="card-body">
+                  <h4 className="mb-2">{faq.question}</h4>
+                  <p className="text-gray-600 text-sm">{faq.answer}</p>
+                </div>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Popular Services */}
+      <section className="section bg-background">
+        <div className="container">
+          <div className="section-header">
+            <h2>Layanan Populer</h2>
+            <p>Jelajahi layanan perawatan gigi kami</p>
+          </div>
+          <div className="grid-4">
+            {popularServices.map((service, index) => (
+              <motion.div
+                key={service.id}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: index * 0.1 }}
+              >
+                <Link href={`/layanan/${service.id}`} className="card block h-full group">
+                  <div className="card-body">
+                    <h4 className="mb-2 group-hover:text-primary transition-colors">{service.name}</h4>
+                    <p className="text-gray-600 text-sm mb-3">{service.shortDesc}</p>
+                    <div className="text-primary font-semibold text-sm">{service.price.split(" - ")[0]}</div>
+                  </div>
+                </Link>
+              </motion.div>
+            ))}
+          </div>
+          <div className="text-center mt-8">
+            <Link href="/layanan" className="btn btn-outline">
+              Lihat Semua Layanan
+              <ArrowRight className="w-4 h-4" />
+            </Link>
+          </div>
+        </div>
+      </section>
+
+      {/* CTA */}
+      <section className="section bg-primary">
+        <div className="container">
+          <div className="text-center max-w-2xl mx-auto">
+            <h2 className="text-white mb-4">Siap untuk Konsultasi?</h2>
+            <p className="text-white/80 mb-8">
+              Booking jadwal sekarang dan dapatkan konsultasi GRATIS dengan dokter spesialis kami.
+            </p>
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              <Link href="/booking" className="btn btn-lg bg-white text-primary hover:bg-gray-100">
+                Booking Sekarang
+              </Link>
+              <a
+                href={`https://wa.me/${contactInfo.whatsapp.replace(/\D/g, "")}`}
+                className="btn btn-lg bg-green-500 text-white hover:bg-green-600"
+              >
+                Chat WhatsApp
+              </a>
+            </div>
           </div>
         </div>
       </section>
