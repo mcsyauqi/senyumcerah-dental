@@ -6,11 +6,11 @@ import { ArrowLeft, Check, Clock, BadgeCheck, Sparkles, Shield, Hand, Star, Sun,
 import { services } from "@/lib/data";
 
 const iconMap: Record<string, React.ComponentType<{ className?: string }>> = {
-  Sparkles, Shield, Hand, Star, Sun, Smile, Zap, Heart
+  Sparkles, Shield, Hand, Star, Sun, Smile, Zap, Heart,
 };
 
 interface Props {
-  service: typeof services[0];
+  service: (typeof services)[0];
 }
 
 export default function ServiceDetail({ service }: Props) {
@@ -19,92 +19,134 @@ export default function ServiceDetail({ service }: Props) {
 
   return (
     <>
-      <section className="pt-32 pb-16 md:pt-40 md:pb-20 bg-background">
-        <div className="max-w-7xl mx-auto px-6 md:px-8">
-          <Link href="/layanan" className="inline-flex items-center gap-2 text-gray-500 hover:text-primary mb-8 transition-colors">
-            <ArrowLeft className="w-4 h-4" />
-            Kembali
-          </Link>
-
-          <div className="grid lg:grid-cols-2 gap-12 items-start">
-            <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}>
-              <div className="w-16 h-16 bg-primary/10 rounded-2xl flex items-center justify-center mb-6">
-                <Icon className="w-8 h-8 text-primary" />
-              </div>
-              <h1 className="text-4xl md:text-5xl font-bold text-text mb-6 font-[family-name:var(--font-heading)]">
-                {service.name}
-              </h1>
-              <p className="text-xl text-gray-600 leading-relaxed mb-8">
-                {service.description}
-              </p>
-              <div className="flex flex-wrap gap-4">
-                <div className="flex items-center gap-2 px-4 py-2 bg-white rounded-xl">
-                  <BadgeCheck className="w-5 h-5 text-primary" />
-                  <span className="font-semibold text-text">{service.price}</span>
-                </div>
-                <div className="flex items-center gap-2 px-4 py-2 bg-white rounded-xl">
-                  <Clock className="w-5 h-5 text-primary" />
-                  <span className="font-semibold text-text">{service.duration}</span>
-                </div>
-              </div>
-            </motion.div>
-
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.1 }}
-              className="bg-white rounded-2xl p-8"
+      <section className="page-header">
+        <div className="container">
+          <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}>
+            <Link
+              href="/layanan"
+              className="inline-flex items-center gap-2 text-gray-500 hover:text-primary mb-6 transition-colors"
             >
-              <h2 className="text-xl font-bold text-text mb-6 font-[family-name:var(--font-heading)]">
-                Keuntungan
-              </h2>
-              <ul className="space-y-4">
-                {service.benefits.map((benefit, i) => (
-                  <li key={i} className="flex items-start gap-3">
-                    <div className="w-6 h-6 bg-accent/10 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5">
-                      <Check className="w-4 h-4 text-accent" />
-                    </div>
-                    <span className="text-gray-600">{benefit}</span>
-                  </li>
-                ))}
-              </ul>
-              <div className="mt-8 pt-6 border-t border-gray-100">
-                <Link
-                  href="/booking"
-                  className="block w-full text-center px-6 py-4 bg-primary text-white rounded-xl font-semibold hover:bg-primary/90 transition-colors"
-                >
-                  Booking Sekarang
-                </Link>
+              <ArrowLeft className="w-4 h-4" />
+              Kembali ke Layanan
+            </Link>
+
+            <div className="flex items-start gap-6">
+              <div className="icon-box hidden md:flex">
+                <Icon />
               </div>
-            </motion.div>
+              <div>
+                <h1 className="mb-4">{service.name}</h1>
+                <p className="text-lg text-gray-600 max-w-2xl">{service.shortDesc}</p>
+              </div>
+            </div>
+          </motion.div>
+        </div>
+      </section>
+
+      <section className="section bg-white">
+        <div className="container">
+          <div className="grid lg:grid-cols-3 gap-10">
+            <div className="lg:col-span-2">
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.1 }}
+              >
+                <h3 className="mb-4">Tentang Layanan Ini</h3>
+                <p className="text-gray-600 mb-10">{service.description}</p>
+
+                <h3 className="mb-4">Keuntungan</h3>
+                <div className="grid sm:grid-cols-2 gap-4 mb-10">
+                  {service.benefits.map((benefit, i) => (
+                    <div key={i} className="flex items-start gap-3">
+                      <div className="w-6 h-6 bg-accent/10 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5">
+                        <Check className="w-4 h-4 text-accent" />
+                      </div>
+                      <span className="text-gray-600">{benefit}</span>
+                    </div>
+                  ))}
+                </div>
+
+                <div className="card bg-background border-0 shadow-none">
+                  <div className="card-body">
+                    <h4 className="mb-4">Informasi Layanan</h4>
+                    <div className="grid sm:grid-cols-2 gap-6">
+                      <div className="flex items-center gap-4">
+                        <div className="icon-box !bg-white">
+                          <BadgeCheck />
+                        </div>
+                        <div>
+                          <div className="text-sm text-gray-500">Harga</div>
+                          <div className="font-bold text-text">{service.price}</div>
+                        </div>
+                      </div>
+                      <div className="flex items-center gap-4">
+                        <div className="icon-box !bg-white">
+                          <Clock />
+                        </div>
+                        <div>
+                          <div className="text-sm text-gray-500">Durasi</div>
+                          <div className="font-bold text-text">{service.duration}</div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </motion.div>
+            </div>
+
+            <div>
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.2 }}
+                className="card sticky top-24"
+              >
+                <div className="card-body">
+                  <h4 className="mb-4">Booking Sekarang</h4>
+                  <p className="text-gray-600 mb-6">
+                    Dapatkan konsultasi gratis dan perawatan terbaik dari dokter spesialis kami.
+                  </p>
+                  <Link href="/booking" className="btn btn-primary w-full">
+                    Booking Online
+                  </Link>
+                  <p className="text-center text-sm text-gray-500 mt-4">
+                    Atau hubungi{" "}
+                    <a href="tel:+622112345678" className="text-primary font-semibold">
+                      +62 21 1234 5678
+                    </a>
+                  </p>
+                </div>
+              </motion.div>
+            </div>
           </div>
         </div>
       </section>
 
-      <section className="py-16 md:py-24 bg-white">
-        <div className="max-w-7xl mx-auto px-6 md:px-8">
-          <h2 className="text-2xl font-bold text-text mb-8 font-[family-name:var(--font-heading)]">
-            Layanan Lainnya
-          </h2>
-          <div className="grid md:grid-cols-3 gap-6">
-            {otherServices.map((item) => {
+      <section className="section bg-background">
+        <div className="container">
+          <h3 className="text-center mb-10">Layanan Lainnya</h3>
+          <div className="grid-3">
+            {otherServices.map((item, index) => {
               const OtherIcon = iconMap[item.icon] || Sparkles;
               return (
-                <Link
+                <motion.div
                   key={item.id}
-                  href={`/layanan/${item.id}`}
-                  className="group p-6 bg-gray-50 hover:bg-primary rounded-2xl transition-all duration-300"
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: index * 0.1 }}
                 >
-                  <div className="w-12 h-12 bg-white group-hover:bg-white/20 rounded-xl flex items-center justify-center mb-4 transition-colors">
-                    <OtherIcon className="w-6 h-6 text-primary group-hover:text-white transition-colors" />
-                  </div>
-                  <h3 className="font-bold text-text group-hover:text-white mb-2 font-[family-name:var(--font-heading)] transition-colors">
-                    {item.name}
-                  </h3>
-                  <p className="text-sm text-gray-500 group-hover:text-white/80 transition-colors">
-                    {item.shortDesc}
-                  </p>
-                </Link>
+                  <Link href={`/layanan/${item.id}`} className="card block h-full">
+                    <div className="card-body">
+                      <div className="icon-box mb-5">
+                        <OtherIcon />
+                      </div>
+                      <h4 className="mb-2">{item.name}</h4>
+                      <p className="text-gray-600 text-sm">{item.shortDesc}</p>
+                    </div>
+                  </Link>
+                </motion.div>
               );
             })}
           </div>

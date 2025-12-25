@@ -3,7 +3,7 @@ export const services = [
     id: "pembersihan-karang-gigi",
     name: "Pembersihan Karang Gigi",
     shortDesc: "Scaling profesional untuk gigi bersih dan sehat",
-    description: "Layanan pembersihan karang gigi profesional menggunakan teknologi ultrasonic scaler untuk menghilangkan plak dan karang gigi yang menumpuk.",
+    description: "Layanan pembersihan karang gigi profesional menggunakan teknologi ultrasonic scaler untuk menghilangkan plak dan karang gigi yang menumpuk. Prosedur aman dan nyaman untuk menjaga kesehatan gusi.",
     price: "Rp 250.000",
     duration: "30-45 menit",
     icon: "Sparkles",
@@ -13,7 +13,7 @@ export const services = [
     id: "tambal-gigi",
     name: "Tambal Gigi",
     shortDesc: "Restorasi gigi berlubang dengan bahan berkualitas",
-    description: "Penambalan gigi berlubang menggunakan bahan composite resin berkualitas tinggi yang warnanya menyerupai gigi asli.",
+    description: "Penambalan gigi berlubang menggunakan bahan composite resin berkualitas tinggi yang warnanya menyerupai gigi asli. Hasil natural dan tahan lama.",
     price: "Rp 200.000 - Rp 500.000",
     duration: "30-60 menit",
     icon: "Shield",
@@ -23,7 +23,7 @@ export const services = [
     id: "cabut-gigi",
     name: "Cabut Gigi",
     shortDesc: "Pencabutan gigi aman dengan anestesi modern",
-    description: "Prosedur pencabutan gigi yang aman dan minim rasa sakit dengan teknik anestesi modern.",
+    description: "Prosedur pencabutan gigi yang aman dan minim rasa sakit dengan teknik anestesi modern. Dilakukan oleh dokter gigi berpengalaman.",
     price: "Rp 150.000 - Rp 1.500.000",
     duration: "15-45 menit",
     icon: "Hand",
@@ -33,7 +33,7 @@ export const services = [
     id: "veneer-gigi",
     name: "Veneer Gigi",
     shortDesc: "Solusi senyum sempurna dengan veneer premium",
-    description: "Veneer gigi premium untuk tampilan senyum yang sempurna. Tersedia pilihan composite veneer dan porcelain veneer.",
+    description: "Veneer gigi premium untuk tampilan senyum yang sempurna. Tersedia pilihan composite veneer dan porcelain veneer dengan hasil natural.",
     price: "Rp 1.500.000 - Rp 5.000.000",
     duration: "1-2 kunjungan",
     icon: "Star",
@@ -43,7 +43,7 @@ export const services = [
     id: "bleaching-gigi",
     name: "Bleaching Gigi",
     shortDesc: "Pemutihan gigi profesional hasil maksimal",
-    description: "Pemutihan gigi profesional menggunakan teknologi LED whitening untuk hasil maksimal hingga 8 shade lebih putih.",
+    description: "Pemutihan gigi profesional menggunakan teknologi LED whitening untuk hasil maksimal hingga 8 shade lebih putih dalam satu kali kunjungan.",
     price: "Rp 1.500.000 - Rp 3.000.000",
     duration: "60-90 menit",
     icon: "Sun",
@@ -51,9 +51,9 @@ export const services = [
   },
   {
     id: "behel-gigi",
-    name: "Behel Gigi",
+    name: "Behel Gigi / Kawat Gigi",
     shortDesc: "Perawatan ortodonti untuk gigi rata sempurna",
-    description: "Perawatan ortodonti lengkap dengan pilihan behel metal, ceramic, dan clear aligner.",
+    description: "Perawatan ortodonti lengkap dengan pilihan behel metal, ceramic, dan clear aligner. Konsultasi dan pemasangan oleh dokter spesialis ortodonti.",
     price: "Rp 8.000.000 - Rp 25.000.000",
     duration: "12-24 bulan",
     icon: "Smile",
@@ -63,7 +63,7 @@ export const services = [
     id: "implan-gigi",
     name: "Implan Gigi",
     shortDesc: "Pengganti gigi hilang permanen dan natural",
-    description: "Solusi permanen untuk gigi yang hilang dengan teknologi implan titanium berkualitas.",
+    description: "Solusi permanen untuk gigi yang hilang dengan teknologi implan titanium berkualitas. Tampilan dan fungsi seperti gigi asli.",
     price: "Rp 15.000.000 - Rp 25.000.000",
     duration: "3-6 bulan",
     icon: "Zap",
@@ -71,9 +71,9 @@ export const services = [
   },
   {
     id: "gigi-palsu",
-    name: "Gigi Palsu",
+    name: "Gigi Palsu / Gigi Tiruan",
     shortDesc: "Protesa gigi berkualitas untuk senyum lengkap",
-    description: "Pembuatan gigi palsu lepasan dan cekat dengan bahan akrilik atau valplast berkualitas.",
+    description: "Pembuatan gigi palsu lepasan dan cekat dengan bahan akrilik atau valplast berkualitas. Nyaman digunakan dan tampilan natural.",
     price: "Rp 500.000 - Rp 8.000.000",
     duration: "1-2 minggu",
     icon: "Heart",
@@ -86,72 +86,160 @@ export const doctors = [
     id: "dr-sarah",
     name: "drg. Sarah Wijaya, Sp.KG",
     specialty: "Spesialis Konservasi Gigi",
-    experience: "12 tahun",
+    experience: "12 tahun pengalaman",
     education: "Universitas Indonesia",
-    description: "Ahli dalam perawatan saluran akar dan restorasi gigi."
+    description: "Ahli dalam perawatan saluran akar dan restorasi gigi dengan pendekatan minimal invasif."
   },
   {
     id: "dr-budi",
     name: "drg. Budi Santoso, Sp.Ort",
     specialty: "Spesialis Ortodonti",
-    experience: "15 tahun",
+    experience: "15 tahun pengalaman",
     education: "Universitas Gadjah Mada",
-    description: "Pakar perawatan behel dan clear aligner."
+    description: "Pakar perawatan behel dan clear aligner dengan lebih dari 2000 kasus sukses."
   },
   {
     id: "dr-maya",
     name: "drg. Maya Putri, Sp.Pros",
     specialty: "Spesialis Prostodonti",
-    experience: "10 tahun",
+    experience: "10 tahun pengalaman",
     education: "Universitas Airlangga",
-    description: "Spesialis implan gigi dan gigi tiruan."
+    description: "Spesialis implan gigi dan gigi tiruan dengan keahlian estetika tinggi."
   },
   {
     id: "dr-andi",
     name: "drg. Andi Rahman, Sp.Perio",
     specialty: "Spesialis Periodonti",
-    experience: "8 tahun",
+    experience: "8 tahun pengalaman",
     education: "Universitas Padjadjaran",
-    description: "Ahli perawatan gusi dan bedah periodontal."
+    description: "Ahli perawatan gusi dan bedah periodontal dengan teknik modern."
   }
 ];
 
 export const technologies = [
-  { id: "digital-xray", name: "Digital X-Ray", description: "Rontgen digital dengan radiasi rendah dan hasil instan.", icon: "Scan" },
-  { id: "laser", name: "Laser Dentistry", description: "Perawatan dengan laser untuk prosedur yang lebih nyaman.", icon: "Zap" },
-  { id: "cad-cam", name: "CAD/CAM Dental", description: "Teknologi desain dan pembuatan restorasi gigi digital.", icon: "Cpu" },
-  { id: "sterilisasi", name: "Sterilisasi Autoclave", description: "Sistem sterilisasi kelas B untuk keamanan terjamin.", icon: "ShieldCheck" }
+  {
+    id: "digital-xray",
+    name: "Digital X-Ray",
+    description: "Teknologi rontgen digital dengan radiasi 90% lebih rendah dan hasil instan untuk diagnosis yang lebih akurat.",
+    icon: "Scan"
+  },
+  {
+    id: "laser-dentistry",
+    name: "Laser Dentistry",
+    description: "Perawatan gigi dengan laser untuk prosedur yang lebih nyaman, minim perdarahan, dan penyembuhan lebih cepat.",
+    icon: "Zap"
+  },
+  {
+    id: "cad-cam",
+    name: "CAD/CAM Dental",
+    description: "Teknologi desain dan pembuatan restorasi gigi digital untuk hasil presisi tinggi dalam waktu singkat.",
+    icon: "Cpu"
+  },
+  {
+    id: "sterilisasi",
+    name: "Sterilisasi Autoclave",
+    description: "Sistem sterilisasi kelas B dengan standar internasional untuk keamanan dan kebersihan alat yang terjamin.",
+    icon: "ShieldCheck"
+  }
 ];
 
 export const promos = [
-  { id: "promo-scaling", title: "Promo Scaling Hemat", description: "Diskon 30% untuk pembersihan karang gigi.", discount: "30%", validUntil: "31 Januari 2025", code: "SCALE30" },
-  { id: "promo-bleaching", title: "Paket Bleaching Premium", description: "Gratis konsultasi + home whitening kit.", discount: "Free Gift", validUntil: "28 Februari 2025", code: "BRIGHT2025" },
-  { id: "promo-behel", title: "Cicilan Behel 0%", description: "Cicilan 12 bulan tanpa bunga untuk behel.", discount: "0% Cicilan", validUntil: "31 Maret 2025", code: "BEHEL0" }
+  {
+    id: "promo-scaling",
+    title: "Promo Scaling Hemat",
+    description: "Diskon 30% untuk pembersihan karang gigi. Berlaku untuk kunjungan pertama.",
+    discount: "30%",
+    validUntil: "31 Januari 2025",
+    code: "SCALE30"
+  },
+  {
+    id: "promo-bleaching",
+    title: "Paket Bleaching Premium",
+    description: "Gratis konsultasi + home whitening kit untuk setiap treatment bleaching.",
+    discount: "Free Gift",
+    validUntil: "28 Februari 2025",
+    code: "BRIGHT2025"
+  },
+  {
+    id: "promo-behel",
+    title: "Cicilan Behel 0%",
+    description: "Cicilan 12 bulan tanpa bunga untuk pemasangan behel. Syarat dan ketentuan berlaku.",
+    discount: "0% Cicilan",
+    validUntil: "31 Maret 2025",
+    code: "BEHEL0"
+  }
 ];
 
 export const testimonials = [
-  { id: 1, name: "Rina Susanti", treatment: "Veneer Gigi", rating: 5, comment: "Hasilnya luar biasa! Gigi saya jadi rapi dan putih natural." },
-  { id: 2, name: "Ahmad Hidayat", treatment: "Behel Gigi", rating: 5, comment: "Dokter Budi sangat teliti dan sabar. Gigi saya sudah mulai rapi." },
-  { id: 3, name: "Linda Wijaya", treatment: "Scaling", rating: 5, comment: "Scaling di sini nyaman banget, tidak sakit sama sekali." },
-  { id: 4, name: "Budi Pratama", treatment: "Implan Gigi", rating: 5, comment: "Implan gigi saya sudah 2 tahun dan masih sempurna." }
+  {
+    id: 1,
+    name: "Rina Susanti",
+    treatment: "Veneer Gigi",
+    rating: 5,
+    comment: "Hasilnya luar biasa! Gigi saya jadi rapi dan putih natural. Dokternya sangat profesional dan ramah. Sangat recommended!"
+  },
+  {
+    id: 2,
+    name: "Ahmad Hidayat",
+    treatment: "Behel Gigi",
+    rating: 5,
+    comment: "Sudah 1 tahun pakai behel di sini. Dokter Budi sangat teliti dan sabar. Gigi saya sudah mulai rapi. Terima kasih SenyumCerah!"
+  },
+  {
+    id: 3,
+    name: "Linda Wijaya",
+    treatment: "Scaling",
+    rating: 5,
+    comment: "Scaling di sini nyaman banget, tidak sakit sama sekali. Kliniknya bersih dan modern. Harga juga terjangkau."
+  },
+  {
+    id: 4,
+    name: "Budi Pratama",
+    treatment: "Implan Gigi",
+    rating: 5,
+    comment: "Implan gigi saya sudah 2 tahun dan masih sempurna. Prosesnya memang butuh waktu tapi hasilnya worth it!"
+  }
 ];
 
 export const faqs = [
-  { question: "Apakah konsultasi pertama gratis?", answer: "Ya, konsultasi pertama di SenyumCerah Dental Clinic gratis." },
-  { question: "Berapa lama waktu pemasangan behel?", answer: "Proses pemasangan behel membutuhkan waktu sekitar 1-2 jam. Perawatan behel berlangsung 12-24 bulan." },
-  { question: "Apakah bisa bayar dengan cicilan?", answer: "Ya, kami menyediakan opsi cicilan 0% hingga 12 bulan untuk treatment tertentu." },
-  { question: "Apakah bleaching gigi aman?", answer: "Bleaching gigi di klinik kami sangat aman dengan bahan dan teknologi yang sudah teruji." },
-  { question: "Jam operasional klinik?", answer: "Senin-Sabtu: 09:00-21:00, Minggu: 10:00-18:00" }
+  {
+    question: "Apakah konsultasi pertama gratis?",
+    answer: "Ya, konsultasi pertama di SenyumCerah Dental Clinic gratis. Anda bisa berkonsultasi langsung dengan dokter gigi kami tanpa biaya."
+  },
+  {
+    question: "Berapa lama waktu pemasangan behel?",
+    answer: "Proses pemasangan behel membutuhkan waktu sekitar 1-2 jam. Untuk hasil optimal, perawatan behel biasanya berlangsung 12-24 bulan tergantung kondisi gigi."
+  },
+  {
+    question: "Apakah bisa bayar dengan cicilan?",
+    answer: "Ya, kami menyediakan opsi cicilan 0% hingga 12 bulan untuk treatment tertentu seperti behel, implan, dan veneer. Berlaku untuk kartu kredit bank tertentu."
+  },
+  {
+    question: "Apakah bleaching gigi aman?",
+    answer: "Bleaching gigi di klinik kami sangat aman karena menggunakan bahan dan teknologi yang sudah teruji. Prosedur dilakukan oleh dokter gigi profesional dengan pengawasan ketat."
+  },
+  {
+    question: "Jam operasional klinik?",
+    answer: "Klinik kami buka setiap hari Senin-Sabtu pukul 09:00-21:00 dan Minggu pukul 10:00-18:00. Untuk appointment, bisa booking online atau hubungi WhatsApp kami."
+  }
 ];
 
-export const timeSlots = ["09:00", "09:30", "10:00", "10:30", "11:00", "11:30", "13:00", "13:30", "14:00", "14:30", "15:00", "15:30", "16:00", "16:30", "17:00", "17:30", "18:00", "18:30", "19:00", "19:30", "20:00"];
+export const timeSlots = [
+  "09:00", "09:30", "10:00", "10:30", "11:00", "11:30",
+  "13:00", "13:30", "14:00", "14:30", "15:00", "15:30",
+  "16:00", "16:30", "17:00", "17:30", "18:00", "18:30",
+  "19:00", "19:30", "20:00"
+];
 
 export const contactInfo = {
   address: "Jl. Sudirman No. 123, Jakarta Pusat 10220",
   phone: "+62 21 1234 5678",
   whatsapp: "+62 812 3456 7890",
   email: "hello@senyumcerah.id",
-  hours: { weekday: "Senin - Sabtu: 09:00 - 21:00", weekend: "Minggu: 10:00 - 18:00" }
+  hours: {
+    weekday: "Senin - Sabtu: 09:00 - 21:00",
+    weekend: "Minggu: 10:00 - 18:00"
+  }
 };
 
 export const navigation = [

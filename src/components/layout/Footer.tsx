@@ -1,95 +1,132 @@
 "use client";
 
 import Link from "next/link";
-import { Phone, Mail, MapPin, Instagram, Facebook, ArrowUpRight } from "lucide-react";
+import { Phone, Mail, MapPin, Clock, Instagram, Facebook } from "lucide-react";
 import { navigation, services, contactInfo } from "@/lib/data";
 
 export default function Footer() {
   return (
     <footer className="bg-text text-white">
-      <div className="max-w-7xl mx-auto px-6 md:px-8 py-16 md:py-20">
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-10 md:gap-8">
-          <div className="col-span-2 md:col-span-1">
+      {/* Main Footer */}
+      <div className="container py-16 lg:py-20">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 lg:gap-8">
+          {/* Brand */}
+          <div>
             <Link href="/" className="flex items-center gap-3 mb-6">
-              <div className="w-10 h-10 bg-gradient-to-br from-primary to-accent rounded-xl flex items-center justify-center text-white font-bold">
-                S
+              <div className="w-10 h-10 bg-gradient-to-br from-primary to-accent rounded-xl flex items-center justify-center">
+                <span className="text-white font-bold text-lg">S</span>
               </div>
-              <span className="text-xl font-bold font-[family-name:var(--font-heading)]">
-                SenyumCerah
-              </span>
+              <div>
+                <div className="text-lg font-bold leading-tight">SenyumCerah</div>
+                <div className="text-xs text-gray-400 leading-tight">Dental Clinic</div>
+              </div>
             </Link>
-            <p className="text-gray-400 text-sm leading-relaxed mb-6">
-              Senyum Sehat, Senyum Bahagia. Klinik gigi modern untuk keluarga Indonesia.
+            <p className="text-gray-400 mb-6 leading-relaxed">
+              Senyum Sehat, Senyum Bahagia. Klinik gigi modern dengan pelayanan terbaik untuk keluarga Indonesia.
             </p>
             <div className="flex gap-3">
-              <a href="#" className="w-10 h-10 bg-white/10 hover:bg-primary rounded-xl flex items-center justify-center transition-colors">
+              <a
+                href="#"
+                className="w-10 h-10 bg-white/10 rounded-xl flex items-center justify-center hover:bg-primary transition-colors"
+                aria-label="Instagram"
+              >
                 <Instagram className="w-5 h-5" />
               </a>
-              <a href="#" className="w-10 h-10 bg-white/10 hover:bg-primary rounded-xl flex items-center justify-center transition-colors">
+              <a
+                href="#"
+                className="w-10 h-10 bg-white/10 rounded-xl flex items-center justify-center hover:bg-primary transition-colors"
+                aria-label="Facebook"
+              >
                 <Facebook className="w-5 h-5" />
               </a>
             </div>
           </div>
 
+          {/* Menu */}
           <div>
-            <h4 className="font-semibold mb-4 text-sm uppercase tracking-wider text-gray-400">Menu</h4>
-            <ul className="space-y-3">
+            <h4 className="font-bold mb-6">Menu</h4>
+            <nav className="flex flex-col gap-3">
               {navigation.map((item) => (
-                <li key={item.name}>
-                  <Link href={item.href} className="text-gray-300 hover:text-white transition-colors text-sm">
-                    {item.name}
-                  </Link>
-                </li>
+                <Link
+                  key={item.name}
+                  href={item.href}
+                  className="text-gray-400 hover:text-white transition-colors"
+                >
+                  {item.name}
+                </Link>
               ))}
-            </ul>
+            </nav>
           </div>
 
+          {/* Layanan */}
           <div>
-            <h4 className="font-semibold mb-4 text-sm uppercase tracking-wider text-gray-400">Layanan</h4>
-            <ul className="space-y-3">
-              {services.slice(0, 5).map((service) => (
-                <li key={service.id}>
-                  <Link href={`/layanan/${service.id}`} className="text-gray-300 hover:text-white transition-colors text-sm">
-                    {service.name}
-                  </Link>
-                </li>
+            <h4 className="font-bold mb-6">Layanan</h4>
+            <nav className="flex flex-col gap-3">
+              {services.slice(0, 6).map((service) => (
+                <Link
+                  key={service.id}
+                  href={`/layanan/${service.id}`}
+                  className="text-gray-400 hover:text-white transition-colors"
+                >
+                  {service.name}
+                </Link>
               ))}
-            </ul>
+            </nav>
           </div>
 
+          {/* Kontak */}
           <div>
-            <h4 className="font-semibold mb-4 text-sm uppercase tracking-wider text-gray-400">Kontak</h4>
-            <ul className="space-y-3 text-sm">
-              <li className="flex items-start gap-3 text-gray-300">
-                <MapPin className="w-4 h-4 mt-0.5 text-primary flex-shrink-0" />
-                <span>{contactInfo.address}</span>
-              </li>
-              <li>
-                <a href={`tel:${contactInfo.phone}`} className="flex items-center gap-3 text-gray-300 hover:text-white transition-colors">
-                  <Phone className="w-4 h-4 text-primary" />
-                  {contactInfo.phone}
-                </a>
-              </li>
-              <li>
-                <a href={`mailto:${contactInfo.email}`} className="flex items-center gap-3 text-gray-300 hover:text-white transition-colors">
-                  <Mail className="w-4 h-4 text-primary" />
-                  {contactInfo.email}
-                </a>
-              </li>
-            </ul>
+            <h4 className="font-bold mb-6">Kontak</h4>
+            <div className="flex flex-col gap-4">
+              <div className="flex items-start gap-3">
+                <MapPin className="w-5 h-5 text-primary mt-0.5 flex-shrink-0" />
+                <span className="text-gray-400">{contactInfo.address}</span>
+              </div>
+              <a
+                href={`tel:${contactInfo.phone}`}
+                className="flex items-center gap-3 text-gray-400 hover:text-white transition-colors"
+              >
+                <Phone className="w-5 h-5 text-primary flex-shrink-0" />
+                {contactInfo.phone}
+              </a>
+              <a
+                href={`mailto:${contactInfo.email}`}
+                className="flex items-center gap-3 text-gray-400 hover:text-white transition-colors"
+              >
+                <Mail className="w-5 h-5 text-primary flex-shrink-0" />
+                {contactInfo.email}
+              </a>
+              <div className="flex items-start gap-3">
+                <Clock className="w-5 h-5 text-primary mt-0.5 flex-shrink-0" />
+                <div className="text-gray-400">
+                  <div>{contactInfo.hours.weekday}</div>
+                  <div>{contactInfo.hours.weekend}</div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
+      </div>
 
-        <div className="mt-12 pt-8 border-t border-white/10 flex flex-col md:flex-row items-center justify-between gap-4">
-          <p className="text-gray-400 text-sm">
-            &copy; {new Date().getFullYear()} SenyumCerah Dental Clinic
-          </p>
-          <p className="text-gray-400 text-sm flex items-center gap-1">
-            Dibuat oleh{" "}
-            <a href="https://creativism.id" target="_blank" rel="noopener noreferrer" className="text-primary hover:underline inline-flex items-center gap-1">
-              Creativism <ArrowUpRight className="w-3 h-3" />
-            </a>
-          </p>
+      {/* Bottom Bar */}
+      <div className="border-t border-white/10">
+        <div className="container py-6">
+          <div className="flex flex-col md:flex-row items-center justify-between gap-4">
+            <p className="text-gray-400 text-sm">
+              &copy; {new Date().getFullYear()} SenyumCerah Dental Clinic. All rights reserved.
+            </p>
+            <p className="text-gray-400 text-sm">
+              Dibuat oleh{" "}
+              <a
+                href="https://creativism.id"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-primary hover:text-secondary transition-colors"
+              >
+                Creativism Digital Marketing Agency
+              </a>
+            </p>
+          </div>
         </div>
       </div>
     </footer>
